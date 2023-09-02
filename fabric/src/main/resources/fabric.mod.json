@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "dotarmorweapons",
+  "version": "${version}",
+  "name": "Dawn Of Time Armor and Weapons",
+  "description": "Dawn Of Time Armor and Weapons",
+  "authors": [
+    "Poulpinou",
+	"Golden"
+  ],
+  "contact": {
+    "homepage": "https://github.com/DawnOfTimeMC/dotarmorweapons",
+    "sources": "https://github.com/DawnOfTimeMC/dawnoftimebuilder"
+  },
+  "license": "MIT license",
+  "icon": "assets/dotarmorweapons/logo.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.dotarmorweapons.fabric.DoTArmorWeaponsFabric"
+    ]
+  },
+  "depends": {
+    "fabric": "*",
+    "minecraft": ">=1.19.4",
+    "architectury": ">=8.1.79"
+  }
+}
