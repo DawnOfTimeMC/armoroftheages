@@ -1,15 +1,15 @@
 modLoader = "javafml"
 loaderVersion = "[45,)"
 #issueTrackerURL = ""
-license = "Insert License Here"
+license = "MIT Licence"
 
 [[mods]]
 modId = "dotarmorweapons"
 version = "${version}"
-displayName = "Dawn Of Time Armor and Weapons"
+displayName = "Dawn Of Time : Armor and Weapons"
 authors = "Me!"
 description = '''
-Dawn Of Time Armor and Weapons
+Dawn Of Time : Armor and Weapons
 '''
 #logoFile = "logo.png"
 
