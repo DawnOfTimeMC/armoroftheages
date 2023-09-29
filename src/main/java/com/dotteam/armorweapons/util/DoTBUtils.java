@@ -7,29 +7,16 @@ import javax.annotation.Nonnull;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import static com.dotteam.armorweapons.DoTArmorWeapons.MOD_ID;
 
 public class DoTBUtils {
 
-	//General
-	public static final int						HIGHEST_Y				= 255;
-
 	//Tooltip translation text
 	public static final Component			TOOLTIP_HOLD_SHIFT		= Component.translatable("tooltip." + MOD_ID + ".hold_key").withStyle(ChatFormatting.GRAY).append(Component.translatable("tooltip." + MOD_ID + ".shift").withStyle(ChatFormatting.AQUA));
-	public static final String					TOOLTIP_COLUMN			= "column";
-	public static final String					TOOLTIP_CLIMBING_PLANT	= "climbing_plant";
-	public static final String					TOOLTIP_BEAM			= "beam";
-	public static final String					TOOLTIP_CROP			= "crop";
-	public static final String					TOOLTIP_SIDED_WINDOW	= "sided_window";
-	public static final String 					TOOLTIP_FIREPLACE 		= "fireplace";
-	public static final String 					TOOLTIP_ADD_COLUMN 		= "add_column";
 
 	public static void addTooltip(final List<Component> tooltip, @Nonnull final Item item, final String... tooltipNames) {
 		final ResourceLocation itemName = ForgeRegistries.ITEMS.getKey(item);

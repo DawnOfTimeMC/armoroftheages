@@ -1,4 +1,4 @@
-package org.dotarmorweapons.client.model.armor;
+package com.dotteam.armorweapons.client.model.armor;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;

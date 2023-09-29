@@ -1,11 +1,16 @@
 package com.dotteam.armorweapons;
 
+import com.dotteam.armorweapons.item.templates.HumanoidArmorItem;
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 public class DoTAWConfig {
+    //TODO Regarder quand c'est sensé être appelé !!
+    public final static List<HumanoidArmorItem> ARMORS_TO_SYNC = new ArrayList<>();
     public final static String ARMOR_MATERIAL_CATEGORY = "armor_properties";
     public final static Config COMMON_CONFIG;
     final static ForgeConfigSpec COMMON_SPEC;

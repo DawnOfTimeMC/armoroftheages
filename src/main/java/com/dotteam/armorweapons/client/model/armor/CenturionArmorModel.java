@@ -1,4 +1,4 @@
-package org.dotarmorweapons.client.model.armor;
+package com.dotteam.armorweapons.client.model.armor;
 
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;

@@ -1,28 +1,30 @@
 package com.dotteam.armorweapons.client.model.armor;
 
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.entity.item.ArmorStandEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.entity.decoration.ArmorStand;
+import net.minecraft.world.item.ArmorItem.Type;
 
-public abstract class CustomArmorModel<T extends LivingEntity> extends HumanoidModel<T> {
+import java.util.Collections;
 
-	public final EquipmentSlotType slot;
+public abstract class HumanoidArmorModel<T extends LivingEntity> extends HumanoidModel<T> {
 
-	public CustomArmorModel(EquipmentSlotType slot, int textureWidthIn, int textureHeightIn, float scale){
-		super(scale, 0.0F, textureWidthIn, textureHeightIn);
-		this.slot = slot;
-		this.hat = new ModelRenderer(this, 0, 0);
+	public final Type type;
+
+	public HumanoidArmorModel(Type type, int textureWidthIn, int textureHeightIn, float scale){
+		super(new ModelPart(Collections.emptyList(), Collections.emptyMap()));
+		//super(scale, 0.0F, textureWidthIn, textureHeightIn);
+		this.type = type;
+		// this.hat = new ModelRenderer(this, 0, 0);
 	}
 
 	protected abstract void setupArmorAnim(T entityIn, float ageInTicks);
 
 	public void setupAnim(T entityIn, float ageInTicks)  {
 		//Fix the "breathing" and wrong head rotation on ArmorStands
-		if (entityIn instanceof ArmorStandEntity) {
-			ArmorStandEntity entityAS = (ArmorStandEntity) entityIn;
+		if (entityIn instanceof ArmorStand entityAS) {
 			float f = (float) Math.PI / 180F;
 			this.head.xRot = f * entityAS.getHeadPose().getX();
 			this.head.yRot = f * entityAS.getHeadPose().getY();
@@ -50,17 +52,11 @@ public abstract class CustomArmorModel<T extends LivingEntity> extends HumanoidM
 		}
 	}
 
-	public static void setRotationAngle(ModelRenderer renderer, float x, float y, float z) {
-		renderer.xRot = x;
-		renderer.yRot = y;
-		renderer.zRot = z;
-	}
-
 	public static float sinPI(float f) {
-		return MathHelper.sin(f * (float)Math.PI);
+		return Mth.sin(f * (float)Math.PI);
 	}
 
 	public static float cosPI(float f) {
-		return MathHelper.cos(f * (float)Math.PI);
+		return Mth.cos(f * (float)Math.PI);
 	}
 }
