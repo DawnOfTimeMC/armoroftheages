@@ -1,4 +1,4 @@
-package com.dotteam.armorweapons.item.templates;
+package com.dotteam.armorweapons.item;
 
 import com.dotteam.armorweapons.util.DoTBUtils;
 import net.minecraft.network.chat.Component;

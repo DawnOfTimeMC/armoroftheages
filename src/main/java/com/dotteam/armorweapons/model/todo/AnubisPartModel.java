@@ -1,11 +1,10 @@
-package com.dotteam.armorweapons.client.model.armor;
+/*
+package com.dotteam.armorweapons.model.todo;
 
-import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.world.entity.LivingEntity;
 
-public class AnubisModel<T extends LivingEntity> extends CustomArmorModel<T> {
+public class AnubisPartModel<T extends LivingEntity> extends HumanoidArmorPartModel<T> {
 
 	//Helmet
 	public ModelRenderer earRight;
@@ -23,7 +22,11 @@ public class AnubisModel<T extends LivingEntity> extends CustomArmorModel<T> {
 	//Leggings
 	public ModelRenderer ribbonLegs;
 
-	public AnubisModel(EquipmentSlotType slot, boolean isSteve, float scale) {
+	public AnubisPartModel(ModelPart root) {
+		super();
+		this.root = root.getChild("root");
+	}
+	public AnubisPartModel(EquipmentSlotType slot, boolean isSteve, float scale) {
 		super(slot, 128, 64, scale);
 
 		switch (slot) {
@@ -253,7 +256,7 @@ public class AnubisModel<T extends LivingEntity> extends CustomArmorModel<T> {
 	}
 
 	@Override
-	public void setupArmorAnim(T entityIn, float ageInTicks) {
+	public void setupArmorPartAnim(T entityIn, float ageInTicks) {
 		switch (this.slot) {
 			case HEAD:
 				float rh = 0.1F * sinPI(ageInTicks / 35.0F);
@@ -298,3 +301,4 @@ public class AnubisModel<T extends LivingEntity> extends CustomArmorModel<T> {
 		return 30.0F + amplitude * sinPI(2 * frequency * ageInTicks / 40);
 	}
 }
+ */

@@ -1,4 +1,4 @@
-package com.dotteam.armorweapons.item.templates;
+package com.dotteam.armorweapons.item;
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;

@@ -1,4 +1,5 @@
-package com.dotteam.armorweapons.client.model.armor;
+/*
+package com.dotteam.armorweapons.model.todo;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
@@ -441,3 +442,5 @@ public class RaijinArmorModel<T extends LivingEntity> extends CustomArmorModel<T
 		}
 	}
 }
+
+ */

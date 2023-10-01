@@ -1,4 +1,5 @@
-package com.dotteam.armorweapons.client.model.armor;
+/*
+package com.dotteam.armorweapons.model.todo;
 
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
@@ -222,3 +223,5 @@ public class PharaohArmorModel<T extends LivingEntity> extends CustomArmorModel<
 		}
 	}
 }
+
+ */

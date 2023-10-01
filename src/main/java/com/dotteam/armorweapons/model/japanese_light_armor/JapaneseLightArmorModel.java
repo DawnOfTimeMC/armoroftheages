@@ -1,42 +1,30 @@
-package com.dotteam.armorweapons.client.model.armor;
+package com.dotteam.armorweapons.model.japanese_light_armor;
 
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
+import com.dotteam.armorweapons.model.HumanoidArmorPartModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.world.entity.LivingEntity;
 
-public class JapaneseLightArmorModel<T extends LivingEntity> extends CustomArmorModel<T> {
+import java.util.Set;
+
+public class JapaneseLightArmorModel<T extends LivingEntity> extends HumanoidArmorPartModel<T> {
 
 	//Helmet
-	private ModelRenderer ribbonA;
-	private ModelRenderer ribbonB;
+	private final ModelPart ribbonA;
+	private final ModelPart ribbonB;
 
-	public JapaneseLightArmorModel(EquipmentSlotType slot, boolean isSteve, float scale) {
+	public JapaneseLightArmorModel(ModelPart root) {
+		super(root);
+		this.ribbonA = root.getChild("ribbonA");
+		this.ribbonB = root.getChild("ribbonB");
+	}
+	/*
 		super(slot, 64, 32, scale);
 
 		ModelRenderer armLeftArmor;
 		ModelRenderer armRightArmor;
 		switch (slot) {
-			case HEAD:
-				this.head = new ModelRenderer(this, 26, 16);
-				this.head.setPos(0.0F, 0.0F, 0.0F);
-				this.head.addBox(-4.0F, -6.5F, -4.0F, 8, 2, 8, 0.4F);
-				ModelRenderer knotBase = new ModelRenderer(this, 56, 9);
-				knotBase.setPos(0.0F, 0.0F, 0.0F);
-				knotBase.addBox(2.9F, -4.9F, 3.7F, 2, 2, 1, 0.4F);
-				setRotationAngle(knotBase, 0.0F, 0.0F, -0.785F);
-				this.ribbonA = new ModelRenderer(this, 56, 0);
-				this.ribbonA.setPos(0.0F, -5.0F, 4.2F);
-				this.ribbonA.addBox(-1.0F, 0.0F, 0.0F, 2, 7, 0, 0.0F);
-				setRotationAngle(ribbonA, 0.35F, 0.0F, 0.0F);
-				this.ribbonB = new ModelRenderer(this, 60, 0);
-				this.ribbonB.setPos(0.0F, -5.0F, 4.2F);
-				this.ribbonB.addBox(-1.0F, 0.0F, 0.0F, 2, 9, 0, 0.0F);
-				setRotationAngle(ribbonB, 0.175F, 0.0F, 0.0F);
-
-				this.head.addChild(knotBase);
-				this.head.addChild(ribbonA);
-				this.head.addChild(ribbonB);
-				break;
 
 			case CHEST:
 				this.body = new ModelRenderer(this, 0, 0);
@@ -124,17 +112,47 @@ public class JapaneseLightArmorModel<T extends LivingEntity> extends CustomArmor
 				break;
 		}
 
+	*/
+
+	public static LayerDefinition createMesh() {
+		MeshDefinition meshdefinition = new MeshDefinition();
+		PartDefinition partdefinition = meshdefinition.getRoot();
+
+		PartDefinition head = partdefinition.addOrReplaceChild(
+				"head",
+				CubeListBuilder.create()
+						.texOffs(26, 16).addBox(-4.0F, -6.5F, -4.0F, 8.0F, 2.0F, 8.0F, new CubeDeformation(0.4F)),
+				PartPose.offset(0.0F, 0.0F, 0.0F));
+		head.addOrReplaceChild(
+				"knotBase",
+				CubeListBuilder.create()
+						.texOffs(56, 9).addBox(2.9F, -4.9F, 3.7F, 2.0F, 2.0F, 0.0F, new CubeDeformation(0.4F)),
+				PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, -0.785F));
+		head.addOrReplaceChild(
+				"ribbonA",
+				CubeListBuilder.create()
+						.texOffs(56, 0).addBox(-1.0F, 0.0F, 0.0F, 2.0F, 7.0F, 0.0F, new CubeDeformation(0.0F)),
+				PartPose.offsetAndRotation(0.0F, -5.0F, 4.2F, 0.35F, 0.0F, 0.0F));
+		head.addOrReplaceChild(
+				"ribbonB",
+				CubeListBuilder.create()
+						.texOffs(60, 0).addBox(-1.0F, 0.0F, 0.0F, 2.0F, 7.0F, 0.0F, new CubeDeformation(0.0F)),
+				PartPose.offsetAndRotation(0.0F, -5.0F, 4.2F, 0.175F, 0.0F, 0.0F));
+
+		return LayerDefinition.create(meshdefinition, 128, 128);
 	}
 
 	@Override
-	public void setupArmorAnim(T entityIn, float ageInTicks) {
+	protected void setupArmorPartAnim(T entityIn, float ageInTicks) {
+		float f = 0.3F * sinPI(ageInTicks / 60.0F + 1.0F) + Math.abs(this.rightLeg.xRot);
+		this.ribbonA.xRot = Math.max(0.35F + f * 0.15F - this.head.xRot, 0.2F);
+		this.ribbonA.zRot = -0.1F + f * 0.2F;
+		this.ribbonB.xRot = Math.max(0.175F + f * 0.1F - this.head.xRot, 0.075F);
+		this.ribbonB.zRot = -f * 0.2F;
+	}
 
-		if (this.slot == EquipmentSlotType.HEAD) {
-			float f = 0.3F * sinPI(ageInTicks / 60.0F + 1.0F) + Math.abs(this.rightLeg.xRot);
-			this.ribbonA.xRot = Math.max(0.35F + f * 0.15F - this.head.xRot, 0.2F);
-			this.ribbonA.zRot = -0.1F + f * 0.2F;
-			this.ribbonB.xRot = Math.max(0.175F + f * 0.1F - this.head.xRot, 0.075F);
-			this.ribbonB.zRot = -f * 0.2F;
-		}
+	@Override
+	protected Set<ModelPart> getRenderedParts() {
+		return null;
 	}
 }

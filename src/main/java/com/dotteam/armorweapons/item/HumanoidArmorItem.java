@@ -1,6 +1,6 @@
-package com.dotteam.armorweapons.item.templates;
+package com.dotteam.armorweapons.item;
 
-import com.dotteam.armorweapons.client.model.armor.HumanoidArmorModel;
+import com.dotteam.armorweapons.model.HumanoidArmorPartModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.world.entity.Entity;
@@ -16,31 +16,20 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.UUID;
 import java.util.function.Consumer;
 
 import static com.dotteam.armorweapons.DoTArmorWeapons.MOD_ID;
 
 public abstract class HumanoidArmorItem extends ArmorItem implements Vanishable {
-	private static final UUID[] ARMOR_MODIFIER_UUID_PER_SLOT = new UUID[] {
-			UUID.fromString("845DB27C-C624-495F-8C9F-6020A9A58B6B"),
-			UUID.fromString("D8499B04-0E66-4726-AB29-64469D734E0D"),
-			UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E"),
-			UUID.fromString("2AD3F246-FEE1-4E67-B886-69FD380BB150") };
-
 	public final String setName;
-	public final String pieceName;
-	public HumanoidModel<LivingEntity> model = null;
-	public HumanoidModel<LivingEntity> slimModel = null;
 
-	public HumanoidArmorItem(String setNameIn, String pieceNameIn, ArmorMaterial materialIn, Type slotIn) {
+	public HumanoidArmorItem(String setNameIn, ArmorMaterial materialIn, Type slotIn) {
 		super(materialIn, slotIn, new Properties().stacksTo(1));
 		this.setName = setNameIn;
-		this.pieceName = pieceNameIn;
 	}
 
 	@Override
-	public  @Nullable String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+	public @Nullable String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
 		if (entity instanceof AbstractClientPlayer playerEntity) {
 			if ("slim".equals(playerEntity.getModelName())) {
 				return MOD_ID + ":textures/models/armor/" + this.setName + "_slim.png";
@@ -66,6 +55,8 @@ public abstract class HumanoidArmorItem extends ArmorItem implements Vanishable 
 								"left_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap()))));
 				*/
 				HumanoidModel<?> armorModel = getModel(living, isSlimPlayerEntity(living));
+
+
 				armorModel.young = living.isBaby();
 				armorModel.crouching = living.isShiftKeyDown();
 				armorModel.riding = defaultModel.riding;
@@ -94,26 +85,10 @@ public abstract class HumanoidArmorItem extends ArmorItem implements Vanishable 
 	 */
 	private HumanoidModel<LivingEntity> getModel(LivingEntity living, boolean isSlim){
 		if(isSlim){
-			if(this.slimModel == null) {
-				this.slimModel = createSlimModel(living);
-			}
-			return this.slimModel;
+			return this.getModelFactory().create(this.getType(), true, living.getScale());
 		}else{
-			if(this.model == null) {
-				this.model = createModel(living);
-			}
-			return this.model;
+			return this.getModelFactory().create(this.getType(), false, living.getScale());
 		}
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	public HumanoidModel<LivingEntity> createModel(LivingEntity entityLiving) {
-		return this.getModelFactory().create(this.getType(), true, entityLiving.getScale());
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	public HumanoidModel<LivingEntity> createSlimModel(LivingEntity entityLiving) {
-		return this.getModelFactory().create(this.getType(), false, entityLiving.getScale());
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -121,7 +96,7 @@ public abstract class HumanoidArmorItem extends ArmorItem implements Vanishable 
 
 	@FunctionalInterface
 	public interface ArmorModelFactory {
-		HumanoidArmorModel<LivingEntity> create(Type type, boolean isSteve, float scale);
+		HumanoidArmorPartModel<LivingEntity> create(Type type, boolean isSteve, float scale);
 	}
 
 	@Override

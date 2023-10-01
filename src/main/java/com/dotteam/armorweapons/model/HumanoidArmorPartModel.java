@@ -1,35 +1,34 @@
-package com.dotteam.armorweapons.client.model.armor;
+package com.dotteam.armorweapons.model;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
-import net.minecraft.world.item.ArmorItem.Type;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Collections;
+import java.util.Set;
 
-public abstract class HumanoidArmorModel<T extends LivingEntity> extends HumanoidModel<T> {
+public abstract class HumanoidArmorPartModel<T extends LivingEntity> extends HumanoidModel<T> {
 
-	public final Type type;
-
-	public HumanoidArmorModel(Type type, int textureWidthIn, int textureHeightIn, float scale){
-		super(new ModelPart(Collections.emptyList(), Collections.emptyMap()));
-		//super(scale, 0.0F, textureWidthIn, textureHeightIn);
-		this.type = type;
-		// this.hat = new ModelRenderer(this, 0, 0);
+	public HumanoidArmorPartModel(ModelPart root){
+		super(root);
 	}
 
-	protected abstract void setupArmorAnim(T entityIn, float ageInTicks);
+	protected abstract void setupArmorPartAnim(T entityIn, float ageInTicks);
 
-	public void setupAnim(T entityIn, float ageInTicks)  {
+	protected abstract Set<ModelPart> getRenderedParts();
+
+	@Override
+	public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		//Fix the "breathing" and wrong head rotation on ArmorStands
-		if (entityIn instanceof ArmorStand entityAS) {
+		if (entity instanceof ArmorStand entityAS) {
 			float f = (float) Math.PI / 180F;
 			this.head.xRot = f * entityAS.getHeadPose().getX();
 			this.head.yRot = f * entityAS.getHeadPose().getY();
 			this.head.zRot = f * entityAS.getHeadPose().getZ();
-			this.head.setPos(0.0F, 1.0F, 0.0F);
 			this.body.xRot = f * entityAS.getBodyPose().getX();
 			this.body.yRot = f * entityAS.getBodyPose().getY();
 			this.body.zRot = f * entityAS.getBodyPose().getZ();
@@ -42,14 +41,18 @@ public abstract class HumanoidArmorModel<T extends LivingEntity> extends Humanoi
 			this.leftLeg.xRot = f * entityAS.getLeftLegPose().getX();
 			this.leftLeg.yRot = f * entityAS.getLeftLegPose().getY();
 			this.leftLeg.zRot = f * entityAS.getLeftLegPose().getZ();
-			this.leftLeg.setPos(1.9F, 11.0F, 0.0F);
 			this.rightLeg.xRot = f * entityAS.getRightLegPose().getX();
 			this.rightLeg.yRot = f * entityAS.getRightLegPose().getY();
 			this.rightLeg.zRot = f * entityAS.getRightLegPose().getZ();
-			this.rightLeg.setPos(-1.9F, 11.0F, 0.0F);
 		}else{
-			this.setupArmorAnim(entityIn, ageInTicks);
+			this.setupArmorPartAnim(entity, ageInTicks);
 		}
+	}
+
+	@Override
+	public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		super.renderToBuffer(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		this.bodyParts().forEach(modelPart -> modelPart.visible = this.getRenderedParts().contains(modelPart));
 	}
 
 	public static float sinPI(float f) {
