@@ -1,23 +1,16 @@
 modLoader="javafml"
-loaderVersion="[45,)"
+loaderVersion="[36,)"
 license="https://opensource.org/license/mit/"
-issueTrackerURL="https://github.com/DawnOfTimeMC/dotarmorweapons/issues/"
+issueTrackerURL="https://github.com/DawnOfTimeMC/armoroftheages/issues/"
 
 [[mods]] #mandatory
-    modId="dotarmorweapons"
+    modId="armoroftheages"
     version="${file.jarVersion}"
-    displayName="Dawn Of Time : Armor & Weapons"
+    displayName="Armor of the Ages"
     displayURL="https://www.curseforge.com/minecraft/mc-mods/dawn-of-time"
     logoFile="logo.png"
-    credits="Mr_ch0c0late, Wonyu and Seynax"
+    credits="Mr_ch0c0late"
     authors="Poulpinou & TheGoldenWorld"
     description='''
-        This mod adds many armor and weapons from different cultures.
-        '''
-
-[[dependencies.dawnoftimebuilder]]
-    modId="forge"
-    mandatory=true
-    versionRange="[45,)"
-    ordering="NONE"
-    side="BOTH"
+    This mod adds many armor and weapons from different cultures.
+    '''

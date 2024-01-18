@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"o o",
+		"oio",
+		"III"
+	],
+	"key": {
+		"o": {
+			"item": "armoroftheages:silk"
+		},
+		"I": {
+			"tag": "forge:leather"
+		},
+		"i": {
+			"item": "minecraft:leather_chestplate"
+		}
+	},
+	"result": {
+		"item": "armoroftheages:japanese_light_armor_chest"
+	}
+}

@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"oOo",
+		"ixi",
+		"i i"
+	],
+	"key": {
+		"i": {
+			"item": "armoroftheages:silk"
+		},
+		"x": {
+			"item": "minecraft:gold_block"
+		},
+		"o": {
+			"item": "minecraft:redstone_block"
+		},
+		"O": {
+			"item": "minecraft:diamond_chestplate"
+		}
+	},
+	"result": {
+		"item": "armoroftheages:raijin_armor_chest"
+	}
+}

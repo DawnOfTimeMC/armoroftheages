@@ -1,0 +1,15 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		" I ",
+		"III"
+	],
+	"key": {
+		"I": {
+			"item": "armoroftheages:thatch_bamboo"
+		}
+	},
+	"result": {
+		"item": "armoroftheages:bamboo_hat"
+	}
+}

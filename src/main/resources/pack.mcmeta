@@ -1,9 +1,6 @@
 {
-  "pack": {
-    "description": {
-      "text": "examplemod resources"
-    },
-    "forge:server_data_pack_format": 12,
-    "pack_format": 13
-  }
+	"pack": {
+		"description": "Age of the Ages resources",
+		"pack_format": 6
+	}
 }
