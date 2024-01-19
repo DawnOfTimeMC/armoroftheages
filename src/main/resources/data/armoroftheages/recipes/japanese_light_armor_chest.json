@@ -7,7 +7,7 @@
 	],
 	"key": {
 		"o": {
-			"item": "armoroftheages:silk"
+			"item": "minecraft:string"
 		},
 		"I": {
 			"tag": "forge:leather"

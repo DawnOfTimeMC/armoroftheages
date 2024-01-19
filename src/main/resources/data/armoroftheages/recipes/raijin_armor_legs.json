@@ -10,7 +10,7 @@
 			"tag": "forge:dyes/red"
 		},
 		"I": {
-			"item": "armoroftheages:silk"
+			"item": "minecraft:string"
 		},
 		"O": {
 			"item": "minecraft:diamond_leggings"

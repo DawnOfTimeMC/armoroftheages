@@ -108,11 +108,9 @@ public abstract class CustomArmorItem extends ArmorItem implements IArmorVanisha
 		UUID uuid = ARMOR_MODIFIER_UUID_PER_SLOT[this.slot.getIndex()];
 		builder.put(Attributes.ARMOR, new AttributeModifier(uuid, "Armor modifier", this.getDefense(), AttributeModifier.Operation.ADDITION));
 		builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "Armor toughness", this.getToughness(), AttributeModifier.Operation.ADDITION));
-
 		if (this.material.getKnockbackResistance() > 0) {
 			builder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "Armor knockback resistance", this.material.getKnockbackResistance(), AttributeModifier.Operation.ADDITION));
 		}
-
 		this.defaultModifiers = builder.build();
 	}
 
