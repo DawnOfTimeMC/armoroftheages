@@ -38,6 +38,7 @@ public class DoTBItemsRegistry {
 	public static final ArmorSetRegistryObject O_YOROI_ARMOR_SET = new ArmorSetRegistryObject("o_yoroi_armor", O_YOROI, () -> OYoroiArmorModel::new);
 	public static final ArmorSetRegistryObject QUETZALCOATL_ARMOR_SET = new ArmorSetRegistryObject("quetzalcoatl_armor", QUETZALCOATL, () -> QuetzalcoatlModel::new);
 	public static final ArmorSetRegistryObject RAIJIN_ARMOR_SET = new ArmorSetRegistryObject("raijin_armor", RAIJIN, () -> RaijinArmorModel::new);
+	public static final RegistryObject<Item> BAMBOO_HAT = DoTBItemsRegistry.ITEMS.register("bamboo_hat", HatItem::new);
 
 	public final static class ArmorSetRegistryObject {
 		private static final EquipmentSlotType[] SLOT_LIST = {HEAD, CHEST, LEGS, FEET };

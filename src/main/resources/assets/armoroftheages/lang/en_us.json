@@ -36,5 +36,6 @@
     "item.armoroftheages.anubis_armor_head": "Anubis Headdress",
     "item.armoroftheages.anubis_armor_chest": "Anubis Chest",
     "item.armoroftheages.anubis_armor_legs": "Anubis Shendyts",
-    "item.armoroftheages.anubis_armor_feet": "Anubis Bracelets"
+    "item.armoroftheages.anubis_armor_feet": "Anubis Bracelets",
+    "tooltip.armoroftheages.repair_with": "Can be repaired with : "
 }

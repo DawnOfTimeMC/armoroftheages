@@ -8,6 +8,13 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 import org.armoroftheages.armor_models.CustomArmorModel;
 
 import com.google.common.collect.ImmutableMultimap;
@@ -88,8 +95,10 @@ public abstract class CustomArmorItem extends ArmorItem implements IArmorVanisha
 	private Multimap<Attribute, AttributeModifier> defaultModifiers;
 
 	public CustomArmorItem(String setNameIn, String pieceNameIn, IArmorMaterial materialIn, EquipmentSlotType slotIn) {
-		super(materialIn, slotIn, new Item.Properties().stacksTo(1).tab(MOD_TAB)
-				.defaultDurability(materialIn.getDurabilityForSlot(slotIn)));
+		super(materialIn, slotIn, new Item.Properties()
+												.stacksTo(1)
+												.tab(MOD_TAB)
+												.defaultDurability(materialIn.getDurabilityForSlot(slotIn)));
 		this.setName = setNameIn;
 		this.material = materialIn;
 		this.pieceName = pieceNameIn;
@@ -207,8 +216,8 @@ public abstract class CustomArmorItem extends ArmorItem implements IArmorVanisha
 	}
 
 	@Override
-	public boolean isValidRepairItem(ItemStack p_82789_1_, ItemStack p_82789_2_) {
-		return this.material.getRepairIngredient().test(p_82789_2_) || super.isValidRepairItem(p_82789_1_, p_82789_2_);
+	public boolean isValidRepairItem(ItemStack stack, ItemStack stackRepair) {
+		return this.material.getRepairIngredient().test(stackRepair) || super.isValidRepairItem(stack, stackRepair);
 	}
 
 	@Override
@@ -224,5 +233,18 @@ public abstract class CustomArmorItem extends ArmorItem implements IArmorVanisha
 	@Override
 	public float getToughness() {
 		return this.material.getToughness();
+	}
+
+	@Override
+	public void appendHoverText(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flag) {
+		super.appendHoverText(stack, world, tooltip, flag);
+		if(this.material.getRepairIngredient().getItems().length > 0){
+			ResourceLocation name = this.material.getRepairIngredient().getItems()[0].getItem().getRegistryName();
+			if(name != null){
+				IFormattableTextComponent text = new TranslationTextComponent("tooltip." + MOD_ID + ".repair_with").withStyle(TextFormatting.GRAY)
+						.append(this.material.getRepairIngredient().getItems()[0].getHoverName().plainCopy().withStyle(TextFormatting.YELLOW));
+				tooltip.add(text);
+			}
+		}
 	}
 }
