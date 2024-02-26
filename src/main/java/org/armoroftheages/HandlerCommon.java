@@ -12,18 +12,18 @@ import org.armoroftheages.item.CustomArmorItem;
 public class HandlerCommon {
 	@SubscribeEvent
 	public static void modConfigLoadingEvent(final ModConfig.Loading event) {
-		for (CustomArmorItem customArmorItem : DoTBConfig.ARMORS_TO_SYNC) {
+		for (CustomArmorItem customArmorItem : AotAConfig.ARMORS_TO_SYNC) {
 			customArmorItem.updateAttributes();
 		}
 	}
 
 	@SubscribeEvent
 	public static void fMLDedicatedServerSetupEvent(final FMLDedicatedServerSetupEvent event) {
-		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, DoTBConfig.COMMON_SPEC);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, AotAConfig.COMMON_SPEC);
 	}
 
 	@SubscribeEvent
 	public static void fMLCommonSetupEvent(final FMLCommonSetupEvent event) {
-		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, DoTBConfig.COMMON_SPEC);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AotAConfig.COMMON_SPEC);
 	}
 }

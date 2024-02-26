@@ -9,7 +9,7 @@ import org.armoroftheages.item.CustomArmorItem;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 
-public class DoTBConfig {
+public class AotAConfig {
     public final static List<CustomArmorItem> ARMORS_TO_SYNC = new ArrayList<>();
     public final static String ARMOR_MATERIAL_CATEGORY = "armor_properties";
     public final static Config COMMON_CONFIG;
@@ -25,7 +25,6 @@ public class DoTBConfig {
     public static ArmorConfig ANUBIS_ARMOR_CONFIG;
     public static ArmorConfig CENTURION_ARMOR_CONFIG;
     public static ArmorConfig QUETZALCOATL_ARMOR_CONFIG;
-
 
     static {
         final Pair<Config, ForgeConfigSpec> pair = new ForgeConfigSpec.Builder().configure(Config::new);

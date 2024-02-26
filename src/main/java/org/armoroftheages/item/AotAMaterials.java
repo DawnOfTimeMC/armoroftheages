@@ -1,13 +1,14 @@
 package org.armoroftheages.item;
 
-import java.util.function.Supplier;
+import net.minecraft.item.Item;
+import net.minecraft.tags.ITag;
+import net.minecraft.tags.ITagCollection;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.ResourceLocation;
+import org.armoroftheages.AotAConfig;
 
-import org.armoroftheages.DoTBConfig;
-
-import net.minecraft.block.Blocks;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.LazyValue;
 import net.minecraft.util.SoundEvent;
@@ -15,65 +16,51 @@ import net.minecraft.util.SoundEvents;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class DoTBMaterials {
+import java.util.function.Supplier;
+
+public class AotAMaterials {
+
+	private static final ResourceLocation IRON_BLOCK_RL = new ResourceLocation("forge:storage_blocks/iron");
+	private static final ResourceLocation GOLD_BLOCK_RL = new ResourceLocation("forge:storage_blocks/gold");
+	private static final ResourceLocation LAPIS_BLOCK_RL = new ResourceLocation("forge:storage_blocks/lapis");
+	private static final ResourceLocation REDSTONE_BLOCK_RL = new ResourceLocation("forge:storage_blocks/redstone");
+	private static final ResourceLocation LEATHER_RL = new ResourceLocation("forge:leather");
+	private static final ResourceLocation FEATHERS_RL = new ResourceLocation("forge:feathers");
 
 	public enum ArmorMaterial implements IArmorMaterial {
-		IRON_PLATE("iron_plate",
-				DoTBConfig.IRON_PLATE_ARMOR_CONFIG,
-				SoundEvents.ARMOR_EQUIP_IRON,
-				() -> Ingredient.of(Items.IRON_BLOCK.asItem())),
-		HOLY("holy",
-				DoTBConfig.HOLY_ARMOR_CONFIG,
-				SoundEvents.ARMOR_EQUIP_DIAMOND,
-				() -> Ingredient.of(Blocks.GOLD_BLOCK.asItem())),
-		JAPANESE_LIGHT(
-				"japanese_light",
-				DoTBConfig.JAPANESE_LIGHT_ARMOR_CONFIG,
-				SoundEvents.ARMOR_EQUIP_LEATHER,
-				() -> Ingredient.of(Items.LEATHER)),
-		O_YOROI("o_yoroi",
-				DoTBConfig.O_YOROI_ARMOR_CONFIG,
-				SoundEvents.ARMOR_EQUIP_IRON,
-				() -> Ingredient.of(Items.REDSTONE_BLOCK.asItem())),
-		RAIJIN("raijin",
-				DoTBConfig.RAIJIN_ARMOR_CONFIG,
-				SoundEvents.ARMOR_EQUIP_LEATHER,
-				() -> Ingredient.of(Blocks.GOLD_BLOCK.asItem())),
-		PHARAOH("pharaoh",
-				DoTBConfig.PHARAOH_ARMOR_CONFIG,
-				SoundEvents.ARMOR_EQUIP_GOLD,
-				() -> Ingredient.of(Items.GOLD_BLOCK.asItem())),
-		ANUBIS("anubis",
-				DoTBConfig.ANUBIS_ARMOR_CONFIG,
-				SoundEvents.ARMOR_EQUIP_GOLD,
-				() -> Ingredient.of(Blocks.LAPIS_BLOCK.asItem())),
-		CENTURION("centurion",
-			   DoTBConfig.CENTURION_ARMOR_CONFIG,
-				SoundEvents.ARMOR_EQUIP_CHAIN,
-				() -> Ingredient.of(Blocks.GOLD_BLOCK.asItem())),
-		QUETZALCOATL("quetzalcoatl",
-				DoTBConfig.QUETZALCOATL_ARMOR_CONFIG,
-				SoundEvents.ARMOR_EQUIP_TURTLE,
-				() -> Ingredient.of(Items.FEATHER));
-
+		IRON_PLATE("iron_plate", AotAConfig.IRON_PLATE_ARMOR_CONFIG, SoundEvents.ARMOR_EQUIP_IRON, IRON_BLOCK_RL),
+		HOLY("holy", AotAConfig.HOLY_ARMOR_CONFIG, SoundEvents.ARMOR_EQUIP_DIAMOND, GOLD_BLOCK_RL),
+		JAPANESE_LIGHT("japanese_light", AotAConfig.JAPANESE_LIGHT_ARMOR_CONFIG, SoundEvents.ARMOR_EQUIP_LEATHER, LEATHER_RL),
+		O_YOROI("o_yoroi", AotAConfig.O_YOROI_ARMOR_CONFIG, SoundEvents.ARMOR_EQUIP_IRON, REDSTONE_BLOCK_RL),
+		RAIJIN("raijin", AotAConfig.RAIJIN_ARMOR_CONFIG, SoundEvents.ARMOR_EQUIP_LEATHER, GOLD_BLOCK_RL),
+		PHARAOH("pharaoh", AotAConfig.PHARAOH_ARMOR_CONFIG, SoundEvents.ARMOR_EQUIP_GOLD, GOLD_BLOCK_RL),
+		ANUBIS("anubis", AotAConfig.ANUBIS_ARMOR_CONFIG, SoundEvents.ARMOR_EQUIP_GOLD, LAPIS_BLOCK_RL),
+		CENTURION("centurion", AotAConfig.CENTURION_ARMOR_CONFIG, SoundEvents.ARMOR_EQUIP_CHAIN, GOLD_BLOCK_RL),
+		QUETZALCOATL("quetzalcoatl", AotAConfig.QUETZALCOATL_ARMOR_CONFIG, SoundEvents.ARMOR_EQUIP_TURTLE, FEATHERS_RL);
 		private static final int[] MAX_DAMAGE_ARRAY = {13, 15, 16, 11 };
 		private final String name;
-		private final DoTBConfig.ArmorConfig armorConfig;
+		private final AotAConfig.ArmorConfig armorConfig;
 		private final SoundEvent soundEvent;
-		private final LazyValue<Ingredient> repairMaterial;
+		private final Supplier<Ingredient> repairMaterial;
 
 		/**
 		 * @param nameIn                   Material name.
 		 * @param config			       Armor config that contains all the parameters of the armor
 		 *                                    (durability, armor, enchantability, toughness)
 		 * @param equipSoundIn             Sound when equipped.
-		 * @param repairMaterialSupplier   Ingredient used to repair the armor.
+		 * @param repairRL   Ingredient used to repair the armor.
 		 */
-		ArmorMaterial(final String nameIn, DoTBConfig.ArmorConfig config, final SoundEvent equipSoundIn, final Supplier<Ingredient> repairMaterialSupplier) {
+		ArmorMaterial(final String nameIn, AotAConfig.ArmorConfig config, final SoundEvent equipSoundIn, final ResourceLocation repairRL) {
 			this.name = nameIn;
 			this.armorConfig = config;
 			this.soundEvent = equipSoundIn;
-			this.repairMaterial = new LazyValue<>(repairMaterialSupplier);
+			this.repairMaterial = () -> getIngredient(repairRL);
+		}
+
+		private static Ingredient getIngredient(ResourceLocation repairRL){
+			ITagCollection<Item> temp = ItemTags.getAllTags();
+			ITag<Item> tag = ItemTags.getAllTags().getTag(repairRL);
+			return tag != null && !tag.getValues().isEmpty() ? Ingredient.of(tag) : Ingredient.EMPTY;
 		}
 
 		@Override

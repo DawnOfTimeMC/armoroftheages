@@ -4,7 +4,7 @@ import static net.minecraft.inventory.EquipmentSlotType.CHEST;
 import static net.minecraft.inventory.EquipmentSlotType.FEET;
 import static net.minecraft.inventory.EquipmentSlotType.HEAD;
 import static net.minecraft.inventory.EquipmentSlotType.LEGS;
-import static org.armoroftheages.item.DoTBMaterials.ArmorMaterial.*;
+import static org.armoroftheages.item.AotAMaterials.ArmorMaterial.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 import org.armoroftheages.armor_models.*;
 import org.armoroftheages.ArmorOfTheAges;
-import org.armoroftheages.DoTBConfig;
+import org.armoroftheages.AotAConfig;
 
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
@@ -23,7 +23,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class DoTBItemsRegistry {
+public class AotAItemsRegistry {
 
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ArmorOfTheAges.MOD_ID);
 
@@ -38,7 +38,7 @@ public class DoTBItemsRegistry {
 	public static final ArmorSetRegistryObject O_YOROI_ARMOR_SET = new ArmorSetRegistryObject("o_yoroi_armor", O_YOROI, () -> OYoroiArmorModel::new);
 	public static final ArmorSetRegistryObject QUETZALCOATL_ARMOR_SET = new ArmorSetRegistryObject("quetzalcoatl_armor", QUETZALCOATL, () -> QuetzalcoatlModel::new);
 	public static final ArmorSetRegistryObject RAIJIN_ARMOR_SET = new ArmorSetRegistryObject("raijin_armor", RAIJIN, () -> RaijinArmorModel::new);
-	public static final RegistryObject<Item> BAMBOO_HAT = DoTBItemsRegistry.ITEMS.register("bamboo_hat", HatItem::new);
+	public static final RegistryObject<Item> BAMBOO_HAT = AotAItemsRegistry.ITEMS.register("bamboo_hat", HatItem::new);
 
 	public final static class ArmorSetRegistryObject {
 		private static final EquipmentSlotType[] SLOT_LIST = {HEAD, CHEST, LEGS, FEET };
@@ -56,7 +56,7 @@ public class DoTBItemsRegistry {
 			final List<RegistryObject<Item>> objectList = new ArrayList<>();
 			for (final EquipmentSlotType slot : ArmorSetRegistryObject.SLOT_LIST) {
 				final String name = setNameIn + "_" + slot.getName();
-				objectList.add(DoTBItemsRegistry.ITEMS.register(name, () -> {
+				objectList.add(AotAItemsRegistry.ITEMS.register(name, () -> {
 					CustomArmorItem customArmorItem = new CustomArmorItem(setNameIn, name, this.material, slot) {
 						/**
 						 * Returns the armor model's factory. It needs to be associated
@@ -69,7 +69,7 @@ public class DoTBItemsRegistry {
 						}
 					};
 
-					DoTBConfig.ARMORS_TO_SYNC.add(customArmorItem);
+					AotAConfig.ARMORS_TO_SYNC.add(customArmorItem);
 
 					return customArmorItem;
 				}));
