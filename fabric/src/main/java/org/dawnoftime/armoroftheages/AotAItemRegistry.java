@@ -3,69 +3,74 @@ package org.dawnoftime.armoroftheages;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
-import org.dawnoftime.armoroftheages.registry.ItemRegistry;
+import org.dawnoftime.armoroftheages.item.AotAMaterials;
+import org.dawnoftime.armoroftheages.item.HatItem;
+import org.dawnoftime.armoroftheages.item.HumanoidArmorItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static net.minecraft.world.item.ArmorItem.Type.*;
 import static org.dawnoftime.armoroftheages.Constants.*;
-import static org.dawnoftime.armoroftheages.Constants.RAIJIN_ARMOR_NAME;
 
 public class AotAItemRegistry {
 
     public static final List<Item> ITEMS = new ArrayList<>();
+    public static final Item TAB_ICON = new Item(new Item.Properties());
 
     public static void init(){
-        registerItem(MOD_ID, ItemRegistry.TAB_ICON);
+        register(MOD_ID, TAB_ICON);
 
-        registerItem(BAMBOO_HAT_NAME, ItemRegistry.BAMBOO_HAT);
-
-        registerItem(ANUBIS_ARMOR_NAME,         EquipmentSlot.HEAD,     ItemRegistry.ANUBIS_ARMOR_HEAD);
-        registerItem(ANUBIS_ARMOR_NAME,         EquipmentSlot.CHEST,    ItemRegistry.ANUBIS_ARMOR_CHEST);
-        registerItem(ANUBIS_ARMOR_NAME,         EquipmentSlot.LEGS,     ItemRegistry.ANUBIS_ARMOR_LEGS);
-        registerItem(ANUBIS_ARMOR_NAME,         EquipmentSlot.FEET,     ItemRegistry.ANUBIS_ARMOR_FEET);
-        registerItem(CENTURION_ARMOR_NAME,      EquipmentSlot.HEAD,     ItemRegistry.CENTURION_ARMOR_HEAD);
-        registerItem(CENTURION_ARMOR_NAME,      EquipmentSlot.CHEST,    ItemRegistry.CENTURION_ARMOR_CHEST);
-        registerItem(CENTURION_ARMOR_NAME,      EquipmentSlot.LEGS,     ItemRegistry.CENTURION_ARMOR_LEGS);
-        registerItem(CENTURION_ARMOR_NAME,      EquipmentSlot.FEET,     ItemRegistry.CENTURION_ARMOR_FEET);
-        registerItem(HOLY_ARMOR_NAME,           EquipmentSlot.HEAD,     ItemRegistry.HOLY_ARMOR_HEAD);
-        registerItem(HOLY_ARMOR_NAME,           EquipmentSlot.CHEST,    ItemRegistry.HOLY_ARMOR_CHEST);
-        registerItem(HOLY_ARMOR_NAME,           EquipmentSlot.LEGS,     ItemRegistry.HOLY_ARMOR_LEGS);
-        registerItem(HOLY_ARMOR_NAME,           EquipmentSlot.FEET,     ItemRegistry.HOLY_ARMOR_FEET);
-        registerItem(IRON_PLATE_ARMOR_NAME,     EquipmentSlot.HEAD,     ItemRegistry.IRON_PLATE_ARMOR_HEAD);
-        registerItem(IRON_PLATE_ARMOR_NAME,     EquipmentSlot.CHEST,    ItemRegistry.IRON_PLATE_ARMOR_CHEST);
-        registerItem(IRON_PLATE_ARMOR_NAME,     EquipmentSlot.LEGS,     ItemRegistry.IRON_PLATE_ARMOR_LEGS);
-        registerItem(IRON_PLATE_ARMOR_NAME,     EquipmentSlot.FEET,     ItemRegistry.IRON_PLATE_ARMOR_FEET);
-        registerItem(JAPANESE_LIGHT_ARMOR_NAME, EquipmentSlot.HEAD,     ItemRegistry.JAPANESE_LIGHT_ARMOR_HEAD);
-        registerItem(JAPANESE_LIGHT_ARMOR_NAME, EquipmentSlot.CHEST,    ItemRegistry.JAPANESE_LIGHT_ARMOR_CHEST);
-        registerItem(JAPANESE_LIGHT_ARMOR_NAME, EquipmentSlot.LEGS,     ItemRegistry.JAPANESE_LIGHT_ARMOR_LEGS);
-        registerItem(JAPANESE_LIGHT_ARMOR_NAME, EquipmentSlot.FEET,     ItemRegistry.JAPANESE_LIGHT_ARMOR_FEET);
-        registerItem(O_YOROI_ARMOR_NAME,        EquipmentSlot.HEAD,     ItemRegistry.O_YOROI_ARMOR_HEAD);
-        registerItem(O_YOROI_ARMOR_NAME,        EquipmentSlot.CHEST,    ItemRegistry.O_YOROI_ARMOR_CHEST);
-        registerItem(O_YOROI_ARMOR_NAME,        EquipmentSlot.LEGS,     ItemRegistry.O_YOROI_ARMOR_LEGS);
-        registerItem(O_YOROI_ARMOR_NAME,        EquipmentSlot.FEET,     ItemRegistry.O_YOROI_ARMOR_FEET);
-        registerItem(PHARAOH_ARMOR_NAME,        EquipmentSlot.HEAD,     ItemRegistry.PHARAOH_ARMOR_HEAD);
-        registerItem(PHARAOH_ARMOR_NAME,        EquipmentSlot.CHEST,    ItemRegistry.PHARAOH_ARMOR_CHEST);
-        registerItem(PHARAOH_ARMOR_NAME,        EquipmentSlot.LEGS,     ItemRegistry.PHARAOH_ARMOR_LEGS);
-        registerItem(PHARAOH_ARMOR_NAME,        EquipmentSlot.FEET,     ItemRegistry.PHARAOH_ARMOR_FEET);
-        registerItem(QUETZALCOATL_ARMOR_NAME,   EquipmentSlot.HEAD,     ItemRegistry.QUETZALCOATL_ARMOR_HEAD);
-        registerItem(QUETZALCOATL_ARMOR_NAME,   EquipmentSlot.CHEST,    ItemRegistry.QUETZALCOATL_ARMOR_CHEST);
-        registerItem(QUETZALCOATL_ARMOR_NAME,   EquipmentSlot.LEGS,     ItemRegistry.QUETZALCOATL_ARMOR_LEGS);
-        registerItem(QUETZALCOATL_ARMOR_NAME,   EquipmentSlot.FEET,     ItemRegistry.QUETZALCOATL_ARMOR_FEET);
-        registerItem(RAIJIN_ARMOR_NAME,         EquipmentSlot.HEAD,     ItemRegistry.RAIJIN_ARMOR_HEAD);
-        registerItem(RAIJIN_ARMOR_NAME,         EquipmentSlot.CHEST,    ItemRegistry.RAIJIN_ARMOR_CHEST);
-        registerItem(RAIJIN_ARMOR_NAME,         EquipmentSlot.LEGS,     ItemRegistry.RAIJIN_ARMOR_LEGS);
-        registerItem(RAIJIN_ARMOR_NAME,         EquipmentSlot.FEET,     ItemRegistry.RAIJIN_ARMOR_FEET);
+        // Item registry
+        register(BAMBOO_HAT_NAME, new HatItem());
+        register(ANUBIS_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.ANUBIS, HELMET);
+        register(ANUBIS_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.ANUBIS, CHESTPLATE);
+        register(ANUBIS_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.ANUBIS, LEGGINGS);
+        register(ANUBIS_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.ANUBIS, BOOTS);
+        register(CENTURION_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.CENTURION, HELMET);
+        register(CENTURION_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.CENTURION, CHESTPLATE);
+        register(CENTURION_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.CENTURION, LEGGINGS);
+        register(CENTURION_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.CENTURION, BOOTS);
+        register(HOLY_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.HOLY, HELMET);
+        register(HOLY_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.HOLY, CHESTPLATE);
+        register(HOLY_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.HOLY, LEGGINGS);
+        register(HOLY_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.HOLY, BOOTS);
+        register(IRON_PLATE_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.IRON_PLATE, HELMET);
+        register(IRON_PLATE_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.IRON_PLATE, CHESTPLATE);
+        register(IRON_PLATE_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.IRON_PLATE, LEGGINGS);
+        register(IRON_PLATE_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.IRON_PLATE, BOOTS);
+        register(JAPANESE_LIGHT_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.JAPANESE_LIGHT, HELMET);
+        register(JAPANESE_LIGHT_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.JAPANESE_LIGHT, CHESTPLATE);
+        register(JAPANESE_LIGHT_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.JAPANESE_LIGHT, LEGGINGS);
+        register(JAPANESE_LIGHT_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.JAPANESE_LIGHT, BOOTS);
+        register(O_YOROI_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.O_YOROI, HELMET);
+        register(O_YOROI_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.O_YOROI, CHESTPLATE);
+        register(O_YOROI_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.O_YOROI, LEGGINGS);
+        register(O_YOROI_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.O_YOROI, BOOTS);
+        register(PHARAOH_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.PHARAOH, HELMET);
+        register(PHARAOH_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.PHARAOH, CHESTPLATE);
+        register(PHARAOH_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.PHARAOH, LEGGINGS);
+        register(PHARAOH_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.PHARAOH, BOOTS);
+        register(QUETZALCOATL_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.QUETZALCOATL, HELMET);
+        register(QUETZALCOATL_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.QUETZALCOATL, CHESTPLATE);
+        register(QUETZALCOATL_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.QUETZALCOATL, LEGGINGS);
+        register(QUETZALCOATL_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.QUETZALCOATL, BOOTS);
+        register(RAIJIN_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.RAIJIN, HELMET);
+        register(RAIJIN_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.RAIJIN, CHESTPLATE);
+        register(RAIJIN_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.RAIJIN, LEGGINGS);
+        register(RAIJIN_ARMOR_NAME, AotAMaterials.DoTArmorMaterial.RAIJIN, BOOTS);
     }
 
-    public static void registerItem(String name, Item item){
+    public static void register(String name, Item item){
         Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(MOD_ID, name), item);
         ITEMS.add(item);
     }
 
-    public static void registerItem(String armorSetName, EquipmentSlot slot, Item item){
+    public static void register(String armorSetName, ArmorMaterial material, ArmorItem.Type slot){
+        Item item = new HumanoidArmorItem(armorSetName, material, slot);
         Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(MOD_ID, armorSetName + "_" + slot.getName()), item);
         ITEMS.add(item);
     }

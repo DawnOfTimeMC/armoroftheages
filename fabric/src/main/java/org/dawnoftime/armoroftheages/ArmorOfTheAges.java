@@ -2,7 +2,6 @@ package org.dawnoftime.armoroftheages;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.loader.api.FabricLoader;
@@ -17,8 +16,8 @@ import org.dawnoftime.armoroftheages.client.ArmorModelProvider;
 import org.dawnoftime.armoroftheages.registry.ModelProviderRegistry;
 
 import static org.dawnoftime.armoroftheages.AotAItemRegistry.ITEMS;
+import static org.dawnoftime.armoroftheages.AotAItemRegistry.TAB_ICON;
 import static org.dawnoftime.armoroftheages.Constants.MOD_ID;
-import static org.dawnoftime.armoroftheages.registry.ItemRegistry.TAB_ICON;
 
 public class ArmorOfTheAges implements ModInitializer {
 
