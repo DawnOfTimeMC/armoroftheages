@@ -54,9 +54,8 @@ public abstract class MixinHumanoidArmorLayer<T extends LivingEntity, M extends 
                     model.crouching = entity.isShiftKeyDown();
                     model.riding = this.getParentModel().riding;
                     model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-                    VertexConsumer vertexconsumer = buffer.getBuffer(RenderType.entityTranslucent(provider.getTexture(entity)));
+                    VertexConsumer vertexconsumer = buffer.getBuffer(RenderType.armorCutoutNoCull(provider.getTexture(entity)));
                     model.renderToBuffer(stack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
-
                     if (itemStack.hasFoil()) {
                         model.renderToBuffer(stack, buffer.getBuffer(RenderType.armorEntityGlint()), packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
                     }
@@ -68,7 +67,7 @@ public abstract class MixinHumanoidArmorLayer<T extends LivingEntity, M extends 
     /**
      * Since I already renderer my armor in my custom renderer, I will cancel the rendering if the item is a AotA armor item.
      */
-    @Inject(method = "renderArmorPiece", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "Lnet/minecraft/client/renderer/entity/layers/HumanoidArmorLayer;renderArmorPiece(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/EquipmentSlot;ILnet/minecraft/client/model/HumanoidModel;)V", at = @At("HEAD"), cancellable = true)
     private void onRenderArmorPiece(PoseStack stack, MultiBufferSource buffer, T entity, EquipmentSlot slot, int packedLight, A defaultModel, CallbackInfo ci) {
         ItemStack itemStack = entity.getItemBySlot(slot);
         if (itemStack.getItem() instanceof HumanoidArmorItem) {
