@@ -3,6 +3,7 @@ package org.dawnoftime.armoroftheages.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
@@ -19,9 +20,9 @@ import static org.dawnoftime.armoroftheages.Constants.MOD_ID;
 
 public class HumanoidArmorItem extends ArmorItem {
     private final String armorPartName;
-    public HumanoidArmorItem(@NotNull String armorSetName, ArmorMaterial material, Type type) {
-        super(material, type, new Properties().stacksTo(1));
-        this.armorPartName = armorSetName + "_" + type.getSlot().getName();
+    public HumanoidArmorItem(@NotNull String armorSetName, ArmorMaterial material, EquipmentSlot type, Properties properties) {
+        super(material, type, properties);
+        this.armorPartName = armorSetName + "_" + type.getName();
     }
 
     public @Nullable ArmorModelProvider getModelProvider(){

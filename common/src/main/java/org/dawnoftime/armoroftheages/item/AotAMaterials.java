@@ -1,6 +1,8 @@
 package org.dawnoftime.armoroftheages.item;
 
 import java.util.function.Supplier;
+
+import net.minecraft.world.entity.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -49,17 +51,17 @@ public class AotAMaterials {
 		}
 
 		@Override
-		public int getDurabilityForType(ArmorItem.Type slot) {
-			return DoTArmorMaterial.MAX_DAMAGE_ARRAY[slot.getSlot().getIndex()] * this.durability;
+		public int getDurabilityForSlot(@NotNull EquipmentSlot equipmentSlot) {
+			return DoTArmorMaterial.MAX_DAMAGE_ARRAY[equipmentSlot.getIndex()] * this.durability;
 		}
 
 		@Override
-		public int getDefenseForType(ArmorItem.Type slot) {
-			return switch (slot) {
-				case BOOTS -> this.feetDef;
-				case LEGGINGS -> this.legsDef;
-				case CHESTPLATE -> this.chestDef;
-				case HELMET -> this.helmetDef;
+		public int getDefenseForSlot(EquipmentSlot equipmentSlot) {
+			return switch (equipmentSlot) {
+				case FEET -> this.feetDef;
+				case LEGS -> this.legsDef;
+				default -> this.chestDef;
+				case HEAD -> this.helmetDef;
 			};
 		}
 

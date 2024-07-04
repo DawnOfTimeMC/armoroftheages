@@ -89,9 +89,9 @@ dependencies {
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
 
     // Both numbers comes from Curse. The first number is the project_id (on the right) and the second one is the file_id (in the URL)
-    runtimeOnly fg.deobf("curse.maven:jei-238222:5440261") // JEI (Just Enough Items)
-    runtimeOnly fg.deobf("curse.maven:citadel-331936:5143956") // Citadel
-    runtimeOnly fg.deobf("curse.maven:rats-323596:4802123") // Rats
+    //runtimeOnly fg.deobf("curse.maven:jei-238222:5440261") // JEI (Just Enough Items)
+    //runtimeOnly fg.deobf("curse.maven:citadel-331936:5143956") // Citadel
+    //runtimeOnly fg.deobf("curse.maven:rats-323596:4802123") // Rats
 }
 
 tasks.withType(JavaCompile).configureEach {

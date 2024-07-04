@@ -13,14 +13,16 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
+import static org.dawnoftime.armoroftheages.ArmorOfTheAges.CREATIVE_MODE_TAB;
+
 public class ForgeHumanoidArmorItem extends HumanoidArmorItem{
     /**
     This class only purpose is to match forge standard armor behavior, expected from other mods.
     Some mods call the ForgeHooksClient#getArmorModel() method, to get and use the custom models.
     All the function in this class are never called or used to render our armors by default.
     */
-    public ForgeHumanoidArmorItem(@NotNull String armorSetName, ArmorMaterial material, Type type) {
-        super(armorSetName, material, type);
+    public ForgeHumanoidArmorItem(@NotNull String armorSetName, ArmorMaterial material, EquipmentSlot type, Properties properties) {
+        super(armorSetName, material, type, properties);
     }
 
     @Override

@@ -43,7 +43,7 @@ public abstract class MixinHumanoidArmorLayer<T extends LivingEntity, M extends 
     private void armorOfTheAges$renderCustomArmor(PoseStack stack, MultiBufferSource buffer, T entity, EquipmentSlot slot, int packedLight, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
         ItemStack itemStack = entity.getItemBySlot(slot);
         if (itemStack.getItem() instanceof HumanoidArmorItem armorItem) {
-            if (armorItem.getEquipmentSlot() == slot) {
+            if (armorItem.getSlot() == slot) {
                 ArmorModelProvider provider = armorItem.getModelProvider();
                 if(provider != null){
                     // First we get the model from the armorItem.
