@@ -15,6 +15,7 @@ public class AotAMaterials {
 	public enum DoTArmorMaterial implements ArmorMaterial {
 		IRON_PLATE("iron_plate",				25, 3, 9, 7, 3,  6, 0.0F, SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.of(Items.IRON_BLOCK.asItem())),
 		HOLY("holy",							40, 4,10, 8, 4,  4, 2.0F, SoundEvents.ARMOR_EQUIP_DIAMOND, () -> Ingredient.of(Blocks.GOLD_BLOCK.asItem())),
+		EXALTED_AURUM("exalted_aurum",		35, 3, 9, 7, 3,  12, 3.0F, SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.of(Items.GOLD_BLOCK.asItem())),
 		JAPANESE_LIGHT("japanese_light",		12, 2, 7, 6, 2, 10, 0.0F, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Items.LEATHER)),
 		O_YOROI("o_yoroi",					20, 3, 8, 6, 3, 16, 2.0F, SoundEvents.ARMOR_EQUIP_IRON, () -> Ingredient.of(Items.REDSTONE_BLOCK.asItem())),
 		RAIJIN("raijin",						35, 3, 9, 7, 3, 26, 2.0F, SoundEvents.ARMOR_EQUIP_LEATHER, () -> Ingredient.of(Blocks.GOLD_BLOCK.asItem())),

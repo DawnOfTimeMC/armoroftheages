@@ -9,28 +9,30 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import org.dawnoftime.armoroftheages.client.ArmorModelProvider;
+import org.dawnoftime.armoroftheages.item.HumanoidArmorItem;
+import org.dawnoftime.armoroftheages.registry.ItemRegistry;
 import org.dawnoftime.armoroftheages.registry.ModelProviderRegistry;
 
-import static org.dawnoftime.armoroftheages.AotAItemRegistry.ITEMS;
-import static org.dawnoftime.armoroftheages.AotAItemRegistry.TAB_ICON;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
+
 import static org.dawnoftime.armoroftheages.Constants.MOD_ID;
 
 public class ArmorOfTheAges implements ModInitializer {
 
     private static final CreativeModeTab CREATIVE_MODE_TAB = FabricItemGroup.builder()
             .title(Component.translatable("itemGroup." + MOD_ID))
-            .icon(() -> new ItemStack(TAB_ICON))
-            .displayItems((params, output) -> output.acceptAll(ITEMS.stream().filter(holder -> holder != TAB_ICON).map(Item::getDefaultInstance).toList()))
+            .icon(() -> ItemRegistry.REGISTRY.TAB_ICON.get().getDefaultInstance())
+            .displayItems((params, output) -> output.acceptAll(ItemRegistryImpl.ITEMS.stream().filter(item -> item != ItemRegistry.REGISTRY.TAB_ICON.get()).map(Item::getDefaultInstance).toList()))
             .build();
 
     @Override
     public void onInitialize() {
         // Items init
-        AotAItemRegistry.init();
+        ItemRegistryImpl.REGISTRY = new ItemRegistryImpl();
 
         // Creative inventory init
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, new ResourceLocation(MOD_ID, MOD_ID), CREATIVE_MODE_TAB);
@@ -53,5 +55,24 @@ public class ArmorOfTheAges implements ModInitializer {
                 EntityModelLayerRegistry.registerModelLayer(slimProvide.getSlimLayerLocation(), slimProvide::createSlimLayer);
             }
         });
+    }
+
+    public static class ItemRegistryImpl extends ItemRegistry {
+        public static final List<Item> ITEMS = new ArrayList<>();
+
+        @Override
+        public void register(String armorSetName, ArmorMaterial material, ArmorItem.Type slot) {
+            Item item = new HumanoidArmorItem(armorSetName, material, slot);
+            Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(MOD_ID, armorSetName + "_" + slot.getSlot().getName()), item);
+            ITEMS.add(item);
+        }
+
+        @Override
+        public Supplier<Item> register(String name, Supplier<Item> itemSupplier) {
+            Item item = itemSupplier.get();
+            Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(MOD_ID, name), item);
+            ITEMS.add(item);
+            return () -> item;
+        }
     }
 }

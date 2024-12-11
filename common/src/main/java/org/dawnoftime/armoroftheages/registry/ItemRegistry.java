@@ -1,25 +1,25 @@
-package org.dawnoftime.armoroftheages;
+package org.dawnoftime.armoroftheages.registry;
 
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
-import org.dawnoftime.armoroftheages.item.ForgeHumanoidArmorItem;
-import org.dawnoftime.armoroftheages.item.HatItem;
 import org.dawnoftime.armoroftheages.item.AotAMaterials.DoTArmorMaterial;
+import org.dawnoftime.armoroftheages.item.HatItem;
+
+import java.util.function.Supplier;
 
 import static net.minecraft.world.item.ArmorItem.Type.*;
+import static net.minecraft.world.item.ArmorItem.Type.BOOTS;
 import static org.dawnoftime.armoroftheages.Constants.*;
+import static org.dawnoftime.armoroftheages.Constants.RAIJIN_ARMOR_NAME;
 
-public class AotAItemRegistry {
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
-    public static final RegistryObject<Item> TAB_ICON = ITEMS.register(MOD_ID, () -> new Item(new Item.Properties()));
+public abstract class ItemRegistry {
+    public static ItemRegistry REGISTRY;
 
-    // Item registry
-    static{
-        ITEMS.register(BAMBOO_HAT_NAME, HatItem::new);
+    public final Supplier<Item> TAB_ICON = register(MOD_ID, () -> new Item(new Item.Properties()));
+
+    public ItemRegistry(){
+        register(BAMBOO_HAT_NAME, HatItem::new);
         register(ANUBIS_ARMOR_NAME, DoTArmorMaterial.ANUBIS, HELMET);
         register(ANUBIS_ARMOR_NAME, DoTArmorMaterial.ANUBIS, CHESTPLATE);
         register(ANUBIS_ARMOR_NAME, DoTArmorMaterial.ANUBIS, LEGGINGS);
@@ -28,6 +28,10 @@ public class AotAItemRegistry {
         register(CENTURION_ARMOR_NAME, DoTArmorMaterial.CENTURION, CHESTPLATE);
         register(CENTURION_ARMOR_NAME, DoTArmorMaterial.CENTURION, LEGGINGS);
         register(CENTURION_ARMOR_NAME, DoTArmorMaterial.CENTURION, BOOTS);
+        register(EXALTED_AURUM_ARMOR_NAME, DoTArmorMaterial.EXALTED_AURUM, HELMET);
+        register(EXALTED_AURUM_ARMOR_NAME, DoTArmorMaterial.EXALTED_AURUM, CHESTPLATE);
+        register(EXALTED_AURUM_ARMOR_NAME, DoTArmorMaterial.EXALTED_AURUM, LEGGINGS);
+        register(EXALTED_AURUM_ARMOR_NAME, DoTArmorMaterial.EXALTED_AURUM, BOOTS);
         register(HOLY_ARMOR_NAME, DoTArmorMaterial.HOLY, HELMET);
         register(HOLY_ARMOR_NAME, DoTArmorMaterial.HOLY, CHESTPLATE);
         register(HOLY_ARMOR_NAME, DoTArmorMaterial.HOLY, LEGGINGS);
@@ -58,7 +62,7 @@ public class AotAItemRegistry {
         register(RAIJIN_ARMOR_NAME, DoTArmorMaterial.RAIJIN, BOOTS);
     }
 
-    private static void register(String armorSetName, ArmorMaterial material, ArmorItem.Type slot){
-        ITEMS.register(armorSetName + "_" + slot.getSlot().getName(), () -> new ForgeHumanoidArmorItem(armorSetName, material, slot));
-    }
+    public abstract Supplier<Item> register(final String name, final Supplier<Item> itemSupplier);
+
+    public abstract void register(String armorSetName, ArmorMaterial material, ArmorItem.Type slot);
 }
