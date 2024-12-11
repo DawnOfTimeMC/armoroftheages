@@ -65,7 +65,7 @@ public class ModelProviderRegistry {
         register(CENTURION_ARMOR_NAME, EquipmentSlot.FEET, FeetCenturionArmorModel::new, FeetCenturionArmorModel::createLayerDefinition);
         register(EXALTED_AURUM_ARMOR_NAME, EquipmentSlot.HEAD, HeadExaltedAurumArmorModel::new, HeadExaltedAurumArmorModel::createLayerDefinition);
         register(EXALTED_AURUM_ARMOR_NAME, EquipmentSlot.CHEST, ChestExaltedAurumArmorModel::new, ChestExaltedAurumArmorModel::createLayerDefinition, ChestExaltedAurumArmorModel::createSlimLayerDefinition);
-        register(EXALTED_AURUM_ARMOR_NAME, EquipmentSlot.LEGS, LegsExaltedAurumArmorModel::new, LegsExaltedAurumArmorModel::createLayerDefinition, LegsExaltedAurumArmorModel::createLayerDefinition);//LegsExaltedAurumArmorModel::createSlimLayerDefinition);
+        register(EXALTED_AURUM_ARMOR_NAME, EquipmentSlot.LEGS, LegsExaltedAurumArmorModel::new, LegsExaltedAurumArmorModel::createLayerDefinition, LegsExaltedAurumArmorModel::createSlimLayerDefinition);
         register(EXALTED_AURUM_ARMOR_NAME, EquipmentSlot.FEET, FeetExaltedAurumArmorModel::new, FeetExaltedAurumArmorModel::createLayerDefinition);
         register(HOLY_ARMOR_NAME, EquipmentSlot.HEAD, HeadHolyArmorModel::new, HeadHolyArmorModel::createLayerDefinition);
         register(HOLY_ARMOR_NAME, EquipmentSlot.CHEST, ChestHolyArmorModel::new, ChestHolyArmorModel::createLayerDefinition, ChestHolyArmorModel::createSlimLayerDefinition);
