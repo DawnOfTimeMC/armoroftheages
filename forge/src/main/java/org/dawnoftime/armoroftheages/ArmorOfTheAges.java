@@ -11,7 +11,9 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLConfig;
 import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.dawnoftime.armoroftheages.client.ArmorModelProvider;
@@ -28,6 +30,8 @@ public class ArmorOfTheAges {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
 
     public ArmorOfTheAges() {
+        Constants.CONFIG_PATH = FMLLoader.getGamePath().resolve("/config/" + MOD_ID + ".json");
+
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         // Items init

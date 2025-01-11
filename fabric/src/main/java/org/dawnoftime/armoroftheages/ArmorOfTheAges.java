@@ -31,6 +31,8 @@ public class ArmorOfTheAges implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        Constants.CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve(MOD_ID + ".json");
+
         // Items init
         ItemRegistryImpl.REGISTRY = new ItemRegistryImpl();
 

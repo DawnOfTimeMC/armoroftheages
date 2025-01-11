@@ -23,6 +23,8 @@ repositories {
     }
 }
 
+jarJar.enable()
+
 minecraft {
     mappings channel: 'official', version: minecraft_version
 
@@ -92,6 +94,11 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:jei-238222:5440261") // JEI (Just Enough Items)
     runtimeOnly fg.deobf("curse.maven:citadel-331936:5143956") // Citadel
     runtimeOnly fg.deobf("curse.maven:rats-323596:4802123") // Rats
+
+    compileOnly fg.deobf("dev.isxander:yet-another-config-lib:${project.yacl_version}-forge")
+
+    // jar in jar yet-another-config-lib
+    jarJar("dev.isxander:yet-another-config-lib:${project.yacl_version}-forge")
 }
 
 tasks.withType(JavaCompile).configureEach {
