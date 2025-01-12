@@ -41,5 +41,10 @@
     "item.armoroftheages.anubis_armor_chest": "Anubis Chest",
     "item.armoroftheages.anubis_armor_legs": "Anubis Shendyts",
     "item.armoroftheages.anubis_armor_feet": "Anubis Bracelets",
-    "tooltip.armoroftheages.repair_with": "Can be repaired with : "
+    "tooltip.armoroftheages.repair_with": "Can be repaired with : ",
+
+    "yacl3.config.armoroftheages:config.category.main": "Armor of the Ages",
+    "config.armoroftheages.notice": "Notice: It's not recommended to change the values of the following settings as they may cause visual issues with some armors.",
+    "yacl3.config.armoroftheages:config.usePreferredModel": "Use Preferred Model",
+
 }

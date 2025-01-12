@@ -52,6 +52,17 @@ subprojects {
             name 'Xander Maven'
             url 'https://maven.isxander.dev/releases'
         }
+        exclusiveContent {
+            forRepository {
+                maven {
+                    name = "Modrinth"
+                    url = "https://api.modrinth.com/maven"
+                }
+            }
+            filter {
+                includeGroup "maven.modrinth"
+            }
+        }
     }
 
     tasks.withType(JavaCompile).configureEach {

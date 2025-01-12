@@ -19,7 +19,9 @@ dependencies {
     mappings loom.officialMojangMappings()
 
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
-    modImplementation "dev.isxander:yet-another-config-lib:${project.yacl_version}-fabric"
+
+    modCompileOnly "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    modCompileOnly "dev.isxander:yet-another-config-lib:${project.yacl_version}-fabric"
 }
 
 publishing {

@@ -1,5 +1,6 @@
 package org.dawnoftime.armoroftheages;
 
+import dev.isxander.yacl3.api.YetAnotherConfigLib;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ArmorItem;
@@ -7,8 +8,10 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLConfig;
@@ -17,6 +20,7 @@ import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.dawnoftime.armoroftheages.client.ArmorModelProvider;
+import org.dawnoftime.armoroftheages.config.AOTAConfig;
 import org.dawnoftime.armoroftheages.item.ForgeHumanoidArmorItem;
 import org.dawnoftime.armoroftheages.registry.ItemRegistry;
 import org.dawnoftime.armoroftheages.registry.ModelProviderRegistry;
@@ -45,6 +49,13 @@ public class ArmorOfTheAges {
                 .icon(() -> ItemRegistry.REGISTRY.TAB_ICON.get().getDefaultInstance())
                 .displayItems((params, output) -> output.acceptAll(ItemRegistryImpl.DEFERRED_REGISTER.getEntries().stream().filter(holder -> holder != ItemRegistry.REGISTRY.TAB_ICON).map((itemDeferredHolder) -> itemDeferredHolder.get().getDefaultInstance()).toList()))
                 .build());
+
+        ModLoadingContext.get().registerExtensionPoint(
+                ConfigScreenHandler.ConfigScreenFactory.class,
+                () -> new ConfigScreenHandler.ConfigScreenFactory(
+                        (client, parent) -> AOTAConfig.CONFIG_CLASS_HANDLER.generateGui().generateScreen(parent)
+                )
+        );
 
         // Client init
         if (FMLEnvironment.dist == Dist.CLIENT) {

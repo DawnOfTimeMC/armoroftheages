@@ -50,7 +50,7 @@ public class ArmorOfTheAges implements ModInitializer {
     /**
      * Registers the LayerDefinitions. Must be client side only !
      */
-    public static void registerLayerDefinitions(){
+    public static void registerLayerDefinitions() {
         ModelProviderRegistry.REGISTRY.forEach((name, provider) -> {
             EntityModelLayerRegistry.registerModelLayer(provider.getLayerLocation(), provider::createLayer);
             if(provider instanceof ArmorModelProvider.MixedArmorModelProvider slimProvide){
