@@ -7,6 +7,6 @@ import org.dawnoftime.armoroftheages.config.AOTAConfig;
 public class ModMenuEntrypoint implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return parent -> AOTAConfig.CONFIG_CLASS_HANDLER.generateGui().generateScreen(parent);
+        return parent -> AOTAConfig.createScreen().generateScreen(parent);
     }
 }

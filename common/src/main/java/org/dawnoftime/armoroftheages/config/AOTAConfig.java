@@ -44,7 +44,7 @@ public class AOTAConfig {
                             .controller(opt -> new BooleanControllerBuilderImpl(opt).coloured(true).trueFalseFormatter())
                             .addListener((option, event) -> {
                                 if (event == OptionEventListener.Event.STATE_CHANGE) {
-                                    preferredModel.setAvailable(config.usePreferredModel);
+                                    preferredModel.setAvailable(option.pendingValue());
                                 }
                             })
                             .build();

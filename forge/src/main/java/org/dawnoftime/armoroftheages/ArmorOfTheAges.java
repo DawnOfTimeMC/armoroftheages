@@ -53,7 +53,7 @@ public class ArmorOfTheAges {
         ModLoadingContext.get().registerExtensionPoint(
                 ConfigScreenHandler.ConfigScreenFactory.class,
                 () -> new ConfigScreenHandler.ConfigScreenFactory(
-                        (client, parent) -> AOTAConfig.CONFIG_CLASS_HANDLER.generateGui().generateScreen(parent)
+                        (client, parent) -> AOTAConfig.createScreen().generateScreen(parent)
                 )
         );
 

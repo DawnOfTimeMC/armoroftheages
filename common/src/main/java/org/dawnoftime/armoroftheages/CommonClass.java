@@ -8,6 +8,6 @@ public class CommonClass {
 
     public static void init() {
         AOTAConfig.CONFIG_CLASS_HANDLER.load();
-        CONFIG_SYNC_HANDLER.setup();
+
     }
 }
