@@ -197,7 +197,7 @@ public class ChestExaltedAurumArmorModel<T extends LivingEntity> extends ArmorMo
 
     @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        
         float d = ageInTicks / 60.0F;
         this.ring.y = -13 + sinPI(d);
         this.ring.zRot = 0.1F * sinPI(d + 0.5F);

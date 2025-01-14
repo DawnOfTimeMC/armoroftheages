@@ -129,7 +129,7 @@ public class ChestAnubisArmorModel<T extends LivingEntity> extends ArmorModel<T>
 
     @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        
         this.collarBack.xRot = -1.5708F + 0.08F * (1 + sinPI(ageInTicks / 40.0F));
         this.crossA.x = getOrbitalX(8.5F + 2 * sinPI(ageInTicks / 40.0F), 0.5F, ageInTicks);
         this.crossA.y = getOrbitalY(8.5F + 2 * sinPI((ageInTicks + 10) / 30.0F), -0.5F, ageInTicks);

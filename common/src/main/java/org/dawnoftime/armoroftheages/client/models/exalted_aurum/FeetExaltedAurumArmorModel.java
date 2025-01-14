@@ -31,6 +31,6 @@ public class FeetExaltedAurumArmorModel<T extends LivingEntity> extends ArmorMod
 
     @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        
     }
 }

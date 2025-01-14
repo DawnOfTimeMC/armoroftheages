@@ -85,7 +85,7 @@ public class HeadPharaohArmorModel<T extends LivingEntity> extends ArmorModel<T>
 
     @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        
         this.headTail.xRot = sinPI(ageInTicks / 60.0F + 1.0F) * 0.05F - this.head.xRot * 0.8F;
         this.headTail.zRot = (0.3F * sinPI(ageInTicks / 60.0F + 1.0F) + this.rightLeg.xRot) * 0.1F;
     }

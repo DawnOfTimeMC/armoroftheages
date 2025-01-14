@@ -127,7 +127,7 @@ public class HeadAnubisArmorModel<T extends LivingEntity> extends ArmorModel<T> 
 
     @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        
         float rh = 0.1F * sinPI(ageInTicks / 35.0F);
         if (this.isSlim) {
             this.earRight.setRotation(0.1249F + rh, 0.2577F, -0.0465F);

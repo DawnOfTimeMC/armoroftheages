@@ -55,22 +55,7 @@ public abstract class ArmorModel<T extends LivingEntity> extends HumanoidModel<T
     /**
      * Override this function to animate the model, instead of overriding {@link ArmorModel#setupAnim}.
      */
-    protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        // Respect preferences only if specified in configuration.
-        if (this.entity != null) {
-            if (!AOTAConfig.get().ignoredSynchronizedPreferredModel) {
-                if (CommonClass.CURRENT_PREFERRED_MODEL_MAP.containsKey(this.entity.getUUID())) {
-                    this.isSlim = CommonClass.CURRENT_PREFERRED_MODEL_MAP.get(this.entity.getUUID()) == PreferredModel.FEMALE;
-                }
-            }
-
-            if (this.entity == Minecraft.getInstance().player) {
-                if (AOTAConfig.get().usePreferredModel) {
-                    this.isSlim = AOTAConfig.get().preferredModel == PreferredModel.FEMALE;
-                }
-            }
-        }
-    }
+    protected abstract void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch);
 
     @Override
     public void setupAnim(@Nonnull LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {

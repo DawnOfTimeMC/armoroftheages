@@ -191,7 +191,7 @@ public class ChestRaijinArmorModel<T extends LivingEntity> extends ArmorModel<T>
 
     @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        
         float f = 0.03F * sinPI(2 * ageInTicks / 60.0F);
         float d = (0.866F - sinPI(0.333F - f)) * 4.0F;
         this.chestScarfTop.y = -4.5F + -d * 0.75F;

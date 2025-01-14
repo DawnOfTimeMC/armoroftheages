@@ -41,6 +41,6 @@ public class FeetOYoroiArmorModel<T extends LivingEntity> extends ArmorModel<T> 
 
     @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        
     }
 }

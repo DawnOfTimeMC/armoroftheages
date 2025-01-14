@@ -132,7 +132,7 @@ public class ChestHolyArmorModel<T extends LivingEntity> extends ArmorModel<T> {
 
     @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        
         float dA = ageInTicks / 40.0F;
         float rotation = dA % (2.0F * (float) Math.PI);
         float rotationD = (dA + (float) Math.PI / 4.0F) % (2.0F * (float) Math.PI);

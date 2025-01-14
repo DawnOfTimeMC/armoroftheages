@@ -81,7 +81,7 @@ public class HeadIronPlateArmorModel<T extends LivingEntity> extends ArmorModel<
 
     @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        
         float f = Math.abs(this.rightLeg.xRot);
         this.middleFeatherA.xRot = -0.15F - f * 0.1F + 0.05F * sinPI(ageInTicks / 60.0F + 1.0F);
         this.middleFeatherB.xRot = -0.15F - f * 0.1F + 0.1F * sinPI((ageInTicks - 15) / 60.0F + 1.0F);

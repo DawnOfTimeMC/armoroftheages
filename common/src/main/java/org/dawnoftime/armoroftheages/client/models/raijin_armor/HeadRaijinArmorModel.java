@@ -165,7 +165,7 @@ public class HeadRaijinArmorModel<T extends LivingEntity> extends ArmorModel<T> 
 
     @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        
         float d = ageInTicks / 60.0F;
         float f = d % (2.0F * (float) Math.PI);
         this.flyA.y = -15.0F + sinPI(d + 1.0F);

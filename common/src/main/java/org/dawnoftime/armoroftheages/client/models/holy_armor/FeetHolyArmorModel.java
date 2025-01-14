@@ -43,7 +43,7 @@ public class FeetHolyArmorModel<T extends LivingEntity> extends ArmorModel<T> {
 
     @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        
         this.legLeftWing.xRot = -0.1745F + 0.1F * sinPI(ageInTicks / 40.0F);
         this.legRightWing.xRot = -0.1745F + 0.1F * sinPI(ageInTicks / 40.0F);
     }

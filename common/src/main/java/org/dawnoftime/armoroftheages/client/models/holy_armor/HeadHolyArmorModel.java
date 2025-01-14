@@ -45,7 +45,7 @@ public class HeadHolyArmorModel<T extends LivingEntity> extends ArmorModel<T> {
 
     @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        
         this.headWingLeft.xRot = 0.3491F + 0.15F * sinPI(ageInTicks / 40.0F);
         this.headWingRight.xRot = 0.3491F + 0.15F * sinPI(ageInTicks / 40.0F);
     }

@@ -59,7 +59,7 @@ public class LegsIronPlateArmorModel<T extends LivingEntity> extends ArmorModel<
 
     @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        
         float f = Math.abs(this.rightLeg.xRot);
         this.miscB.xRot = -(f + 0.05F * sinPI(ageInTicks / 60.0F + 1.0F));
 

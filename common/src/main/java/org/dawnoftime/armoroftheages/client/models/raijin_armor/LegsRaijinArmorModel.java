@@ -153,7 +153,7 @@ public class LegsRaijinArmorModel<T extends LivingEntity> extends ArmorModel<T> 
 
     @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        
         float f = this.leftLeg.xRot;
         if (f > 0.0F) {
             this.chestBeltHangA.xRot = f * 0.5F;

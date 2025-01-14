@@ -54,7 +54,7 @@ public class LegsPharaohArmorModel<T extends LivingEntity> extends ArmorModel<T>
 
     @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        
         this.bodyGoldenStrip.xRot = Math.abs(this.rightLeg.xRot);
 
         if (this.riding) {

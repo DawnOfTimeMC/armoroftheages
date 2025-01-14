@@ -152,7 +152,7 @@ public class ChestIronPlateArmorModel<T extends LivingEntity> extends ArmorModel
 
     @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        
         float f = Math.abs(this.rightLeg.xRot);
         this.miscA.xRot = 0.05F + 0.05F * sinPI(ageInTicks / 60.0F + 1.0F);
         if (this.riding) this.miscA.xRot += 1.0F;

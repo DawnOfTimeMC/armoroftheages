@@ -34,6 +34,6 @@ public class LegsCenturionArmorModel<T extends LivingEntity> extends ArmorModel<
 
     @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        
     }
 }

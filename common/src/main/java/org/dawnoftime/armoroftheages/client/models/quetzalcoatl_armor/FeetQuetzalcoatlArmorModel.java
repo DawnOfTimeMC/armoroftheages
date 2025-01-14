@@ -69,7 +69,7 @@ public class FeetQuetzalcoatlArmorModel<T extends LivingEntity> extends ArmorMod
 
     @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        
         float rf = -0.7931F + 0.2F * sinPI((ageInTicks + 10) / 40.0F);
         this.legFeatherRight.xRot = rf;
         this.legFeatherLeft.xRot = rf;
