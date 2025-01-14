@@ -1,6 +1,7 @@
 package org.dawnoftime.armoroftheages;
 
 import dev.isxander.yacl3.api.YetAnotherConfigLib;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ArmorItem;

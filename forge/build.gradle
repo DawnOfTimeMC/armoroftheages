@@ -1,8 +1,7 @@
 plugins {
     id 'idea'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle'
-    id 'org.spongepowered.mixin'
+    id 'net.neoforged.moddev.legacyforge'
 }
 base {
     archivesName = "${mod_name}-forge-${minecraft_version}"
@@ -23,62 +22,19 @@ repositories {
     }
 }
 
-jarJar.enable()
-
-minecraft {
-    mappings channel: 'official', version: minecraft_version
-
-    copyIdeResources = true //Calls processResources when in dev
-
-    // Automatically enable forge AccessTransformers if the file exists
-    // This location is hardcoded in Forge and can not be changed.
-    // https://github.com/MinecraftForge/MinecraftForge/blob/be1698bb1554f9c8fa2f58e32b9ab70bc4385e60/fmlloader/src/main/java/net/minecraftforge/fml/loading/moddiscovery/ModFile.java#L123
-    if (file('src/main/resources/META-INF/accesstransformer.cfg').exists()) {
-        accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-    }
+legacyForge {
+    // Develop against MinecraftForge version 47.3.0 for 1.20.1 (the versions can be found at https://files.minecraftforge.net/)
+    version = "1.20.1-47.3.0"
 
     runs {
         client {
-            workingDirectory project.file('run')
-            ideaModule "${rootProject.name}.${project.name}.main"
-            taskName 'Client'
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-            mods {
-                modClientRun {
-                    source sourceSets.main
-                    source project(":common").sourceSets.main
-                }
-            }
+            client()
         }
-
-        server {
-            workingDirectory project.file('run')
-            ideaModule "${rootProject.name}.${project.name}.main"
-            taskName 'Server'
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-            mods {
-                modServerRun {
-                    source sourceSets.main
-                    source project(":common").sourceSets.main
-                }
-            }
-        }
-
         data {
-            workingDirectory project.file('run')
-            ideaModule "${rootProject.name}.${project.name}.main"
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-            taskName 'Data'
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-            mods {
-                modDataRun {
-                    source sourceSets.main
-                    source project(":common").sourceSets.main
-                }
-            }
+            data()
+        }
+        server {
+            server()
         }
     }
 }
@@ -86,27 +42,27 @@ minecraft {
 sourceSets.main.resources.srcDir 'src/generated/resources'
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    compileOnly project(":common")
-    annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
+    implementation project(":common")
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    implementation 'org.jetbrains:annotations:16.0.2'
 
     // Both numbers comes from Curse. The first number is the project_id (on the right) and the second one is the file_id (in the URL)
-    runtimeOnly fg.deobf("curse.maven:jei-238222:5440261") // JEI (Just Enough Items)
-    runtimeOnly fg.deobf("curse.maven:citadel-331936:5143956") // Citadel
-    runtimeOnly fg.deobf("curse.maven:rats-323596:4802123") // Rats
+    modRuntimeOnly("curse.maven:jei-238222:5440261") // JEI (Just Enough Items)
+    modRuntimeOnly("curse.maven:citadel-331936:5143956") // Citadel
+    modRuntimeOnly("curse.maven:rats-323596:4802123") // Rats
 
-    compileOnly fg.deobf("dev.isxander:yet-another-config-lib:${project.yacl_version}-forge")
-
-    // jar in jar yet-another-config-lib
-    jarJar("dev.isxander:yet-another-config-lib:${project.yacl_version}-forge")
+    modImplementation("dev.isxander:yet-another-config-lib:${project.yacl_version}-forge")
 }
 
 tasks.withType(JavaCompile).configureEach {
     source(project(":common").sourceSets.main.allSource)
 }
+
 tasks.withType(Javadoc).configureEach {
     source(project(":common").sourceSets.main.allJava)
 }
+
 tasks.named("sourcesJar", Jar) {
     from(project(":common").sourceSets.main.allSource)
 }
@@ -115,14 +71,11 @@ processResources {
     from project(":common").sourceSets.main.resources
 }
 
-jar.finalizedBy('reobfJar')
-
 publishing {
     publications {
         mavenJava(MavenPublication) {
             artifactId base.archivesName.get()
             from components.java
-            fg.component(it)
         }
     }
     repositories {
