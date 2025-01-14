@@ -18,11 +18,6 @@ public class HeadQuetzalcoatlArmorModel<T extends LivingEntity> extends ArmorMod
         this.featherCrownMiddle = this.head.getChild("featherCrownMiddle");
     }
 
-    @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new HeadQuetzalcoatlArmorModel<>(root, isSlim);
-    }
-
     public static LayerDefinition createLayerDefinition() {
         MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
         PartDefinition root = meshdefinition.getRoot();
@@ -83,7 +78,13 @@ public class HeadQuetzalcoatlArmorModel<T extends LivingEntity> extends ArmorMod
     }
 
     @Override
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new HeadQuetzalcoatlArmorModel<>(root, isSlim);
+    }
+
+    @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         float rh = -0.4363F + 0.1F * sinPI(ageInTicks / 40.0F);
         this.featherCrownLeft.xRot = rh;
         this.featherCrownRight.xRot = rh;

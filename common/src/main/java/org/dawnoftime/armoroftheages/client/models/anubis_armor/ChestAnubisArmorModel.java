@@ -22,11 +22,6 @@ public class ChestAnubisArmorModel<T extends LivingEntity> extends ArmorModel<T>
         this.crossD = this.body.getChild("cross_d");
     }
 
-    @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new ChestAnubisArmorModel<>(root, isSlim);
-    }
-
     public static LayerDefinition createLayerDefinition() {
         MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
         PartDefinition root = meshdefinition.getRoot();
@@ -128,23 +123,29 @@ public class ChestAnubisArmorModel<T extends LivingEntity> extends ArmorModel<T>
     }
 
     @Override
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new ChestAnubisArmorModel<>(root, isSlim);
+    }
+
+    @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.collarBack.xRot = - 1.5708F + 0.08F * (1 + sinPI(ageInTicks / 40.0F));
+        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        this.collarBack.xRot = -1.5708F + 0.08F * (1 + sinPI(ageInTicks / 40.0F));
         this.crossA.x = getOrbitalX(8.5F + 2 * sinPI(ageInTicks / 40.0F), 0.5F, ageInTicks);
         this.crossA.y = getOrbitalY(8.5F + 2 * sinPI((ageInTicks + 10) / 30.0F), -0.5F, ageInTicks);
-        this.crossB.x = getOrbitalX(8.0F + 2 * sinPI(ageInTicks / 70.0F), 0.45F, ageInTicks+ 5);
+        this.crossB.x = getOrbitalX(8.0F + 2 * sinPI(ageInTicks / 70.0F), 0.45F, ageInTicks + 5);
         this.crossB.y = getOrbitalY(8.0F + 2 * sinPI((ageInTicks + 10) / 40.0F), 0.45F, ageInTicks + 25);
-        this.crossC.x = getOrbitalX(9.0F + 2 * sinPI((ageInTicks + 25) / 30.0F), 0.55F, ageInTicks+ 25);
+        this.crossC.x = getOrbitalX(9.0F + 2 * sinPI((ageInTicks + 25) / 30.0F), 0.55F, ageInTicks + 25);
         this.crossC.y = getOrbitalY(9.0F + 2 * sinPI((ageInTicks + 5) / 50.0F), 0.55F, ageInTicks + 30);
         this.crossD.x = getOrbitalX(8.0F + 2 * sinPI((ageInTicks + 30) / 80.0F), 0.42F, ageInTicks + 20);
         this.crossD.y = getOrbitalY(8.0F + 2 * sinPI(ageInTicks / 50.0F), 0.42F, ageInTicks + 20);
     }
 
-    private float getOrbitalX(float amplitude, float frequency, float ageInTicks){
+    private float getOrbitalX(float amplitude, float frequency, float ageInTicks) {
         return amplitude * cosPI(2 * frequency * ageInTicks / 40);
     }
 
-    private float getOrbitalY(float amplitude, float frequency, float ageInTicks){
+    private float getOrbitalY(float amplitude, float frequency, float ageInTicks) {
         return 30.0F + amplitude * sinPI(2 * frequency * ageInTicks / 40);
     }
 }

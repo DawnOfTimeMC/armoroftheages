@@ -18,11 +18,6 @@ public class LegsIronPlateArmorModel<T extends LivingEntity> extends ArmorModel<
         this.beltB = this.body.getChild("beltB");
     }
 
-    @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new LegsIronPlateArmorModel<>(root, isSlim);
-    }
-
     public static LayerDefinition createLayerDefinition() {
         MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
         PartDefinition root = meshdefinition.getRoot();
@@ -58,7 +53,13 @@ public class LegsIronPlateArmorModel<T extends LivingEntity> extends ArmorModel<
     }
 
     @Override
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new LegsIronPlateArmorModel<>(root, isSlim);
+    }
+
+    @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         float f = Math.abs(this.rightLeg.xRot);
         this.miscB.xRot = -(f + 0.05F * sinPI(ageInTicks / 60.0F + 1.0F));
 

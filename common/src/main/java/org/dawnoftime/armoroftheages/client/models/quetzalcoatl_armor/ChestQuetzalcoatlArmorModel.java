@@ -30,11 +30,6 @@ public class ChestQuetzalcoatlArmorModel<T extends LivingEntity> extends ArmorMo
         this.snakeCrownLeft = this.snakeHead.getChild("snakeCrownLeft");
     }
 
-    @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new ChestQuetzalcoatlArmorModel<>(root, isSlim);
-    }
-
     public static LayerDefinition createLayerDefinition() {
         MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
         PartDefinition root = meshdefinition.getRoot();
@@ -407,7 +402,13 @@ public class ChestQuetzalcoatlArmorModel<T extends LivingEntity> extends ArmorMo
     }
 
     @Override
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new ChestQuetzalcoatlArmorModel<>(root, isSlim);
+    }
+
+    @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         float rA = sinPI(ageInTicks / 40.0F);
         float rB = sinPI((ageInTicks - 15) / 40.0F);
         this.tail.xRot = this.rightArm.xRot < 0.0F ? this.rightArm.xRot : this.rightArm.xRot * 0.1F;

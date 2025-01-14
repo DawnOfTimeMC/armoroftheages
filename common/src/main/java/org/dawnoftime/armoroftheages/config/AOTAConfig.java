@@ -9,6 +9,7 @@ import dev.isxander.yacl3.impl.controller.BooleanControllerBuilderImpl;
 import dev.isxander.yacl3.impl.controller.EnumControllerBuilderImpl;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import org.dawnoftime.armoroftheages.CommonClass;
 import org.dawnoftime.armoroftheages.Constants;
 
 public class AOTAConfig {
@@ -27,6 +28,10 @@ public class AOTAConfig {
     @SerialEntry
     public PreferredModel preferredModel = PreferredModel.MALE;
 
+    public static AOTAConfig get() {
+        return CONFIG_CLASS_HANDLER.instance();
+    }
+
     public static YetAnotherConfigLib createScreen() {
         return YetAnotherConfigLib.create(CONFIG_CLASS_HANDLER,
                 (AOTAConfig defaults, AOTAConfig config, YetAnotherConfigLib.Builder builder) -> {
@@ -35,6 +40,7 @@ public class AOTAConfig {
                             .description(OptionDescription.of(Component.translatable("config.armoroftheages.preferred_model.description")))
                             .binding(defaults.preferredModel, () -> config.preferredModel, val -> config.preferredModel = val)
                             .controller(opt -> new EnumControllerBuilderImpl<>(opt).enumClass(PreferredModel.class))
+                            .available(config.usePreferredModel)
                             .build();
 
                     var usedPreferredModel = Option.<Boolean>createBuilder()
@@ -59,8 +65,7 @@ public class AOTAConfig {
                     return builder.title(Component.translatable("config.armoroftheages.title"))
                             .save(() -> {
                                 CONFIG_CLASS_HANDLER.save();
-
-
+                                CommonClass.CONFIG_SYNC_HANDLER.syncConfig();
                             })
                             .category(ConfigCategory.createBuilder()
                                     .name(Component.translatable("config.armoroftheages.title"))
@@ -72,8 +77,4 @@ public class AOTAConfig {
                 });
     }
 
-    public enum PreferredModel {
-        MALE,
-        FEMALE
-    }
 }

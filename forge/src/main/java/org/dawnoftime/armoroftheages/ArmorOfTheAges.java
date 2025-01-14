@@ -22,6 +22,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.dawnoftime.armoroftheages.client.ArmorModelProvider;
 import org.dawnoftime.armoroftheages.config.AOTAConfig;
 import org.dawnoftime.armoroftheages.item.ForgeHumanoidArmorItem;
+import org.dawnoftime.armoroftheages.networking.ForgeConfigSyncNetworkHandler;
 import org.dawnoftime.armoroftheages.registry.ItemRegistry;
 import org.dawnoftime.armoroftheages.registry.ModelProviderRegistry;
 
@@ -62,6 +63,7 @@ public class ArmorOfTheAges {
             modEventBus.addListener(ArmorOfTheAges::registerLayerDefinitions);
         }
 
+        CommonClass.CONFIG_SYNC_HANDLER = new ForgeConfigSyncNetworkHandler();
         CommonClass.init();
     }
 

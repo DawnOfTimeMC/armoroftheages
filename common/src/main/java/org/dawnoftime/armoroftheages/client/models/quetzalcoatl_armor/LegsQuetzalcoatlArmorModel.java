@@ -3,7 +3,6 @@ package org.dawnoftime.armoroftheages.client.models.quetzalcoatl_armor;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import org.dawnoftime.armoroftheages.client.models.ArmorModel;
 
@@ -15,11 +14,6 @@ public class LegsQuetzalcoatlArmorModel<T extends LivingEntity> extends ArmorMod
         super(root, isSlim);
         this.underwearFront = this.body.getChild("underwearFront");
         this.underwearBack = this.body.getChild("underwearBack");
-    }
-
-    @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new LegsQuetzalcoatlArmorModel<>(root, isSlim);
     }
 
     public static LayerDefinition createLayerDefinition() {
@@ -73,7 +67,13 @@ public class LegsQuetzalcoatlArmorModel<T extends LivingEntity> extends ArmorMod
     }
 
     @Override
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new LegsQuetzalcoatlArmorModel<>(root, isSlim);
+    }
+
+    @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         float f = Math.abs(0.05F + 1.02F * this.rightLeg.xRot) + 0.05F * (1 + sinPI(ageInTicks / 40.0F));
         this.underwearFront.xRot = -f;
         this.underwearBack.xRot = f;

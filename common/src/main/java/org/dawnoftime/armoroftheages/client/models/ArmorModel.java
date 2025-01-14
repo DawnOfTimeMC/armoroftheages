@@ -1,5 +1,6 @@
 package org.dawnoftime.armoroftheages.client.models;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -7,25 +8,23 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
+import org.dawnoftime.armoroftheages.CommonClass;
 import org.dawnoftime.armoroftheages.client.ArmorModelSupplier;
+import org.dawnoftime.armoroftheages.config.AOTAConfig;
+import org.dawnoftime.armoroftheages.config.PreferredModel;
 
 import javax.annotation.Nonnull;
 
 public abstract class ArmorModel<T extends LivingEntity> extends HumanoidModel<T> implements ArmorModelSupplier {
-    public final boolean isSlim;
+    public boolean isSlim;
+    private LivingEntity entity;
 
     public ArmorModel(ModelPart root, boolean isSlim) {
         super(root);
         this.isSlim = isSlim;
     }
-
-    /**
-     * Override this function to animate the model, instead of overriding {@link ArmorModel#setupAnim}.
-     */
-    protected abstract void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch);
 
     /**
      * This function must be called before adding the parts in the other models !!!
@@ -45,8 +44,38 @@ public abstract class ArmorModel<T extends LivingEntity> extends HumanoidModel<T
         return mesh;
     }
 
+    public static float sinPI(float f) {
+        return Mth.sin(f * (float) Math.PI);
+    }
+
+    public static float cosPI(float f) {
+        return Mth.cos(f * (float) Math.PI);
+    }
+
+    /**
+     * Override this function to animate the model, instead of overriding {@link ArmorModel#setupAnim}.
+     */
+    protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        // Respect preferences only if specified in configuration.
+        if (this.entity != null) {
+            if (!AOTAConfig.get().ignoredSynchronizedPreferredModel) {
+                if (CommonClass.CURRENT_PREFERRED_MODEL_MAP.containsKey(this.entity.getUUID())) {
+                    this.isSlim = CommonClass.CURRENT_PREFERRED_MODEL_MAP.get(this.entity.getUUID()) == PreferredModel.FEMALE;
+                }
+            }
+
+            if (this.entity == Minecraft.getInstance().player) {
+                if (AOTAConfig.get().usePreferredModel) {
+                    this.isSlim = AOTAConfig.get().preferredModel == PreferredModel.FEMALE;
+                }
+            }
+        }
+    }
+
     @Override
     public void setupAnim(@Nonnull LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        this.entity = entity;
+
         // Fix the "breathing" and wrong head rotation on ArmorStands
         if (entity instanceof ArmorStand entityAS) {
             float f = (float) Math.PI / 180F;
@@ -72,10 +101,6 @@ public abstract class ArmorModel<T extends LivingEntity> extends HumanoidModel<T
             this.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         }
     }
-
-    public static float sinPI(float f) { return Mth.sin(f * (float) Math.PI); }
-
-    public static float cosPI(float f) { return Mth.cos(f * (float) Math.PI); }
 
     public <M extends HumanoidModel<? extends LivingEntity>> void copyEntityModelPosition(M parentModel) {
         this.leftArmPose = parentModel.leftArmPose;

@@ -41,11 +41,6 @@ public class ChestHolyArmorModel<T extends LivingEntity> extends ArmorModel<T> {
         this.armRightWing = this.rightArm.getChild("armRightElbow").getChild("armRightWing");
     }
 
-    @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new ChestHolyArmorModel<>(root, isSlim);
-    }
-
     public static LayerDefinition createLayerDefinition() {
         MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
         PartDefinition root = meshdefinition.getRoot();
@@ -87,7 +82,6 @@ public class ChestHolyArmorModel<T extends LivingEntity> extends ArmorModel<T> {
 
         return LayerDefinition.create(meshdefinition, 128, 128);
     }
-
 
     public static LayerDefinition createSlimLayerDefinition() {
         MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
@@ -131,12 +125,17 @@ public class ChestHolyArmorModel<T extends LivingEntity> extends ArmorModel<T> {
         return LayerDefinition.create(meshdefinition, 128, 128);
     }
 
+    @Override
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new ChestHolyArmorModel<>(root, isSlim);
+    }
 
     @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        super.setupArmorPartAnim(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         float dA = ageInTicks / 40.0F;
-        float rotation = dA % (2.0F * (float)Math.PI);
-        float rotationD = (dA + (float)Math.PI / 4.0F) % (2.0F * (float)Math.PI);
+        float rotation = dA % (2.0F * (float) Math.PI);
+        float rotationD = (dA + (float) Math.PI / 4.0F) % (2.0F * (float) Math.PI);
         this.chestEffectFrontA.zRot = rotation;
         this.chestEffectFrontB.zRot = rotationD;
         this.chestEffectMiddle.zRot = rotation;
@@ -158,8 +157,8 @@ public class ChestHolyArmorModel<T extends LivingEntity> extends ArmorModel<T> {
         this.chestEffectSmall.y = dA;
         this.chestEffectSmallRotated.y = dA;
         dA = ageInTicks / 20.0F;
-        rotation = dA % (2.0F * (float)Math.PI);
-        rotationD = (dA + (float)Math.PI / 4.0F) % (2.0F * (float)Math.PI);
+        rotation = dA % (2.0F * (float) Math.PI);
+        rotationD = (dA + (float) Math.PI / 4.0F) % (2.0F * (float) Math.PI);
         this.chestEffectSmall.zRot = -rotation;
         this.chestEffectSmallRotated.zRot = -rotationD;
     }
