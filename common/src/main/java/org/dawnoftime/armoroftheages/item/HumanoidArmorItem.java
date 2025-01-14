@@ -11,8 +11,8 @@ import net.minecraft.world.level.Level;
 import org.dawnoftime.armoroftheages.client.ArmorModelProvider;
 import org.dawnoftime.armoroftheages.registry.ModelProviderRegistry;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 import static org.dawnoftime.armoroftheages.Constants.MOD_ID;

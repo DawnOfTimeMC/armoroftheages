@@ -1,6 +1,5 @@
 package org.dawnoftime.armoroftheages.client.models;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -10,12 +9,8 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
-import org.dawnoftime.armoroftheages.CommonClass;
 import org.dawnoftime.armoroftheages.client.ArmorModelSupplier;
-import org.dawnoftime.armoroftheages.config.AOTAConfig;
-import org.dawnoftime.armoroftheages.config.PreferredModel;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class ArmorModel<T extends LivingEntity> extends HumanoidModel<T> implements ArmorModelSupplier {
     public boolean isSlim;
@@ -58,7 +53,7 @@ public abstract class ArmorModel<T extends LivingEntity> extends HumanoidModel<T
     protected abstract void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch);
 
     @Override
-    public void setupAnim(@Nonnull LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(@NotNull LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.entity = entity;
 
         // Fix the "breathing" and wrong head rotation on ArmorStands

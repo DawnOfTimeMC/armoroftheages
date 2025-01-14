@@ -55,12 +55,10 @@ dependencies {
     modImplementation("dev.isxander:yet-another-config-lib:${project.yacl_version}-forge")
 }
 
+compileTestJava.enabled = false
+
 tasks.withType(JavaCompile).configureEach {
     source(project(":common").sourceSets.main.allSource)
-}
-
-tasks.withType(Javadoc).configureEach {
-    source(project(":common").sourceSets.main.allJava)
 }
 
 tasks.named("sourcesJar", Jar) {
