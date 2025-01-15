@@ -89,6 +89,8 @@ public class ArmorOfTheAges {
 
     @SubscribeEvent
     public void playerLoggedInEvent(PlayerEvent.PlayerLoggedInEvent event) {
+        if (!event.getEntity().level().isClientSide) return;
+
         CommonClass.CONFIG_SYNC_HANDLER.syncConfig();
     }
 
