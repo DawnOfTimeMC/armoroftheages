@@ -8,7 +8,10 @@ import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import org.dawnoftime.armoroftheages.CommonClass;
 import org.dawnoftime.armoroftheages.client.models.ArmorModel;
+import org.dawnoftime.armoroftheages.config.AOTAConfig;
+import org.dawnoftime.armoroftheages.config.PreferredModel;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
@@ -54,8 +57,20 @@ public class ArmorModelProvider {
         return this.layerDefinitionSupplier.get();
     }
 
-    public static boolean isSlim(Entity entity){
-        return entity instanceof AbstractClientPlayer player && player.getSkin().model() == PlayerSkin.Model.SLIM;
+    public static boolean isSlim(Entity entity) {
+        // Respect preferences only if specified in configuration.
+        if (entity == Minecraft.getInstance().player) {
+            if (AOTAConfig.get().usePreferredModel) {
+                return AOTAConfig.get().preferredModel == PreferredModel.FEMALE;
+            }
+        }
+        if (!AOTAConfig.get().ignoredSynchronizedPreferredModel) {
+            if (CommonClass.CURRENT_PREFERRED_MODEL_MAP.containsKey(entity.getUUID())) {
+                return CommonClass.CURRENT_PREFERRED_MODEL_MAP.get(entity.getUUID()) == PreferredModel.FEMALE;
+            }
+        }
+
+        return entity instanceof AbstractClientPlayer player && player.getSkin().model().equals(PlayerSkin.Model.SLIM);
     }
 
     public ArmorModel<?> getArmorModel(Entity entity) {

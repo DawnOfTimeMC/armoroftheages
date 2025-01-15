@@ -53,4 +53,6 @@ dependencies {
     runtimeOnly "curse.maven:jei-238222:5466551" // JEI (Just Enough Items)
     //runtimeOnly "curse.maven:citadel-331936:5143956" // Citadel
     //runtimeOnly "curse.maven:rats-323596:4802123" // Rats
+
+    implementation ("dev.isxander:yet-another-config-lib:${project.yacl_version}-neoforge")
 }

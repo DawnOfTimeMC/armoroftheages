@@ -2,9 +2,15 @@ package org.dawnoftime.armoroftheages;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -13,6 +19,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.dawnoftime.armoroftheages.client.ArmorModelProvider;
+import org.dawnoftime.armoroftheages.networking.FabricConfigSyncNetworkHandler;
 import org.dawnoftime.armoroftheages.registry.ModelProviderRegistry;
 
 import static org.dawnoftime.armoroftheages.AotAItemRegistry.ITEMS;
@@ -29,6 +36,9 @@ public class ArmorOfTheAges implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        Constants.CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve(MOD_ID + ".json");
+        CommonClass.CONFIG_SYNC_HANDLER = new FabricConfigSyncNetworkHandler();
+
         // Items init
         AotAItemRegistry.init();
 
@@ -41,6 +51,10 @@ public class ArmorOfTheAges implements ModInitializer {
         }
 
         CommonClass.init();
+
+        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
+            CommonClass.CONFIG_SYNC_HANDLER.syncConfig();
+        });
     }
 
     /**
