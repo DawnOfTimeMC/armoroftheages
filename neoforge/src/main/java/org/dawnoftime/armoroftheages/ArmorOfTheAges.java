@@ -14,6 +14,7 @@ import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
@@ -44,8 +45,7 @@ public class ArmorOfTheAges {
                 () -> (client, parent) -> AOTAConfig.createScreen().generateScreen(parent)
         );
 
-        modEventBus.addListener(ArmorOfTheAges::registerPackets);
-        modEventBus.addListener(ArmorOfTheAges::playerLoggedInEvent);
+        modEventBus.addListener(this::registerPackets);
 
         // Materials init
         ARMOR_MATERIALS.register(modEventBus);
@@ -69,8 +69,7 @@ public class ArmorOfTheAges {
         CommonClass.init();
     }
 
-    @SubscribeEvent
-    public static void registerPackets(final RegisterPayloadHandlersEvent event) {
+    public void registerPackets(final RegisterPayloadHandlersEvent event) {
         final PayloadRegistrar registrar = event.registrar("my_mod")
                 .versioned("1.2.3")
                 .optional();
@@ -83,7 +82,7 @@ public class ArmorOfTheAges {
     }
 
     @SubscribeEvent
-    public static void playerLoggedInEvent(PlayerEvent.PlayerLoggedInEvent event) {
+    public void playerLoggedInEvent(PlayerEvent.PlayerLoggedInEvent event) {
         CommonClass.CONFIG_SYNC_HANDLER.syncConfig();
     }
 
