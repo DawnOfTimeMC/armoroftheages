@@ -2,6 +2,7 @@ package org.dawnoftime.armoroftheages;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.loader.api.FabricLoader;
@@ -47,6 +48,10 @@ public class ArmorOfTheAges implements ModInitializer {
 
         CommonClass.CONFIG_SYNC_HANDLER = new FabricConfigSyncNetworkHandler();
         CommonClass.init();
+
+        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
+            CommonClass.CONFIG_SYNC_HANDLER.syncConfig();
+        });
     }
 
     /**
