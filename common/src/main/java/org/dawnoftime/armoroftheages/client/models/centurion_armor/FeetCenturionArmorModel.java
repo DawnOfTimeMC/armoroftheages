@@ -12,11 +12,6 @@ public class FeetCenturionArmorModel<T extends LivingEntity> extends ArmorModel<
         super(root, isSlim);
     }
 
-    @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new FeetCenturionArmorModel<>(root, isSlim);
-    }
-
     public static LayerDefinition createLayerDefinition() {
         MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
         PartDefinition root = meshdefinition.getRoot();
@@ -32,5 +27,12 @@ public class FeetCenturionArmorModel<T extends LivingEntity> extends ArmorModel<
     }
 
     @Override
-    protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {}
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new FeetCenturionArmorModel<>(root, isSlim);
+    }
+
+    @Override
+    protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        
+    }
 }

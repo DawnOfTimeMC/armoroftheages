@@ -26,11 +26,6 @@ public class ChestExaltedAurumArmorModel<T extends LivingEntity> extends ArmorMo
         this.midHang = this.midDeco.getChild("mid_hang");
     }
 
-    @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new ChestExaltedAurumArmorModel<>(root, isSlim);
-    }
-
     public static LayerDefinition createLayerDefinition() {
         MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
         PartDefinition root = meshdefinition.getRoot();
@@ -196,7 +191,13 @@ public class ChestExaltedAurumArmorModel<T extends LivingEntity> extends ArmorMo
     }
 
     @Override
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new ChestExaltedAurumArmorModel<>(root, isSlim);
+    }
+
+    @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        
         float d = ageInTicks / 60.0F;
         this.ring.y = -13 + sinPI(d);
         this.ring.zRot = 0.1F * sinPI(d + 0.5F);

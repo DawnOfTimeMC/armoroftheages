@@ -1,7 +1,9 @@
 package org.dawnoftime.armoroftheages;
 
-public class Constants {
+import java.nio.file.Path;
 
+public class Constants {
+	public static Path CONFIG_PATH = null;
 	public static final String MOD_ID = "armoroftheages";
 
 	// Armor Sets

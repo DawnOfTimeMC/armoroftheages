@@ -2,6 +2,7 @@ package org.dawnoftime.armoroftheages;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.loader.api.FabricLoader;
@@ -12,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
 import org.dawnoftime.armoroftheages.client.ArmorModelProvider;
 import org.dawnoftime.armoroftheages.item.HumanoidArmorItem;
+import org.dawnoftime.armoroftheages.networking.FabricConfigSyncNetworkHandler;
 import org.dawnoftime.armoroftheages.registry.ItemRegistry;
 import org.dawnoftime.armoroftheages.registry.ModelProviderRegistry;
 
@@ -31,6 +33,8 @@ public class ArmorOfTheAges implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        Constants.CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve(MOD_ID + ".json");
+
         // Items init
         ItemRegistryImpl.REGISTRY = new ItemRegistryImpl();
 
@@ -42,13 +46,18 @@ public class ArmorOfTheAges implements ModInitializer {
             registerLayerDefinitions();
         }
 
+        CommonClass.CONFIG_SYNC_HANDLER = new FabricConfigSyncNetworkHandler();
         CommonClass.init();
+
+        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
+            CommonClass.CONFIG_SYNC_HANDLER.syncConfig();
+        });
     }
 
     /**
      * Registers the LayerDefinitions. Must be client side only !
      */
-    public static void registerLayerDefinitions(){
+    public static void registerLayerDefinitions() {
         ModelProviderRegistry.REGISTRY.forEach((name, provider) -> {
             EntityModelLayerRegistry.registerModelLayer(provider.getLayerLocation(), provider::createLayer);
             if(provider instanceof ArmorModelProvider.MixedArmorModelProvider slimProvide){

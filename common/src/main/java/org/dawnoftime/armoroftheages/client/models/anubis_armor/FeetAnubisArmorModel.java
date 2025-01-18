@@ -12,11 +12,6 @@ public class FeetAnubisArmorModel<T extends LivingEntity> extends ArmorModel<T> 
         super(root, isSlim);
     }
 
-    @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new FeetAnubisArmorModel<>(root, isSlim);
-    }
-
     public static LayerDefinition createLayerDefinition() {
         MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
         PartDefinition root = meshdefinition.getRoot();
@@ -24,7 +19,7 @@ public class FeetAnubisArmorModel<T extends LivingEntity> extends ArmorModel<T> 
                         .texOffs(93, 14).addBox(-2.5F, 7.4F, -2.5F, 5.0F, 3.0F, 5.0F, new CubeDeformation(-0.2F)),
                 PartPose.ZERO);
 
-       root.addOrReplaceChild("right_leg", CubeListBuilder.create()
+        root.addOrReplaceChild("right_leg", CubeListBuilder.create()
                         .texOffs(93, 14).addBox(-2.5F, 7.4F, -2.5F, 5.0F, 3.0F, 5.0F, new CubeDeformation(-0.2F)),
                 PartPose.ZERO);
 
@@ -32,5 +27,12 @@ public class FeetAnubisArmorModel<T extends LivingEntity> extends ArmorModel<T> 
     }
 
     @Override
-    protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {}
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new FeetAnubisArmorModel<>(root, isSlim);
+    }
+
+    @Override
+    protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        
+    }
 }

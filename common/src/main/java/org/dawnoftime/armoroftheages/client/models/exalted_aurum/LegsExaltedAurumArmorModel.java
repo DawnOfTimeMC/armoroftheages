@@ -16,11 +16,6 @@ public class LegsExaltedAurumArmorModel<T extends LivingEntity> extends ArmorMod
         this.beltBack = this.body.getChild("belt_back");
     }
 
-    @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new LegsExaltedAurumArmorModel<>(root, isSlim);
-    }
-
     public static LayerDefinition createLayerDefinition() {
         MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
         PartDefinition root = meshdefinition.getRoot();
@@ -81,7 +76,13 @@ public class LegsExaltedAurumArmorModel<T extends LivingEntity> extends ArmorMod
     }
 
     @Override
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new LegsExaltedAurumArmorModel<>(root, isSlim);
+    }
+
+    @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        
         float f = Math.abs(this.rightLeg.xRot);
         this.beltBack.xRot = f;
         this.beltFront.xRot = -f;

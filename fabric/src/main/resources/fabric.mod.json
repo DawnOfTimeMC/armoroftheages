@@ -17,6 +17,9 @@
     "entrypoints": {
         "main": [
             "org.dawnoftime.armoroftheages.ArmorOfTheAges"
+        ],
+        "modmenu": [
+            "org.dawnoftime.armoroftheages.compat.ModMenuEntrypoint"
         ]
     },
     "mixins": [

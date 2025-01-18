@@ -41,5 +41,14 @@
     "item.armoroftheages.anubis_armor_chest": "Anubis Chest",
     "item.armoroftheages.anubis_armor_legs": "Anubis Shendyts",
     "item.armoroftheages.anubis_armor_feet": "Anubis Bracelets",
-    "tooltip.armoroftheages.repair_with": "Can be repaired with : "
+    "tooltip.armoroftheages.repair_with": "Can be repaired with : ",
+
+    "config.armoroftheages.notice": "§6§lNotice:§r It's not recommended to change the values of the following settings as they may cause visual issues with some armors.",
+    "config.armoroftheages.title": "Armor Of The Ages",
+    "config.armoroftheages.preferred_model": "Preferred Model",
+    "config.armoroftheages.preferred_model.description": "When wearing armour, which model type should be used?\n\nNote: It's not recommended to use the female model when you have a male (non-slim) skin.",
+    "config.armoroftheages.ignore_synchronized_preferred_models": "Ignore Synchronized Preferred Models",
+    "config.armoroftheages.ignore_synchronized_preferred_models.description": "If this option is enabled, you will not see the preferred models of other players if they have a custom model type preference set in their config.",
+    "config.armoroftheages.use_preferred_model": "Use Preferred Model",
+    "config.armoroftheages.use_preferred_model.description": "Should Armor Of The Ages use your preferred model type when you wear armor?"
 }

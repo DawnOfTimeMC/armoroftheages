@@ -8,12 +8,16 @@ base {
     archivesName = "${mod_name}-fabric-${minecraft_version}"
 }
 dependencies {
+    implementation project(":common")
+
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.officialMojangMappings()
+
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
-    implementation project(":common")
+
+    modImplementation "maven.modrinth:modmenu:lEkperf6"
+    include modImplementation("dev.isxander:yet-another-config-lib:${project.yacl_version}-fabric")
 }
 
 loom {
@@ -42,9 +46,7 @@ loom {
 tasks.withType(JavaCompile).configureEach {
     source(project(":common").sourceSets.main.allSource)
 }
-tasks.withType(Javadoc).configureEach {
-    source(project(":common").sourceSets.main.allJava)
-}
+
 tasks.named("sourcesJar", Jar) {
     from(project(":common").sourceSets.main.allSource)
 }

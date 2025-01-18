@@ -14,11 +14,6 @@ public class ChestIronPlateArmorModel<T extends LivingEntity> extends ArmorModel
         this.miscA = this.body.getChild("miscA");
     }
 
-    @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new ChestIronPlateArmorModel<>(root, isSlim);
-    }
-
     public static LayerDefinition createLayerDefinition() {
         MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
         PartDefinition root = meshdefinition.getRoot();
@@ -151,7 +146,13 @@ public class ChestIronPlateArmorModel<T extends LivingEntity> extends ArmorModel
     }
 
     @Override
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new ChestIronPlateArmorModel<>(root, isSlim);
+    }
+
+    @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        
         float f = Math.abs(this.rightLeg.xRot);
         this.miscA.xRot = 0.05F + 0.05F * sinPI(ageInTicks / 60.0F + 1.0F);
         if (this.riding) this.miscA.xRot += 1.0F;

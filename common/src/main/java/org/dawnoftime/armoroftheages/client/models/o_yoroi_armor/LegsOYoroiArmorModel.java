@@ -2,8 +2,10 @@ package org.dawnoftime.armoroftheages.client.models.o_yoroi_armor;
 
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.world.entity.LivingEntity;
 import org.dawnoftime.armoroftheages.client.models.ArmorModel;
 
@@ -20,11 +22,6 @@ public class LegsOYoroiArmorModel<T extends LivingEntity> extends ArmorModel<T> 
         this.thighBackSub = this.body.getChild("thighBackSub");
         this.thighFront = this.body.getChild("thighFront");
         this.thighFrontSub = this.body.getChild("thighFrontSub");
-    }
-
-    @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new LegsOYoroiArmorModel<>(root, isSlim);
     }
 
     public static LayerDefinition createLayerDefinition() {
@@ -65,7 +62,13 @@ public class LegsOYoroiArmorModel<T extends LivingEntity> extends ArmorModel<T> 
     }
 
     @Override
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new LegsOYoroiArmorModel<>(root, isSlim);
+    }
+
+    @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        
         float f = Math.abs(this.rightLeg.xRot);
         this.thighBack.xRot = f;
         this.thighBackSub.xRot = f;

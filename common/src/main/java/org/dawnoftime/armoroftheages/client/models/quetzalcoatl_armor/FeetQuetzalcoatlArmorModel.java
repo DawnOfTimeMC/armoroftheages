@@ -16,11 +16,6 @@ public class FeetQuetzalcoatlArmorModel<T extends LivingEntity> extends ArmorMod
         this.legFeatherLeft = this.leftLeg.getChild("legFeatherLeft");
     }
 
-    @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new FeetQuetzalcoatlArmorModel<>(root, isSlim);
-    }
-
     public static LayerDefinition createLayerDefinition() {
         MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
         PartDefinition root = meshdefinition.getRoot();
@@ -68,7 +63,13 @@ public class FeetQuetzalcoatlArmorModel<T extends LivingEntity> extends ArmorMod
     }
 
     @Override
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new FeetQuetzalcoatlArmorModel<>(root, isSlim);
+    }
+
+    @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        
         float rf = -0.7931F + 0.2F * sinPI((ageInTicks + 10) / 40.0F);
         this.legFeatherRight.xRot = rf;
         this.legFeatherLeft.xRot = rf;

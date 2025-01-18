@@ -16,11 +16,6 @@ public class HeadHolyArmorModel<T extends LivingEntity> extends ArmorModel<T> {
         this.headWingRight = this.head.getChild("headWingRight");
     }
 
-    @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new HeadHolyArmorModel<>(root, isSlim);
-    }
-
     public static LayerDefinition createLayerDefinition() {
         MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
         PartDefinition root = meshdefinition.getRoot();
@@ -44,7 +39,13 @@ public class HeadHolyArmorModel<T extends LivingEntity> extends ArmorModel<T> {
     }
 
     @Override
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new HeadHolyArmorModel<>(root, isSlim);
+    }
+
+    @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        
         this.headWingLeft.xRot = 0.3491F + 0.15F * sinPI(ageInTicks / 40.0F);
         this.headWingRight.xRot = 0.3491F + 0.15F * sinPI(ageInTicks / 40.0F);
     }

@@ -14,11 +14,6 @@ public class HeadPharaohArmorModel<T extends LivingEntity> extends ArmorModel<T>
         this.headTail = this.head.getChild("headTail");
     }
 
-    @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new HeadPharaohArmorModel<>(root, isSlim);
-    }
-
     public static LayerDefinition createLayerDefinition() {
         MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
         PartDefinition root = meshdefinition.getRoot();
@@ -84,7 +79,13 @@ public class HeadPharaohArmorModel<T extends LivingEntity> extends ArmorModel<T>
     }
 
     @Override
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new HeadPharaohArmorModel<>(root, isSlim);
+    }
+
+    @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        
         this.headTail.xRot = sinPI(ageInTicks / 60.0F + 1.0F) * 0.05F - this.head.xRot * 0.8F;
         this.headTail.zRot = (0.3F * sinPI(ageInTicks / 60.0F + 1.0F) + this.rightLeg.xRot) * 0.1F;
     }

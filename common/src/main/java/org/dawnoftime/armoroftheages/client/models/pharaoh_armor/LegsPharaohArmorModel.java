@@ -16,11 +16,6 @@ public class LegsPharaohArmorModel<T extends LivingEntity> extends ArmorModel<T>
         this.bodyJewel = this.body.getChild("bodyJewel");
     }
 
-    @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new LegsPharaohArmorModel<>(root, isSlim);
-    }
-
     public static LayerDefinition createLayerDefinition() {
         MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
         PartDefinition root = meshdefinition.getRoot();
@@ -53,7 +48,13 @@ public class LegsPharaohArmorModel<T extends LivingEntity> extends ArmorModel<T>
     }
 
     @Override
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new LegsPharaohArmorModel<>(root, isSlim);
+    }
+
+    @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        
         this.bodyGoldenStrip.xRot = Math.abs(this.rightLeg.xRot);
 
         if (this.riding) {

@@ -1,5 +1,8 @@
 package org.dawnoftime.armoroftheages;
 
+import com.google.common.eventbus.Subscribe;
+import dev.isxander.yacl3.api.YetAnotherConfigLib;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ArmorItem;
@@ -7,15 +10,24 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLConfig;
 import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.dawnoftime.armoroftheages.client.ArmorModelProvider;
+import org.dawnoftime.armoroftheages.config.AOTAConfig;
 import org.dawnoftime.armoroftheages.item.ForgeHumanoidArmorItem;
+import org.dawnoftime.armoroftheages.networking.ForgeConfigSyncNetworkHandler;
 import org.dawnoftime.armoroftheages.registry.ItemRegistry;
 import org.dawnoftime.armoroftheages.registry.ModelProviderRegistry;
 
@@ -28,7 +40,11 @@ public class ArmorOfTheAges {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
 
     public ArmorOfTheAges() {
+        Constants.CONFIG_PATH = FMLLoader.getGamePath().resolve("/config/" + MOD_ID + ".json");
+
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        MinecraftForge.EVENT_BUS.register(this);
 
         // Items init
         ItemRegistryImpl.REGISTRY = new ItemRegistryImpl();
@@ -42,11 +58,19 @@ public class ArmorOfTheAges {
                 .displayItems((params, output) -> output.acceptAll(ItemRegistryImpl.DEFERRED_REGISTER.getEntries().stream().filter(holder -> holder != ItemRegistry.REGISTRY.TAB_ICON).map((itemDeferredHolder) -> itemDeferredHolder.get().getDefaultInstance()).toList()))
                 .build());
 
+        ModLoadingContext.get().registerExtensionPoint(
+                ConfigScreenHandler.ConfigScreenFactory.class,
+                () -> new ConfigScreenHandler.ConfigScreenFactory(
+                        (client, parent) -> AOTAConfig.createScreen().generateScreen(parent)
+                )
+        );
+
         // Client init
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(ArmorOfTheAges::registerLayerDefinitions);
         }
 
+        CommonClass.CONFIG_SYNC_HANDLER = new ForgeConfigSyncNetworkHandler();
         CommonClass.init();
     }
 
@@ -61,6 +85,13 @@ public class ArmorOfTheAges {
                 event.registerLayerDefinition(slimProvide.getSlimLayerLocation(), slimProvide::createSlimLayer);
             }
         });
+    }
+
+    @SubscribeEvent
+    public void playerLoggedInEvent(PlayerEvent.PlayerLoggedInEvent event) {
+        if (!event.getEntity().level().isClientSide) return;
+
+        CommonClass.CONFIG_SYNC_HANDLER.syncConfig();
     }
 
     public static class ItemRegistryImpl extends ItemRegistry {
