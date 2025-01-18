@@ -1,9 +1,11 @@
 package org.dawnoftime.armoroftheages.networking;
 
+import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.MinecraftServer;
@@ -50,10 +52,12 @@ public class FabricConfigSyncNetworkHandler implements ConfigSyncNetworkHandler 
         PayloadTypeRegistry.playC2S().register(C2SDisablePreferencesPacket.TYPE, StreamCodec.unit(new C2SDisablePreferencesPacket()));
         PayloadTypeRegistry.playS2C().register(S2CPreferenceSyncPacket.TYPE, S2CPreferenceSyncPacket.STREAM_CODEC);
 
-        ClientPlayNetworking.registerGlobalReceiver(S2CPreferenceSyncPacket.TYPE, (packet, context) -> {
-            // Load map from buf.
-            mapHandler.accept(new HashMap<>(packet.modelHashMap()));
-        });
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+            ClientPlayNetworking.registerGlobalReceiver(S2CPreferenceSyncPacket.TYPE, (packet, context) -> {
+                // Load map from buf.
+                mapHandler.accept(new HashMap<>(packet.modelHashMap()));
+            });
+        }
 
         ServerPlayNetworking.registerGlobalReceiver(C2SPreferenceSyncPacket.TYPE, (packet, context) -> {
             // Load preferred model from buf.
