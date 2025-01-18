@@ -14,6 +14,11 @@ public class LegsAnubisArmorModel<T extends LivingEntity> extends ArmorModel<T> 
         this.ribbonLegs = this.body.getChild("ribbonLegs");
     }
 
+    @Override
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new LegsAnubisArmorModel<>(root, isSlim);
+    }
+
     public static LayerDefinition createLayerDefinition() {
         MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
         PartDefinition root = meshdefinition.getRoot();
@@ -49,13 +54,7 @@ public class LegsAnubisArmorModel<T extends LivingEntity> extends ArmorModel<T> 
     }
 
     @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new LegsAnubisArmorModel<>(root, isSlim);
-    }
-
-    @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        
         this.ribbonLegs.xRot = -Math.abs(0.05F + 1.02F * this.rightLeg.xRot) + 0.05F * (1 + sinPI(ageInTicks / 40.0F));
     }
 }

@@ -16,6 +16,11 @@ public class FeetHolyArmorModel<T extends LivingEntity> extends ArmorModel<T> {
         this.legRightWing = this.rightLeg.getChild("leg_right_wing");
     }
 
+    @Override
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new FeetHolyArmorModel<>(root, isSlim);
+    }
+
     public static LayerDefinition createLayerDefinition() {
         MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
         PartDefinition root = meshdefinition.getRoot();
@@ -37,13 +42,7 @@ public class FeetHolyArmorModel<T extends LivingEntity> extends ArmorModel<T> {
     }
 
     @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new FeetHolyArmorModel<>(root, isSlim);
-    }
-
-    @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        
         this.legLeftWing.xRot = -0.1745F + 0.1F * sinPI(ageInTicks / 40.0F);
         this.legRightWing.xRot = -0.1745F + 0.1F * sinPI(ageInTicks / 40.0F);
     }
