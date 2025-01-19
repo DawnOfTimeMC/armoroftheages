@@ -1,9 +1,13 @@
 package org.dawnoftime.armoroftheages;
 
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -13,19 +17,22 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
-import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.dawnoftime.armoroftheages.client.ArmorModelProvider;
 import org.dawnoftime.armoroftheages.config.AOTAConfig;
+import org.dawnoftime.armoroftheages.item.ForgeHumanoidArmorItem;
 import org.dawnoftime.armoroftheages.networking.NeoforgeConfigSyncNetworkHandler;
 import org.dawnoftime.armoroftheages.networking.packets.C2SDisablePreferencesPacket;
 import org.dawnoftime.armoroftheages.networking.packets.C2SPreferenceSyncPacket;
 import org.dawnoftime.armoroftheages.networking.packets.S2CPreferenceSyncPacket;
 import org.dawnoftime.armoroftheages.registry.ModelProviderRegistry;
+import org.jetbrains.annotations.NotNull;
 
 import static org.dawnoftime.armoroftheages.AotAArmorMaterialRegistry.ARMOR_MATERIALS;
 import static org.dawnoftime.armoroftheages.Constants.MOD_ID;
@@ -86,6 +93,27 @@ public class ArmorOfTheAges {
         if (!event.getEntity().level().isClientSide) return;
 
         CommonClass.CONFIG_SYNC_HANDLER.syncConfig();
+    }
+
+    @SubscribeEvent
+    public void onRegisterClientExtensions(RegisterClientExtensionsEvent event) {
+        ITEMS.getEntries().forEach(itemDeferredHolder -> {
+            if(itemDeferredHolder.get() instanceof ForgeHumanoidArmorItem armorItem) {
+                event.registerItem(new IClientItemExtensions() {
+                    public @NotNull HumanoidModel<?> getHumanoidArmorModel(@NotNull LivingEntity living, @NotNull ItemStack stack, @NotNull EquipmentSlot slot, @NotNull HumanoidModel<?> defaultModel) {
+                        final ArmorModelProvider provider = armorItem.getModelProvider();
+                        if (provider != null) {
+                            HumanoidModel<?> model = provider.getArmorModel(living);
+                            model.crouching = living.isShiftKeyDown();
+                            model.riding = defaultModel.riding;
+                            return model;
+                        } else {
+                            return defaultModel;
+                        }
+                    }
+                }, armorItem);
+            }
+        });
     }
 
     /**
