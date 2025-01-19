@@ -34,6 +34,11 @@ public class ChestRaijinArmorModel<T extends LivingEntity> extends ArmorModel<T>
         this.chestScarfTopLeftB = this.chestScarfTopLeftA.getChild("chestScarfTopLeftB");
     }
 
+    @Override
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new ChestRaijinArmorModel<>(root, isSlim);
+    }
+
     public static LayerDefinition createLayerDefinition() {
         MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
         PartDefinition root = meshdefinition.getRoot();
@@ -185,26 +190,20 @@ public class ChestRaijinArmorModel<T extends LivingEntity> extends ArmorModel<T>
     }
 
     @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new ChestRaijinArmorModel<>(root, isSlim);
-    }
-
-    @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        
         float f = 0.03F * sinPI(2 * ageInTicks / 60.0F);
         float d = (0.866F - sinPI(0.333F - f)) * 4.0F;
         this.chestScarfTop.y = -4.5F + -d * 0.75F;
         this.chestScarfTop.z = 6.5F + d * 0.8659F;
         this.chestScarfRightA.y = d * 0.5F;
-        this.chestScarfRightB.xRot = 1.047F + f * (float) Math.PI;
-        this.chestScarfTopRightA.zRot = -1.047F - f * (float) Math.PI;
-        this.chestScarfTopRightB.zRot = -1.047F + 2 * f * (float) Math.PI;
+        this.chestScarfRightB.xRot = 1.047F + f * (float)Math.PI;
+        this.chestScarfTopRightA.zRot = -1.047F - f * (float)Math.PI;
+        this.chestScarfTopRightB.zRot = -1.047F + 2 * f * (float)Math.PI;
         this.chestScarfLeftA.y = d * 0.5F;
-        this.chestScarfLeftB.xRot = 1.047F + f * (float) Math.PI;
-        this.chestScarfTopLeftA.zRot = -2.094F + f * (float) Math.PI;
-        this.chestScarfTopLeftB.zRot = 1.047F - 2 * f * (float) Math.PI;
-        f = -0.872F + 0.03F * sinPI((ageInTicks - 15) / 30.0F) * (float) Math.PI;
+        this.chestScarfLeftB.xRot = 1.047F + f * (float)Math.PI;
+        this.chestScarfTopLeftA.zRot = -2.094F + f * (float)Math.PI;
+        this.chestScarfTopLeftB.zRot = 1.047F - 2 * f * (float)Math.PI;
+        f = -0.872F + 0.03F * sinPI((ageInTicks - 15) / 30.0F) * (float)Math.PI;
         this.chestScarfRightC.xRot = f;
         this.chestScarfLeftC.xRot = f;
     }

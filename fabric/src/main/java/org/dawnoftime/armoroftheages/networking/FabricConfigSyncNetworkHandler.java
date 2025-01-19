@@ -1,9 +1,11 @@
 package org.dawnoftime.armoroftheages.networking;
 
 import com.mojang.authlib.minecraft.client.MinecraftClient;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -46,15 +48,17 @@ public class FabricConfigSyncNetworkHandler implements ConfigSyncNetworkHandler 
 
     @Override
     public void setup() {
-        ClientPlayNetworking.registerGlobalReceiver(ResourceLocation.tryBuild(Constants.MOD_ID, "global_preference_sync"), (client, handler, buf, responseSender) -> {
-            // Load map from buf.
-            var map = new HashMap<UUID, PreferredModel>();
-            int size = buf.readInt();
-            for (int i = 0; i < size; i++) {
-                map.put(buf.readUUID(), buf.readEnum(PreferredModel.class));
-            }
-            mapHandler.accept(map);
-        });
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+            ClientPlayNetworking.registerGlobalReceiver(ResourceLocation.tryBuild(Constants.MOD_ID, "global_preference_sync"), (client, handler, buf, responseSender) -> {
+                // Load map from buf.
+                var map = new HashMap<UUID, PreferredModel>();
+                int size = buf.readInt();
+                for (int i = 0; i < size; i++) {
+                    map.put(buf.readUUID(), buf.readEnum(PreferredModel.class));
+                }
+                mapHandler.accept(map);
+            });
+        }
 
         ServerPlayNetworking.registerGlobalReceiver(ResourceLocation.tryBuild(Constants.MOD_ID, "preference_sync"), (server, player, handler, buf, responseSender) -> {
             // Load preferred model from buf.

@@ -24,6 +24,11 @@ public class HeadRaijinArmorModel<T extends LivingEntity> extends ArmorModel<T> 
         this.flyF = this.body.getChild("flyF");
     }
 
+    @Override
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new HeadRaijinArmorModel<>(root, isSlim);
+    }
+
     public static LayerDefinition createLayerDefinition() {
         MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
         PartDefinition root = meshdefinition.getRoot();
@@ -63,7 +68,7 @@ public class HeadRaijinArmorModel<T extends LivingEntity> extends ArmorModel<T> 
                 PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, -0.5236F, 0.0F, 0.0F));
 
         PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.ZERO);
-
+        
         body.addOrReplaceChild("flyA", CubeListBuilder.create()
                         .texOffs(45, 0).addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 2.0F, CubeDeformation.NONE),
                 PartPose.offset(-5.0F, -15.0F, 3.0F));
@@ -87,7 +92,7 @@ public class HeadRaijinArmorModel<T extends LivingEntity> extends ArmorModel<T> 
         body.addOrReplaceChild("flyF", CubeListBuilder.create()
                         .texOffs(45, 0).addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 2.0F, CubeDeformation.NONE),
                 PartPose.offset(9.0F, 2.0F, 3.0F));
-
+        
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
 
@@ -159,15 +164,9 @@ public class HeadRaijinArmorModel<T extends LivingEntity> extends ArmorModel<T> 
     }
 
     @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new HeadRaijinArmorModel<>(root, isSlim);
-    }
-
-    @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        
         float d = ageInTicks / 60.0F;
-        float f = d % (2.0F * (float) Math.PI);
+        float f = d % (2.0F * (float)Math.PI);
         this.flyA.y = -15.0F + sinPI(d + 1.0F);
         this.flyA.zRot = f;
         this.flyB.y = -15.0F + sinPI(d + 1.333F);

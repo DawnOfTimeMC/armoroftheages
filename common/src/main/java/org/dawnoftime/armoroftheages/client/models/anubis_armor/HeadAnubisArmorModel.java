@@ -20,6 +20,11 @@ public class HeadAnubisArmorModel<T extends LivingEntity> extends ArmorModel<T> 
         this.earRight = this.head.getChild("earRight");
     }
 
+    @Override
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new HeadAnubisArmorModel<>(root, isSlim);
+    }
+
     public static LayerDefinition createLayerDefinition() {
         MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
         PartDefinition root = meshdefinition.getRoot();
@@ -121,18 +126,12 @@ public class HeadAnubisArmorModel<T extends LivingEntity> extends ArmorModel<T> 
     }
 
     @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new HeadAnubisArmorModel<>(root, isSlim);
-    }
-
-    @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        
         float rh = 0.1F * sinPI(ageInTicks / 35.0F);
-        if (this.isSlim) {
+        if(this.isSlim){
             this.earRight.setRotation(0.1249F + rh, 0.2577F, -0.0465F);
             this.earLeft.setRotation(0.1249F + rh, -0.2577F, 0.0465F);
-        } else {
+        }else{
             this.earRight.setRotation(0.1681F + rh, 0.2322F, 0.1315F);
             this.earLeft.setRotation(0.1681F + rh, -0.2322F, -0.1315F);
         }

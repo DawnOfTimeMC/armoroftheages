@@ -17,6 +17,11 @@ public class HeadIronPlateArmorModel<T extends LivingEntity> extends ArmorModel<
         this.middleFeatherB = this.middleFeatherA.getChild("middleFeatherB");
     }
 
+    @Override
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new HeadIronPlateArmorModel<>(root, isSlim);
+    }
+
     public static LayerDefinition createLayerDefinition() {
         MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
         PartDefinition root = meshdefinition.getRoot();
@@ -75,15 +80,9 @@ public class HeadIronPlateArmorModel<T extends LivingEntity> extends ArmorModel<
     }
 
     @Override
-    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
-        return new HeadIronPlateArmorModel<>(root, isSlim);
-    }
-
-    @Override
     protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        
         float f = Math.abs(this.rightLeg.xRot);
         this.middleFeatherA.xRot = -0.15F - f * 0.1F + 0.05F * sinPI(ageInTicks / 60.0F + 1.0F);
-        this.middleFeatherB.xRot = -0.15F - f * 0.1F + 0.1F * sinPI((ageInTicks - 15) / 60.0F + 1.0F);
+        this.middleFeatherB.xRot = -0.15F - f * 0.1F + 0.1F * sinPI((ageInTicks - 15)/ 60.0F + 1.0F);
     }
 }
