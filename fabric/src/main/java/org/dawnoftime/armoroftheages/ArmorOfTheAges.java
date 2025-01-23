@@ -10,7 +10,10 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import org.dawnoftime.armoroftheages.client.ArmorModelProvider;
 import org.dawnoftime.armoroftheages.item.HumanoidArmorItem;
 import org.dawnoftime.armoroftheages.networking.FabricConfigSyncNetworkHandler;
@@ -41,17 +44,16 @@ public class ArmorOfTheAges implements ModInitializer {
         // Creative inventory init
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, new ResourceLocation(MOD_ID, MOD_ID), CREATIVE_MODE_TAB);
 
-        // Client Side init
-        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-            registerLayerDefinitions();
-        }
-
         CommonClass.CONFIG_SYNC_HANDLER = new FabricConfigSyncNetworkHandler();
         CommonClass.init();
 
-        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
-            CommonClass.CONFIG_SYNC_HANDLER.syncConfig();
-        });
+        // Client Side init
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+            registerLayerDefinitions();
+            ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
+                CommonClass.CONFIG_SYNC_HANDLER.syncConfig();
+            });
+        }
     }
 
     /**
