@@ -2,15 +2,10 @@ package org.dawnoftime.armoroftheages;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -45,16 +40,15 @@ public class ArmorOfTheAges implements ModInitializer {
         // Creative inventory init
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ResourceLocation.fromNamespaceAndPath(MOD_ID, MOD_ID), CREATIVE_MODE_TAB);
 
+        CommonClass.init();
+
         // Client Side init
         if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
             registerLayerDefinitions();
+            ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
+                CommonClass.CONFIG_SYNC_HANDLER.syncConfig();
+            });
         }
-
-        CommonClass.init();
-
-        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
-            CommonClass.CONFIG_SYNC_HANDLER.syncConfig();
-        });
     }
 
     /**
