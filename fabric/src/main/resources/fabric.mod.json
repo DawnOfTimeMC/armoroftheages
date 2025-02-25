@@ -16,8 +16,9 @@
     "environment": "*",
     "entrypoints": {
         "main": [
-            "org.dawnoftime.armoroftheages.ArmorOfTheAges"
+          "org.dawnoftime.armoroftheages.ArmorOfTheAgesFabric"
         ],
+        "client": ["org.dawnoftime.armoroftheages.client.ArmorOfTheAgesClientFabric"],
         "modmenu": [
             "org.dawnoftime.armoroftheages.compat.ModMenuEntrypoint"
         ]

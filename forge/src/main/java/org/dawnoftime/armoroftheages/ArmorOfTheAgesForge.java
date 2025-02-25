@@ -17,7 +17,7 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.dawnoftime.armoroftheages.client.ArmorOfTheAgesClient;
+import org.dawnoftime.armoroftheages.client.ArmorOfTheAgesClientForge;
 import org.dawnoftime.armoroftheages.config.AOTAConfig;
 import org.dawnoftime.armoroftheages.item.ForgeHumanoidArmorItem;
 import org.dawnoftime.armoroftheages.networking.ForgeConfigSyncNetworkHandler;
@@ -28,10 +28,10 @@ import java.util.function.Supplier;
 import static org.dawnoftime.armoroftheages.Constants.MOD_ID;
 
 @Mod(MOD_ID)
-public class ArmorOfTheAges {
+public class ArmorOfTheAgesForge {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
 
-    public ArmorOfTheAges() {
+    public ArmorOfTheAgesForge() {
         Constants.CONFIG_PATH = FMLPaths.CONFIGDIR.get().resolve("config/" + MOD_ID + ".json");
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -58,8 +58,8 @@ public class ArmorOfTheAges {
 
         // Client init
         if (FMLEnvironment.dist == Dist.CLIENT) {
-            modEventBus.addListener(ArmorOfTheAgesClient::registerLayerDefinitions);
-            MinecraftForge.EVENT_BUS.addListener(ArmorOfTheAgesClient::playerLoggedInEvent);
+            modEventBus.addListener(ArmorOfTheAgesClientForge::registerLayerDefinitions);
+            MinecraftForge.EVENT_BUS.addListener(ArmorOfTheAgesClientForge::playerLoggedInEvent);
         }
 
         CommonClass.CONFIG_SYNC_HANDLER = new ForgeConfigSyncNetworkHandler();
