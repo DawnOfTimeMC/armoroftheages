@@ -1,6 +1,7 @@
 package org.dawnoftime.armoroftheages.networking;
 
 import io.netty.buffer.Unpooled;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -32,10 +33,12 @@ public class ForgeConfigSyncNetworkHandler implements ConfigSyncNetworkHandler {
 
     @Override
     public void syncConfig() {
-        if (!AOTAConfig.get().usePreferredModel) {
-            INSTANCE.sendToServer(new DisabledPreferencesPacketHandler(this));
-        } else {
-            INSTANCE.sendToServer(new PreferenceSyncPacketHandler(this, AOTAConfig.get().preferredModel));
+        if (Minecraft.getInstance().getConnection() != null) {
+            if (!AOTAConfig.get().usePreferredModel) {
+                INSTANCE.sendToServer(new DisabledPreferencesPacketHandler(this));
+            } else {
+                INSTANCE.sendToServer(new PreferenceSyncPacketHandler(this, AOTAConfig.get().preferredModel));
+            }
         }
     }
 

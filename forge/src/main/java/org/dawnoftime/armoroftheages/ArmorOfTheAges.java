@@ -9,7 +9,6 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -37,7 +36,6 @@ public class ArmorOfTheAges {
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        MinecraftForge.EVENT_BUS.addListener(this::playerLoggedInEvent);
 
         // Items init
         ItemRegistryImpl.REGISTRY = new ItemRegistryImpl();
@@ -61,16 +59,11 @@ public class ArmorOfTheAges {
         // Client init
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(ArmorOfTheAgesClient::registerLayerDefinitions);
+            MinecraftForge.EVENT_BUS.addListener(ArmorOfTheAgesClient::playerLoggedInEvent);
         }
 
         CommonClass.CONFIG_SYNC_HANDLER = new ForgeConfigSyncNetworkHandler();
         CommonClass.init();
-    }
-
-    public void playerLoggedInEvent(PlayerEvent.PlayerLoggedInEvent event) {
-        if (!event.getEntity().level().isClientSide) return;
-
-        CommonClass.CONFIG_SYNC_HANDLER.syncConfig();
     }
 
     public static class ItemRegistryImpl extends ItemRegistry {

@@ -1,6 +1,9 @@
 package org.dawnoftime.armoroftheages.client;
 
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import org.dawnoftime.armoroftheages.CommonClass;
 import org.dawnoftime.armoroftheages.registry.ModelProviderRegistry;
 
 public class ArmorOfTheAgesClient {
@@ -17,5 +20,9 @@ public class ArmorOfTheAgesClient {
                 event.registerLayerDefinition(slimProvide.getSlimLayerLocation(), slimProvide::createSlimLayer);
             }
         });
+    }
+
+    public static void playerLoggedInEvent(ClientPlayerNetworkEvent.LoggingIn event) {
+        CommonClass.CONFIG_SYNC_HANDLER.syncConfig();
     }
 }
