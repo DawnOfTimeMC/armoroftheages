@@ -9,7 +9,6 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -18,7 +17,7 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.dawnoftime.armoroftheages.client.ArmorOfTheAgesClient;
+import org.dawnoftime.armoroftheages.client.ArmorOfTheAgesClientForge;
 import org.dawnoftime.armoroftheages.config.AOTAConfig;
 import org.dawnoftime.armoroftheages.item.ForgeHumanoidArmorItem;
 import org.dawnoftime.armoroftheages.networking.ForgeConfigSyncNetworkHandler;
@@ -29,15 +28,14 @@ import java.util.function.Supplier;
 import static org.dawnoftime.armoroftheages.Constants.MOD_ID;
 
 @Mod(MOD_ID)
-public class ArmorOfTheAges {
+public class ArmorOfTheAgesForge {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
 
-    public ArmorOfTheAges() {
+    public ArmorOfTheAgesForge() {
         Constants.CONFIG_PATH = FMLPaths.CONFIGDIR.get().resolve("config/" + MOD_ID + ".json");
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        MinecraftForge.EVENT_BUS.addListener(this::playerLoggedInEvent);
 
         // Items init
         ItemRegistryImpl.REGISTRY = new ItemRegistryImpl();
@@ -60,17 +58,12 @@ public class ArmorOfTheAges {
 
         // Client init
         if (FMLEnvironment.dist == Dist.CLIENT) {
-            modEventBus.addListener(ArmorOfTheAgesClient::registerLayerDefinitions);
+            modEventBus.addListener(ArmorOfTheAgesClientForge::registerLayerDefinitions);
+            MinecraftForge.EVENT_BUS.addListener(ArmorOfTheAgesClientForge::playerLoggedInEvent);
         }
 
         CommonClass.CONFIG_SYNC_HANDLER = new ForgeConfigSyncNetworkHandler();
         CommonClass.init();
-    }
-
-    public void playerLoggedInEvent(PlayerEvent.PlayerLoggedInEvent event) {
-        if (!event.getEntity().level().isClientSide) return;
-
-        CommonClass.CONFIG_SYNC_HANDLER.syncConfig();
     }
 
     public static class ItemRegistryImpl extends ItemRegistry {
