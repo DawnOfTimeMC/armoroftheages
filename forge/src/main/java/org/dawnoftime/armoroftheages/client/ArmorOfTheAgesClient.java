@@ -1,0 +1,21 @@
+package org.dawnoftime.armoroftheages.client;
+
+import net.minecraftforge.client.event.EntityRenderersEvent;
+import org.dawnoftime.armoroftheages.registry.ModelProviderRegistry;
+
+public class ArmorOfTheAgesClient {
+
+
+    /**
+     * Registers the LayerDefinitions. Must be client side only !
+     * @param event Event called.
+     */
+    public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event){
+        ModelProviderRegistry.REGISTRY.forEach((name, provider) -> {
+            event.registerLayerDefinition(provider.getLayerLocation(), provider::createLayer);
+            if(provider instanceof ArmorModelProvider.MixedArmorModelProvider slimProvide){
+                event.registerLayerDefinition(slimProvide.getSlimLayerLocation(), slimProvide::createSlimLayer);
+            }
+        });
+    }
+}
