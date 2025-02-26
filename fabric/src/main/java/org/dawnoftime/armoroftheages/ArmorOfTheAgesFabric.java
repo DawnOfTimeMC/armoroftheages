@@ -58,7 +58,7 @@ public class ArmorOfTheAgesFabric implements ModInitializer {
             Item item = itemSupplier.get();
             Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(MOD_ID, name), item);
             ITEMS.add(item);
-            return itemSupplier;
+            return () -> item;
         }
     }
 }
