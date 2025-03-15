@@ -1,5 +1,7 @@
 package org.dawnoftime.armoroftheages;
 
+import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import net.fabricmc.fabric.impl.client.rendering.ArmorRendererRegistryImpl;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -7,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
+import org.dawnoftime.armoroftheages.client.CustomArmorRenderer;
 import org.dawnoftime.armoroftheages.item.HatItem;
 import org.dawnoftime.armoroftheages.item.HumanoidArmorItem;
 
@@ -73,6 +76,7 @@ public class AotAItemRegistry {
     public static void register(String armorSetName, Holder<ArmorMaterial> material, ArmorItem.Type slot, int durabilityFactor){
         Item item = new HumanoidArmorItem(armorSetName, material, slot, durabilityFactor);
         Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(MOD_ID, armorSetName + "_" + slot.getSlot().getName()), item);
+        ArmorRenderer.register(new CustomArmorRenderer(), item);
         ITEMS.add(item);
     }
 }
