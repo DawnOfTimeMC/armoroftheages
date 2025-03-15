@@ -37,6 +37,7 @@ public class CustomArmorRenderer implements ArmorRenderer {
                     model.crouching = entity.isShiftKeyDown();
                     model.riding = contextModel.riding;
 
+                    // Code copied from LivingEntityRenderer
                     float partialTicks = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
 
                     float f = Mth.rotLerp(partialTicks, entity.yBodyRotO, entity.yBodyRot);
