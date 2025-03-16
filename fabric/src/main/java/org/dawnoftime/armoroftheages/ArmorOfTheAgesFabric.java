@@ -1,6 +1,7 @@
 package org.dawnoftime.armoroftheages;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
@@ -11,6 +12,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import org.dawnoftime.armoroftheages.client.CustomArmorRenderer;
 import org.dawnoftime.armoroftheages.item.HumanoidArmorItem;
 import org.dawnoftime.armoroftheages.networking.FabricConfigSyncNetworkHandler;
 import org.dawnoftime.armoroftheages.registry.ItemRegistry;
@@ -50,6 +52,7 @@ public class ArmorOfTheAgesFabric implements ModInitializer {
         public void register(String armorSetName, ArmorMaterial material, ArmorItem.Type slot) {
             Item item = new HumanoidArmorItem(armorSetName, material, slot);
             Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(MOD_ID, armorSetName + "_" + slot.getSlot().getName()), item);
+            ArmorRenderer.register(new CustomArmorRenderer(), item);
             ITEMS.add(item);
         }
 
