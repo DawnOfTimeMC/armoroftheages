@@ -33,6 +33,8 @@ public class ArmorOfTheAgesForge {
 
     public ArmorOfTheAgesForge() {
         Constants.CONFIG_PATH = FMLPaths.CONFIGDIR.get().resolve("config/" + MOD_ID + ".json");
+        CommonClass.CONFIG_SYNC_HANDLER = new ForgeConfigSyncNetworkHandler();
+        CommonClass.init();
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -61,9 +63,6 @@ public class ArmorOfTheAgesForge {
             modEventBus.addListener(ArmorOfTheAgesClientForge::registerLayerDefinitions);
             MinecraftForge.EVENT_BUS.addListener(ArmorOfTheAgesClientForge::playerLoggedInEvent);
         }
-
-        CommonClass.CONFIG_SYNC_HANDLER = new ForgeConfigSyncNetworkHandler();
-        CommonClass.init();
     }
 
     public static class ItemRegistryImpl extends ItemRegistry {
