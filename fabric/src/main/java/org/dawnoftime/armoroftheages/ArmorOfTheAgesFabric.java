@@ -32,15 +32,14 @@ public class ArmorOfTheAgesFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         Constants.CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve(MOD_ID + ".json");
+        CommonClass.CONFIG_SYNC_HANDLER = new FabricConfigSyncNetworkHandler();
+        CommonClass.init();
 
         // Items init
         ItemRegistryImpl.REGISTRY = new ItemRegistryImpl();
 
         // Creative inventory init
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, new ResourceLocation(MOD_ID, MOD_ID), CREATIVE_MODE_TAB);
-
-        CommonClass.CONFIG_SYNC_HANDLER = new FabricConfigSyncNetworkHandler();
-        CommonClass.init();
     }
 
     public static class ItemRegistryImpl extends ItemRegistry {
