@@ -7,11 +7,12 @@
     "mixins": [
     ],
     "client": [
+        "MixinHumanoidArmorLayer"
     ],
     "server": [
     ],
     "injectors": {
         "defaultRequire": 1
     }
-}
-
+  }
+  
