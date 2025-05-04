@@ -13,6 +13,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCon
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import org.dawnoftime.armoroftheages.ArmorOfTheAgesFabric;
 import org.dawnoftime.armoroftheages.Constants;
+import org.dawnoftime.armoroftheages.config.AOTAConfig;
 
 import java.util.List;
 
@@ -43,24 +44,28 @@ public class AmorOfTheAgesLootModifiersFabric {
     }
 
     private static void buildLootTable(String armorSetName, float damage, float probability, LootTable.Builder tableBuilder) {
-        List<ResourceLocation> armorPieceLocations = ArmorOfTheAgesFabric.ItemRegistryImpl
-                .ARMORS_LOCATION_FROM_NAME
-                .get(armorSetName);
+        boolean shouldGenerate = LootTablesToModify.ARMOR_GENERATION_MAP.getOrDefault(armorSetName, false);
 
-        LootPool.Builder poolBuilder = LootPool.lootPool()
-                .setRolls(ConstantValue.exactly(1f))
-                .conditionally(LootItemRandomChanceCondition.randomChance(probability).build());
+        if (AOTAConfig.get().generateArmorLoot && shouldGenerate) {
+            List<ResourceLocation> armorPieceLocations = ArmorOfTheAgesFabric.ItemRegistryImpl
+                    .ARMORS_LOCATION_FROM_NAME
+                    .get(armorSetName);
 
-        for (var armorPieceLocation : armorPieceLocations) {
-            Item armorPieceItem = BuiltInRegistries.ITEM.get(armorPieceLocation);
+            LootPool.Builder poolBuilder = LootPool.lootPool()
+                    .setRolls(ConstantValue.exactly(1f))
+                    .conditionally(LootItemRandomChanceCondition.randomChance(probability).build());
 
-            poolBuilder.with(LootItem.lootTableItem(armorPieceItem)
-                            .setWeight(1)
-                            .build())
-                       .apply(SetItemDamageFunction.setDamage(ConstantValue.exactly(damage)))
-                       .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1f)));
+            for (var armorPieceLocation : armorPieceLocations) {
+                Item armorPieceItem = BuiltInRegistries.ITEM.get(armorPieceLocation);
+
+                poolBuilder.with(LootItem.lootTableItem(armorPieceItem)
+                                .setWeight(1)
+                                .build())
+                        .apply(SetItemDamageFunction.setDamage(ConstantValue.exactly(damage)))
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1f)));
+            }
+
+            tableBuilder.pool(poolBuilder.build());
         }
-
-        tableBuilder.pool(poolBuilder.build());
     }
 }

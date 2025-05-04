@@ -50,5 +50,20 @@
     "config.armoroftheages.ignore_synchronized_preferred_models": "Ignore Synchronized Preferred Models",
     "config.armoroftheages.ignore_synchronized_preferred_models.description": "If this option is enabled, you will not see the preferred models of other players if they have a custom model type preference set in their config.",
     "config.armoroftheages.use_preferred_model": "Use Preferred Model",
-    "config.armoroftheages.use_preferred_model.description": "Should Armor Of The Ages use your preferred model type when you wear armor?"
+    "config.armoroftheages.use_preferred_model.description": "Should Armor Of The Ages use your preferred model type when you wear armor?",
+
+    "config.armoroftheages.category.armor_loot": "Armor Loot",
+    "config.armoroftheages.generate_armor_loot": "Generate Armor Loot",
+    "config.armoroftheages.generate_armor_loot.description": "Toggle whether armor pieces can generate in chests.",
+    "config.armoroftheages.generate_bamboo_hat": "Bamboo Hat",
+    "config.armoroftheages.generate_anubis_armor": "Anubis Armor",
+    "config.armoroftheages.generate_centurion_armor": "Centurion Armor",
+    "config.armoroftheages.generate_exalted_aurum_armor": "Exalted Aurum Armor",
+    "config.armoroftheages.generate_holy_armor": "Holy Armor",
+    "config.armoroftheages.generate_iron_plate_armor": "Iron Plate Armor",
+    "config.armoroftheages.generate_japanese_light_armor": "Japanese Light Armor",
+    "config.armoroftheages.generate_o_yoroi_armor": "O-Yoroi Armor",
+    "config.armoroftheages.generate_pharaoh_armor": "Pharaoh Armor",
+    "config.armoroftheages.generate_quetzalcoatl_armor": "Quetzalcoatl Armor",
+    "config.armoroftheages.generate_raijin_armor": "Raijin Armor"
 }

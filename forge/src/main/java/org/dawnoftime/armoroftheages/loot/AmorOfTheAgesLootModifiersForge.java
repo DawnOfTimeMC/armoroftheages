@@ -16,6 +16,7 @@ import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.common.loot.LootModifier;
 import org.dawnoftime.armoroftheages.ArmorOfTheAgesForge;
+import org.dawnoftime.armoroftheages.config.AOTAConfig;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -49,14 +50,18 @@ public class AmorOfTheAgesLootModifiersForge extends LootModifier {
             if (!condition.test(lootContext))
                 return generatedLoot;
 
-        List<ResourceLocation> armorPieceLocations = ArmorOfTheAgesForge.ItemRegistryImpl
-                .ARMORS_LOCATION_FROM_NAME
-                .get(armorSetName);
+        boolean shouldGenerate = LootTablesToModify.ARMOR_GENERATION_MAP.getOrDefault(armorSetName, false);
 
-        Item armorPieceItem = BuiltInRegistries.ITEM.get(armorPieceLocations.get(RANDOM.nextInt(armorPieceLocations.size())));
-        ItemStack armorPieceItemStack = new ItemStack(armorPieceItem);
+        if (AOTAConfig.get().generateArmorLoot && shouldGenerate) {
+            List<ResourceLocation> armorPieceLocations = ArmorOfTheAgesForge.ItemRegistryImpl
+                    .ARMORS_LOCATION_FROM_NAME
+                    .get(armorSetName);
 
-        generatedLoot.add(addDamage(armorPieceItemStack, lootContext));
+            Item armorPieceItem = BuiltInRegistries.ITEM.get(armorPieceLocations.get(RANDOM.nextInt(armorPieceLocations.size())));
+            ItemStack armorPieceItemStack = new ItemStack(armorPieceItem);
+
+            generatedLoot.add(addDamage(armorPieceItemStack, lootContext));
+        }
 
         return generatedLoot;
     }
