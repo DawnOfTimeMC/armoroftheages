@@ -11,7 +11,7 @@
 			"item": "minecraft:string"
 		},
 		"I": {
-			"tag": "c:leathers"
+			"tag": "forge:leather"
 		},
 		"i": {
 			"item": "minecraft:leather_chestplate"

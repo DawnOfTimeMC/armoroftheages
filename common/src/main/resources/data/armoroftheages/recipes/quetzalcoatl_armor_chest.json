@@ -11,7 +11,7 @@
 			"item": "minecraft:diamond_chestplate"
 		},
 		"x": {
-			"tag": "c:ingots/gold"
+			"tag": "forge:ingots/gold"
 		},
 		"o": {
 			"item": "minecraft:feather"

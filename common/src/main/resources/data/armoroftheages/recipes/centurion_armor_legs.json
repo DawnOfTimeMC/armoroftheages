@@ -11,10 +11,10 @@
 			"item": "minecraft:leather_leggings"
 		},
 		"I": {
-			"tag": "c:ingots/gold"
+			"tag": "forge:ingots/gold"
 		},
 		"o": {
-			"tag": "c:dyes/red"
+			"tag": "forge:dyes/red"
 		}
 	},
 	"result": {

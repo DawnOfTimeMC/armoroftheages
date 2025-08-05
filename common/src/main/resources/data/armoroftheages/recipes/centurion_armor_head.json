@@ -11,13 +11,13 @@
 			"item": "minecraft:feather"
 		},
 		"i": {
-			"tag": "c:ingots/gold"
+			"tag": "forge:ingots/gold"
 		},
 		"o": {
 			"item": "minecraft:leather_helmet"
 		},
 		"h": {
-			"tag": "c:dyes/red"
+			"tag": "forge:dyes/red"
 		}
 	},
 	"result": {

@@ -10,7 +10,7 @@
 			"item": "minecraft:gold_block"
 		},
 		"i": {
-			"tag": "c:ingots/gold"
+			"tag": "forge:ingots/gold"
 		},
 		"o": {
 			"item": "minecraft:diamond_helmet"

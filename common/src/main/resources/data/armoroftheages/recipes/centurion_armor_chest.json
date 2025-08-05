@@ -11,10 +11,10 @@
 			"item": "minecraft:leather_chestplate"
 		},
 		"I": {
-			"tag": "c:dyes/red"
+			"tag": "forge:dyes/red"
 		},
 		"o": {
-			"tag": "c:ingots/gold"
+			"tag": "forge:ingots/gold"
 		}
 	},
 	"result": {

@@ -11,7 +11,7 @@
 			"item": "minecraft:diamond_leggings"
 		},
 		"I": {
-			"tag": "c:ingots/gold"
+			"tag": "forge:ingots/gold"
 		},
 		"B": {
 			"item": "minecraft:bone_block"

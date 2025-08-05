@@ -7,10 +7,10 @@
 	],
 	"key": {
 		"I": {
-			"tag": "c:leathers"
+			"tag": "forge:leather"
 		},
 		"i": {
-			"tag": "c:ingots/gold"
+			"tag": "forge:ingots/gold"
 		},
 		"x": {
 			"item": "minecraft:leather_boots"
