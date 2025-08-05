@@ -30,6 +30,7 @@
     "depends": {
         "fabricloader": ">=${fabric_loader_version}",
         "fabric": "*",
+        "yet_another_config_lib_v3": "*",
         "minecraft": "${minecraft_version}",
         "java": ">=17"
     },
