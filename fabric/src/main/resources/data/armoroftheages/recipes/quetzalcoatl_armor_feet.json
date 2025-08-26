@@ -1,0 +1,21 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"BoB",
+		"i i"
+	],
+	"key": {
+		"o": {
+			"item": "minecraft:diamond_boots"
+		},
+		"i": {
+			"item": "minecraft:feather"
+		},
+		"B": {
+			"item": "minecraft:bone_block"
+		}
+	},
+	"result": {
+		"item": "armoroftheages:quetzalcoatl_armor_feet"
+	}
+}
