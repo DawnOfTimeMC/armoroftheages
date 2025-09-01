@@ -1,5 +1,7 @@
 package org.dawnoftime.armoroftheages;
 
+import com.github.razorplay01.ismah.client.ISMAHClient;
+import com.github.razorplay01.ismah.client.api.ArmorRendererRegistry;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.loader.api.FabricLoader;
@@ -10,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.dawnoftime.armoroftheages.compat.ISMAHCompat;
 import org.dawnoftime.armoroftheages.networking.FabricConfigSyncNetworkHandler;
 
 import static org.dawnoftime.armoroftheages.AotAItemRegistry.ITEMS;
@@ -36,5 +39,10 @@ public class ArmorOfTheAgesFabric implements ModInitializer {
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ResourceLocation.fromNamespaceAndPath(MOD_ID, MOD_ID), CREATIVE_MODE_TAB);
 
         CommonClass.init();
+
+        if (FabricLoader.getInstance().isModLoaded("ismah")) {
+            ArmorRendererRegistry.register(new ISMAHCompat());
+            ISMAHClient.LOGGER.info("ISMAH detected. Registering ISMAHCompat.");
+        }
     }
 }

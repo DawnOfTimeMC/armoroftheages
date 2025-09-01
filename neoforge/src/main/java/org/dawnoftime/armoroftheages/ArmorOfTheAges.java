@@ -1,5 +1,7 @@
 package org.dawnoftime.armoroftheages;
 
+import com.github.razorplay01.ismah.client.ISMAHClient;
+import com.github.razorplay01.ismah.client.api.ArmorRendererRegistry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
@@ -7,6 +9,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLPaths;
@@ -15,6 +18,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.dawnoftime.armoroftheages.client.ArmorOfTheAgesClientNeoforge;
+import org.dawnoftime.armoroftheages.compat.ISMAHCompat;
 import org.dawnoftime.armoroftheages.config.AOTAConfig;
 import org.dawnoftime.armoroftheages.networking.NeoforgeConfigSyncNetworkHandler;
 import org.dawnoftime.armoroftheages.networking.packets.C2SDisablePreferencesPacket;
@@ -30,7 +34,7 @@ import static org.dawnoftime.armoroftheages.AotAItemRegistry.TAB_ICON;
 public class ArmorOfTheAges {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
 
-    public ArmorOfTheAges(IEventBus modEventBus, ModContainer modContainer,Dist dist) {
+    public ArmorOfTheAges(IEventBus modEventBus, ModContainer modContainer, Dist dist) {
         CommonClass.CONFIG_SYNC_HANDLER = new NeoforgeConfigSyncNetworkHandler();
         Constants.CONFIG_PATH = FMLPaths.CONFIGDIR.get().resolve(MOD_ID + ".json");
 
@@ -61,6 +65,11 @@ public class ArmorOfTheAges {
         }
 
         CommonClass.init();
+
+        if (ModList.get().isLoaded("ismah")) {
+            ArmorRendererRegistry.register(new ISMAHCompat());
+            ISMAHClient.LOGGER.info("ISMAH detected. Registering ISMAHCompat.");
+        }
     }
 
     public void registerPackets(final RegisterPayloadHandlersEvent event) {

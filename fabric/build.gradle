@@ -38,6 +38,7 @@ dependencies {
 
     modImplementation "maven.modrinth:cosmetic-armor-revitalized-fabric:1.7.0"
     modImplementation "dev.emi:trinkets:3.10.0"
+    modImplementation "maven.modrinth:ismah:uB2MkEJy"
 }
 
 loom {
