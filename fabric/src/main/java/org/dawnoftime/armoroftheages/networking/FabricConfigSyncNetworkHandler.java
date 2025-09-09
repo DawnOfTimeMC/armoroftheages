@@ -1,6 +1,5 @@
 package org.dawnoftime.armoroftheages.networking;
 
-import com.mojang.authlib.minecraft.client.MinecraftClient;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
