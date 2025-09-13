@@ -173,10 +173,8 @@ public class ArmorOfTheAgesForge {
     // ===================== END TEMPORARY MIGRATION FIX =====================
 
     public static class ItemRegistryImpl extends ItemRegistry {
-        public static final DeferredRegister<Item> DEFERRED_REGISTER =
-                DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
-        public static final Map<String, List<ResourceLocation>> ARMORS_LOCATION_FROM_NAME =
-                new Object2ObjectOpenHashMap<>();
+        public static final DeferredRegister<Item> DEFERRED_REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
+        public static final Map<String, List<ResourceLocation>> ARMORS_LOCATION_FROM_NAME = new Object2ObjectOpenHashMap<>();
 
         @Override
         public void register(String armorSetName, ArmorMaterial material, ArmorItem.Type slot) {
