@@ -52,27 +52,27 @@ public class ArmorOfTheAgesForge {
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
 
     public ArmorOfTheAgesForge() {
-        // Chemin correct Forge : .minecraft/config/<modid>.json (NE PAS préfixer par "config/")
+        // Correct Forge path: .minecraft/config/<modid>.json (DO NOT prefix with "config/")
         Constants.CONFIG_PATH = FMLPaths.CONFIGDIR.get().resolve(MOD_ID + ".json");
 
         /*
          * ================================================================
-         *  TODO: SUPPRIMER CE BLOC DANS UNE PROCHAINE VERSION
-         *  FIX TEMPORAIRE DE MIGRATION DE CONFIG (Forge uniquement)
+         *  TODO: REMOVE THIS BLOCK IN A FUTURE VERSION
+         *  TEMPORARY CONFIG MIGRATION FIX (Forge only)
          *
-         *  Objectif :
-         *   - Si un ancien fichier existe en ".minecraft/config/config/<modid>.json",
-         *     le copier vers ".minecraft/config/<modid>.json" S'IL N'EXISTE PAS DÉJÀ.
-         *   - Supprimer l'ancien fichier puis tenter de supprimer le dossier
-         *     ".minecraft/config/config" UNIQUEMENT s'il est vide.
+         *  Objective:
+         *   - If an old file exists in ".minecraft/config/config/<modid>.json",
+         *     copy it to ".minecraft/config/<modid>.json" IF IT DOESN'T ALREADY EXIST.
+         *   - Delete the old file, then attempt to delete the
+         *     ".minecraft/config/config" folder ONLY if it is empty.
          *
-         *  Sécurité :
-         *   - On ne remplace PAS un fichier déjà présent à la nouvelle destination.
-         *   - On journalise tout pour faciliter le debug chez les joueurs.
+         *  Safety:
+         *   - We do NOT overwrite an existing file at the new destination.
+         *   - Everything is logged to help with debugging for players.
          * ================================================================
          */
         migrateForgeConfigIfNeeded();
-        // ========================== FIN FIX TEMPORAIRE ==========================
+        // ========================== END TEMPORARY FIX ==========================
 
         CommonClass.CONFIG_SYNC_HANDLER = new ForgeConfigSyncNetworkHandler();
         CommonClass.init();
@@ -116,61 +116,61 @@ public class ArmorOfTheAgesForge {
         event.getGenerator().addProvider(event.includeServer(), (DataProvider.Factory<LootModifierProvider>) LootModifierProvider::new);
     }
 
-    // ===== FIX TEMPORAIRE DE MIGRATION DE CONFIG (voir TODO au-dessus) =====
+    // ===== TEMPORARY CONFIG MIGRATION FIX (see TODO above) =====
     private static void migrateForgeConfigIfNeeded() {
         final Path configDir = FMLPaths.CONFIGDIR.get();        // .../.minecraft/config
         final Path oldDir    = configDir.resolve("config");      // .../.minecraft/config/config
-        final Path oldFile   = oldDir.resolve(MOD_ID + ".json"); // ancien emplacement
-        final Path newFile   = configDir.resolve(MOD_ID + ".json"); // nouvel emplacement correct
+        final Path oldFile   = oldDir.resolve(MOD_ID + ".json"); // old location
+        final Path newFile   = configDir.resolve(MOD_ID + ".json"); // new correct location
 
         try {
             if (Files.exists(oldFile)) {
-                // Copier seulement si le nouveau n'existe pas
+                // Copy only if the new file doesn't exist
                 if (!Files.exists(newFile)) {
                     try {
                         Files.createDirectories(newFile.getParent());
                         Files.copy(oldFile, newFile, StandardCopyOption.REPLACE_EXISTING);
-                        LOGGER.info("[{}] Configuration migrée de '{}' vers '{}'.", MOD_ID, oldFile, newFile);
+                        LOGGER.info("[{}] Configuration migrated from '{}' to '{}'.", MOD_ID, oldFile, newFile);
                     } catch (IOException e) {
-                        LOGGER.warn("[{}] Échec de copie de l'ancienne configuration '{}' vers '{}': {}",
+                        LOGGER.warn("[{}] Failed to copy old configuration '{}' to '{}': {}",
                                 MOD_ID, oldFile, newFile, e.getMessage());
                     }
                 } else {
-                    LOGGER.info("[{}] Nouveau fichier de configuration déjà présent : '{}'. " +
-                            "L'ancien sera nettoyé si possible.", MOD_ID, newFile);
+                    LOGGER.info("[{}] New configuration file already present: '{}'. " +
+                            "The old one will be cleaned up if possible.", MOD_ID, newFile);
                 }
 
-                // Supprimer l'ancien fichier (best-effort)
+                // Delete old file (best-effort)
                 try {
                     Files.deleteIfExists(oldFile);
                 } catch (IOException e) {
-                    LOGGER.warn("[{}] Impossible de supprimer l'ancien fichier de configuration '{}': {}",
+                    LOGGER.warn("[{}] Failed to delete old configuration file '{}': {}",
                             MOD_ID, oldFile, e.getMessage());
                 }
 
-                // Tenter de supprimer le dossier '.../config/config' s'il est vide
+                // Try to delete the '.../config/config' folder if it's empty
                 try {
                     if (Files.isDirectory(oldDir)) {
                         try (DirectoryStream<Path> ds = Files.newDirectoryStream(oldDir)) {
                             Iterator<Path> it = ds.iterator();
                             if (!it.hasNext()) {
                                 Files.delete(oldDir);
-                                LOGGER.info("[{}] Dossier ancien '{}' supprimé (était vide).", MOD_ID, oldDir);
+                                LOGGER.info("[{}] Old folder '{}' deleted (was empty).", MOD_ID, oldDir);
                             } else {
-                                LOGGER.info("[{}] Dossier ancien '{}' conservé (contenu détecté).", MOD_ID, oldDir);
+                                LOGGER.info("[{}] Old folder '{}' kept (contents detected).", MOD_ID, oldDir);
                             }
                         }
                     }
                 } catch (IOException e) {
-                    LOGGER.warn("[{}] Impossible de nettoyer le dossier ancien '{}': {}",
+                    LOGGER.warn("[{}] Failed to clean up old folder '{}': {}",
                             MOD_ID, oldDir, e.getMessage());
                 }
             }
         } catch (Exception e) {
-            LOGGER.warn("[{}] Problème durant la migration de configuration: {}", MOD_ID, e.getMessage());
+            LOGGER.warn("[{}] Problem during configuration migration: {}", MOD_ID, e.getMessage());
         }
     }
-    // ===================== FIN FIX TEMPORAIRE DE MIGRATION =====================
+    // ===================== END TEMPORARY MIGRATION FIX =====================
 
     public static class ItemRegistryImpl extends ItemRegistry {
         public static final DeferredRegister<Item> DEFERRED_REGISTER =
