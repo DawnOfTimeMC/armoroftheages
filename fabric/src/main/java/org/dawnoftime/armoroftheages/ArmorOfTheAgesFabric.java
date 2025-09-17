@@ -36,8 +36,6 @@ public class ArmorOfTheAgesFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         Constants.CONFIG_PATH = FabricLoader.getInstance().getConfigDir().resolve(MOD_ID + ".json");
-        System.out.println("[" + MOD_ID + "] Configuration path: " + Constants.CONFIG_PATH);
-        System.exit(0);
         CommonClass.CONFIG_SYNC_HANDLER = new FabricConfigSyncNetworkHandler();
         CommonClass.init();
 
