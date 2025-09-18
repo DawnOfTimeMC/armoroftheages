@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"IiI",
+		"I I",
+		"o o"
+	],
+	"key": {
+		"i": {
+			"id": "minecraft:leather_leggings"
+		},
+		"I": {
+			"id": "minecraft:gold_ingot"
+		},
+		"o": {
+			"id": "minecraft:red_dye"
+		}
+	},
+	"result": {
+		"id": "armoroftheages:centurion_armor_legs"
+	}
+}

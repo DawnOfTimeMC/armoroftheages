@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"iIi",
+		"i i"
+	],
+	"key": {
+		"I": {
+			"id": "minecraft:diamond_boots"
+		},
+		"i": {
+			"id": "minecraft:iron_block"
+		}
+	},
+	"result": {
+		"id": "armoroftheages:holy_armor_feet"
+	}
+}

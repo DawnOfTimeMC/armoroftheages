@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"o o",
+		"IiI",
+		"ooo"
+	],
+	"key": {
+		"i": {
+			"id": "minecraft:leather_chestplate"
+		},
+		"I": {
+			"id": "minecraft:red_dye"
+		},
+		"o": {
+			"id": "minecraft:gold_ingot"
+		}
+	},
+	"result": {
+		"id": "armoroftheages:centurion_armor_chest"
+	}
+}

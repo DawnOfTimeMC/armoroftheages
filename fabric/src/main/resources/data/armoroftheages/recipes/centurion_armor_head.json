@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"xhx",
+		"ioi",
+		"i i"
+	],
+	"key": {
+		"x": {
+			"id": "minecraft:feather"
+		},
+		"i": {
+			"id": "minecraft:gold_ingot"
+		},
+		"o": {
+			"id": "minecraft:leather_helmet"
+		},
+		"h": {
+			"id": "minecraft:red_dye"
+		}
+	},
+	"result": {
+		"id": "armoroftheages:centurion_armor_head"
+	}
+}

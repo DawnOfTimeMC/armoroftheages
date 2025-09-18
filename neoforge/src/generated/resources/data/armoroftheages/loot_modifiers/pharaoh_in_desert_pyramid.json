@@ -1,0 +1,15 @@
+{
+  "type": "armoroftheages:add_item",
+  "armor_name": "pharaoh_armor",
+  "armor_state": 0.15,
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/desert_pyramid"
+    },
+    {
+      "chance": 0.7,
+      "condition": "minecraft:random_chance"
+    }
+  ]
+}

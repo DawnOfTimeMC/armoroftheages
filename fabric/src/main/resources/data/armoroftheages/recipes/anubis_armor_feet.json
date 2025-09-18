@@ -1,0 +1,21 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"IoI",
+		"i i"
+	],
+	"key": {
+		"I": {
+			"id": "minecraft:gold_block"
+		},
+		"i": {
+			"id": "minecraft:lapis_block"
+		},
+		"o": {
+			"id": "minecraft:diamond_boots"
+		}
+	},
+	"result": {
+		"id": "armoroftheages:anubis_armor_feet"
+	}
+}

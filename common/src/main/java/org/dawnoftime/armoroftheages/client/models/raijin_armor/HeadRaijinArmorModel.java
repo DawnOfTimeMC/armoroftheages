@@ -16,12 +16,12 @@ public class HeadRaijinArmorModel<T extends LivingEntity> extends ArmorModel<T> 
 
     public HeadRaijinArmorModel(ModelPart root, boolean isSlim) {
         super(root, isSlim);
-        this.flyA = this.head.getChild("flyA");
-        this.flyB = this.head.getChild("flyB");
-        this.flyC = this.head.getChild("flyC");
-        this.flyD = this.head.getChild("flyD");
-        this.flyE = this.head.getChild("flyE");
-        this.flyF = this.head.getChild("flyF");
+        this.flyA = this.body.getChild("flyA");
+        this.flyB = this.body.getChild("flyB");
+        this.flyC = this.body.getChild("flyC");
+        this.flyD = this.body.getChild("flyD");
+        this.flyE = this.body.getChild("flyE");
+        this.flyF = this.body.getChild("flyF");
     }
 
     @Override
@@ -67,27 +67,29 @@ public class HeadRaijinArmorModel<T extends LivingEntity> extends ArmorModel<T> 
                         .texOffs(0, 0).addBox(-0.5F, -8.0F, 0.8F, 1.0F, 3.0F, 1.0F, new CubeDeformation(-0.1F)),
                 PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, -0.5236F, 0.0F, 0.0F));
 
-        head.addOrReplaceChild("flyA", CubeListBuilder.create()
+        PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.ZERO);
+        
+        body.addOrReplaceChild("flyA", CubeListBuilder.create()
                         .texOffs(45, 0).addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 2.0F, CubeDeformation.NONE),
                 PartPose.offset(-5.0F, -15.0F, 3.0F));
 
-        head.addOrReplaceChild("flyB", CubeListBuilder.create()
+        body.addOrReplaceChild("flyB", CubeListBuilder.create()
                         .texOffs(45, 0).addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 2.0F, CubeDeformation.NONE),
                 PartPose.offset(5.0F, -15.0F, 3.0F));
 
-        head.addOrReplaceChild("flyC", CubeListBuilder.create()
+        body.addOrReplaceChild("flyC", CubeListBuilder.create()
                         .texOffs(45, 0).addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 2.0F, CubeDeformation.NONE),
                 PartPose.offset(-11.0F, -7.5F, 3.0F));
 
-        head.addOrReplaceChild("flyD", CubeListBuilder.create()
+        body.addOrReplaceChild("flyD", CubeListBuilder.create()
                         .texOffs(45, 0).addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 2.0F, CubeDeformation.NONE),
                 PartPose.offset(11.0F, -7.5F, 3.0F));
 
-        head.addOrReplaceChild("flyE", CubeListBuilder.create()
+        body.addOrReplaceChild("flyE", CubeListBuilder.create()
                         .texOffs(45, 0).addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 2.0F, CubeDeformation.NONE),
                 PartPose.offset(-9.0F, 2.0F, 3.0F));
 
-        head.addOrReplaceChild("flyF", CubeListBuilder.create()
+        body.addOrReplaceChild("flyF", CubeListBuilder.create()
                         .texOffs(45, 0).addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 2.0F, CubeDeformation.NONE),
                 PartPose.offset(9.0F, 2.0F, 3.0F));
         
@@ -132,27 +134,29 @@ public class HeadRaijinArmorModel<T extends LivingEntity> extends ArmorModel<T> 
                         .texOffs(0, 0).addBox(-0.5F, -8.0F, 0.8F, 1.0F, 3.0F, 1.0F, new CubeDeformation(-0.1F)),
                 PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, -0.5236F, 0.0F, 0.0F));
 
-        head.addOrReplaceChild("flyA", CubeListBuilder.create()
+        PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.ZERO);
+
+        body.addOrReplaceChild("flyA", CubeListBuilder.create()
                         .texOffs(45, 0).addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)),
                 PartPose.offset(-4.5F, -15.0F, 3.0F));
 
-        head.addOrReplaceChild("flyB", CubeListBuilder.create()
+        body.addOrReplaceChild("flyB", CubeListBuilder.create()
                         .texOffs(45, 0).addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)),
                 PartPose.offset(4.5F, -15.0F, 3.0F));
 
-        head.addOrReplaceChild("flyC", CubeListBuilder.create()
+        body.addOrReplaceChild("flyC", CubeListBuilder.create()
                         .texOffs(45, 0).addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)),
                 PartPose.offset(-10.0F, -7.5F, 3.0F));
 
-        head.addOrReplaceChild("flyD", CubeListBuilder.create()
+        body.addOrReplaceChild("flyD", CubeListBuilder.create()
                         .texOffs(45, 0).addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)),
                 PartPose.offset(10.0F, -7.5F, 3.0F));
 
-        head.addOrReplaceChild("flyE", CubeListBuilder.create()
+        body.addOrReplaceChild("flyE", CubeListBuilder.create()
                         .texOffs(45, 0).addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)),
                 PartPose.offset(-8.0F, 2.0F, 3.0F));
 
-        head.addOrReplaceChild("flyF", CubeListBuilder.create()
+        body.addOrReplaceChild("flyF", CubeListBuilder.create()
                         .texOffs(45, 0).addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 2.0F, new CubeDeformation(0.0F)),
                 PartPose.offset(8.0F, 2.0F, 3.0F));
 

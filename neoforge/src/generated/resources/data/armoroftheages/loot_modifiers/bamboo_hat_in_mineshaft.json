@@ -1,0 +1,15 @@
+{
+  "type": "armoroftheages:add_item",
+  "armor_name": "bamboo_hat",
+  "armor_state": 1.0,
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/abandoned_mineshaft"
+    },
+    {
+      "chance": 0.35,
+      "condition": "minecraft:random_chance"
+    }
+  ]
+}

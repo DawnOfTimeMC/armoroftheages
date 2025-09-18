@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"ioi"
+	],
+	"key": {
+		"o": {
+			"id": "minecraft:iron_boots"
+		},
+		"i": {
+			"id": "minecraft:iron_block"
+		}
+	},
+	"result": {
+		"id": "armoroftheages:iron_plate_armor_feet"
+	}
+}

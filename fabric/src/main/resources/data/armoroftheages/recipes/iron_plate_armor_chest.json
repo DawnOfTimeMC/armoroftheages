@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"I I",
+		"IiI",
+		"III"
+	],
+	"key": {
+		"i": {
+			"id": "minecraft:iron_chestplate"
+		},
+		"I": {
+			"id": "minecraft:iron_block"
+		}
+	},
+	"result": {
+		"id": "armoroftheages:iron_plate_armor_chest"
+	}
+}

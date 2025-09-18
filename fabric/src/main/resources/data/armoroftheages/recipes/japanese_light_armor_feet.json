@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"ioi"
+	],
+	"key": {
+		"o": {
+			"id": "minecraft:leather_boots"
+		},
+		"i": {
+			"id": "minecraft:leather"
+		}
+	},
+	"result": {
+		"id": "armoroftheages:japanese_light_armor_feet"
+	}
+}

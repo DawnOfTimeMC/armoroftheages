@@ -1,0 +1,21 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"xox",
+		"ixi"
+	],
+	"key": {
+		"i": {
+			"id": "minecraft:redstone_block"
+		},
+		"x": {
+			"id": "minecraft:gold_block"
+		},
+		"o": {
+			"id": "minecraft:diamond_helmet"
+		}
+	},
+	"result": {
+		"id": "armoroftheages:o_yoroi_armor_head"
+	}
+}

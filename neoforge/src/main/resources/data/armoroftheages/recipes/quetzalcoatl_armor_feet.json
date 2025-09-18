@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "equipment",
+	"pattern": [
+		"BxB",
+		"i i"
+	],
+	"key": {
+		"x": {
+			"id": "minecraft:diamond_boots"
+		},
+		"i": {
+			"id": "minecraft:feather"
+		},
+		"B": {
+			"id": "minecraft:bone_block"
+		}
+	},
+	"result": {
+		"id": "armoroftheages:quetzalcoatl_armor_feet"
+	}
+}

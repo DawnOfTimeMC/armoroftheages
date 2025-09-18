@@ -20,7 +20,7 @@
         ],
         "client": ["org.dawnoftime.armoroftheages.client.ArmorOfTheAgesClientFabric"],
         "modmenu": [
-            "org.dawnoftime.armoroftheages.compat.ModMenuIntegration"
+            "org.dawnoftime.armoroftheages.compat.ModMenuEntrypoint"
         ]
     },
     "mixins": [
@@ -29,9 +29,10 @@
     ],
     "depends": {
         "fabricloader": ">=${fabric_loader_version}",
-        "fabric-api": "*",
+        "fabric": "*",
+        "yet_another_config_lib_v3": "*",
         "minecraft": "${minecraft_version}",
-        "java": ">=${java_version}"
+        "java": ">=17"
     },
     "suggests": {
         "another-mod": "*"

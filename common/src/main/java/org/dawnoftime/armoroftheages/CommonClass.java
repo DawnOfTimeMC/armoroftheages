@@ -3,7 +3,6 @@ package org.dawnoftime.armoroftheages;
 import org.dawnoftime.armoroftheages.config.AOTAConfig;
 import org.dawnoftime.armoroftheages.config.PreferredModel;
 import org.dawnoftime.armoroftheages.networking.ConfigSyncNetworkHandler;
-
 import java.util.HashMap;
 import java.util.UUID;
 

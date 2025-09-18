@@ -1,0 +1,26 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "equipment",
+	"pattern": [
+		"BiB",
+		" I ",
+		" w "
+	],
+	"key": {
+		"i": {
+			"id": "minecraft:diamond_leggings"
+		},
+		"I": {
+			"tag": "forge:ingots/gold"
+		},
+		"B": {
+			"id": "minecraft:bone_block"
+		},
+		"w": {
+			"id": "minecraft:white_wool"
+		}
+	},
+	"result": {
+		"id": "armoroftheages:quetzalcoatl_armor_legs"
+	}
+}

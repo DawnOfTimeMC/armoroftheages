@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "equipment",
+	"pattern": [
+		"ixi",
+		"I I"
+	],
+	"key": {
+		"I": {
+			"tag": "forge:leather"
+		},
+		"i": {
+			"tag": "forge:ingots/gold"
+		},
+		"x": {
+			"id": "minecraft:leather_boots"
+		}
+	},
+	"result": {
+		"id": "armoroftheages:centurion_armor_feet"
+	}
+}

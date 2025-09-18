@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"x x",
+		"iXi",
+		"iii"
+	],
+	"key": {
+		"X": {
+			"id": "minecraft:golden_chestplate"
+		},
+		"x": {
+			"id": "minecraft:gold_block"
+		},
+		"i": {
+			"id": "minecraft:string"
+		}
+	},
+	"result": {
+		"id": "armoroftheages:pharaoh_armor_chest"
+	}
+}

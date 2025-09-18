@@ -23,8 +23,8 @@ public class FeetIronPlateArmorModel<T extends LivingEntity> extends ArmorModel<
         root.addOrReplaceChild("right_leg", CubeListBuilder.create()
                         .texOffs(32, 48).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.3F)),
                 PartPose.offset(-1.9F, 12.0F, 0.0F));
-        root.addOrReplaceChild("left_leg", CubeListBuilder.create()
-                        .texOffs(32, 48).mirror(true).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.3F)),
+        root.addOrReplaceChild("left_leg", CubeListBuilder.create().mirror()
+                        .texOffs(32, 48).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.3F)),
                 PartPose.offset(1.9F, 12.0F, 0.0F));
         return LayerDefinition.create(meshdefinition, 128, 64);
     }

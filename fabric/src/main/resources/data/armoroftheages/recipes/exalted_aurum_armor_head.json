@@ -1,0 +1,18 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		" i ",
+		"ioi"
+	],
+	"key": {
+		"i": {
+			"id": "minecraft:gold_block"
+		},
+		"o": {
+			"id": "minecraft:diamond_helmet"
+		}
+	},
+	"result": {
+		"id": "armoroftheages:exalted_aurum_armor_head"
+	}
+}

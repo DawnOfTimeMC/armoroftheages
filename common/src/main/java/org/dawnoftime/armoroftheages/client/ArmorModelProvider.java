@@ -4,7 +4,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -20,7 +19,7 @@ import static org.dawnoftime.armoroftheages.Constants.MOD_ID;
 
 // Client side
 public class ArmorModelProvider {
-    private static final ResourceLocation PLAYER_RESOURCE_LOCATION = ResourceLocation.fromNamespaceAndPath("minecraft", "player");
+    protected static final ResourceLocation PLAYER_RESOURCE_LOCATION = ResourceLocation.withDefaultNamespace("player");
 
     public static ArmorModelProvider create(String armorName, EquipmentSlot slot, ArmorModelSupplier modelSupplier, Supplier<LayerDefinition> layerDefinitionSupplier){
         return new ArmorModelProvider(armorName, slot, modelSupplier, layerDefinitionSupplier);
@@ -34,18 +33,18 @@ public class ArmorModelProvider {
     protected final ArmorModelSupplier modelSupplier;
     private ArmorModel<?> armorModel;
     private final ModelLayerLocation modelLayerLocation;
-    private final ResourceLocation resourceLocations;
+    private final ResourceLocation resourceLocation;
 
-    private ArmorModelProvider(String armorName, EquipmentSlot slot, ArmorModelSupplier modelSupplier, Supplier<LayerDefinition> layerDefinitionSupplier){
+    protected ArmorModelProvider(String armorName, EquipmentSlot slot, ArmorModelSupplier modelSupplier, Supplier<LayerDefinition> layerDefinitionSupplier){
         this.layerDefinitionSupplier = layerDefinitionSupplier;
         this.modelSupplier = modelSupplier;
         this.modelLayerLocation = new ModelLayerLocation(PLAYER_RESOURCE_LOCATION, armorName + "_" + slot.name().toLowerCase());
-        this.resourceLocations = ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/models/armor/" + armorName + ".png");
+        this.resourceLocation = ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/models/armor/" + armorName + ".png");
     }
 
     @NotNull
     public ResourceLocation getTexture(Entity entity) {
-        return this.resourceLocations;
+        return this.resourceLocation;
     }
 
     @NotNull
@@ -70,7 +69,7 @@ public class ArmorModelProvider {
             }
         }
 
-        return entity instanceof AbstractClientPlayer player && player.getSkin().model().equals(PlayerSkin.Model.SLIM);
+        return entity instanceof AbstractClientPlayer player && "slim".equals(player.getSkin().model().name());
     }
 
     public ArmorModel<?> getArmorModel(Entity entity) {
@@ -83,14 +82,14 @@ public class ArmorModelProvider {
     public static class MixedArmorModelProvider extends ArmorModelProvider{
         private final Supplier<LayerDefinition> slimLayerDefinitionSupplier;
         private final ModelLayerLocation slimModelLayerLocation;
-        private final ResourceLocation slimResourceLocations;
+        private final ResourceLocation slimResourceLocation;
         private ArmorModel<?> slimArmorModel;
 
-        private MixedArmorModelProvider(String armorName, EquipmentSlot slot, ArmorModelSupplier modelSupplier, Supplier<LayerDefinition> layerDefinitionSupplier, Supplier<LayerDefinition> slimLayerDefinitionSupplier){
+        protected MixedArmorModelProvider(String armorName, EquipmentSlot slot, ArmorModelSupplier modelSupplier, Supplier<LayerDefinition> layerDefinitionSupplier, Supplier<LayerDefinition> slimLayerDefinitionSupplier){
             super(armorName, slot, modelSupplier, layerDefinitionSupplier);
             this.slimLayerDefinitionSupplier = slimLayerDefinitionSupplier;
             this.slimModelLayerLocation = new ModelLayerLocation(PLAYER_RESOURCE_LOCATION, armorName + "_" + slot.name().toLowerCase() + "_slim");
-            this.slimResourceLocations = ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/models/armor/" + armorName + "_slim.png");
+            this.slimResourceLocation = ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/models/armor/" + armorName + "_slim.png");
         }
 
         @NotNull
@@ -104,7 +103,7 @@ public class ArmorModelProvider {
 
         @Override
         public @NotNull ResourceLocation getTexture(Entity entity) {
-            return isSlim(entity) ? this.slimResourceLocations : super.getTexture(entity);
+            return isSlim(entity) ? this.slimResourceLocation : super.getTexture(entity);
         }
 
         @Override

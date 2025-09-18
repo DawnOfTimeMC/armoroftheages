@@ -1,0 +1,23 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "equipment",
+	"pattern": [
+		"o o",
+		"IxI",
+		"oIo"
+	],
+	"key": {
+		"o": {
+			"id": "minecraft:redstone_block"
+		},
+		"I": {
+			"id": "minecraft:coal_block"
+		},
+		"x": {
+			"id": "minecraft:diamond_chestplate"
+		}
+	},
+	"result": {
+		"id": "armoroftheages:o_yoroi_armor_chest"
+	}
+}

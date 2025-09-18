@@ -12,6 +12,7 @@ out
 *.iws
 *.iml
 .idea/*
+.vscode/*
 !.idea/scopes
 
 # gradle
@@ -20,7 +21,5 @@ build
 
 # other
 eclipse
-.eclipse
 run
 runs
-.vscode

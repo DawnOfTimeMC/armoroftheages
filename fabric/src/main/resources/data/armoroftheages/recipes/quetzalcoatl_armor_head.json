@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"pattern": [
+		"xxx",
+		"xox",
+		"ivi"
+	],
+	"key": {
+		"x": {
+			"id": "minecraft:feather"
+		},
+		"i": {
+			"id": "minecraft:gold_ingot"
+		},
+		"o": {
+			"id": "minecraft:diamond_helmet"
+		},
+		"v": {
+			"id": "minecraft:skeleton_skull"
+		}
+	},
+	"result": {
+		"id": "armoroftheages:quetzalcoatl_armor_head"
+	}
+}
