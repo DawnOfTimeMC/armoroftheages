@@ -22,8 +22,8 @@ public class ForgeHumanoidArmorItem extends HumanoidArmorItem{
     Some mods call the ForgeHooksClient#getArmorModel() method, to get and use the custom models.
     All the function in this class are never called or used to render our armors by default.
     */
-    public ForgeHumanoidArmorItem(@NotNull String armorSetName, Holder<ArmorMaterial> material, Type type) {
-        super(armorSetName, material, type);
+    public ForgeHumanoidArmorItem(@NotNull String armorSetName, Holder<ArmorMaterial> material, Type type, int durabilityFactor) {
+        super(armorSetName, material, type, durabilityFactor);
     }
 
 

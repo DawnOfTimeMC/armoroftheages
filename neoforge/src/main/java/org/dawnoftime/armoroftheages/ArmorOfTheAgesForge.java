@@ -179,12 +179,12 @@ public class ArmorOfTheAgesForge {
         public static final Map<String, List<ResourceLocation>> ARMORS_LOCATION_FROM_NAME = new Object2ObjectOpenHashMap<>();
 
         @Override
-        public void register(String armorSetName, Holder<ArmorMaterial> material, ArmorItem.Type slot) {
+        public void register(String armorSetName, Holder<ArmorMaterial> material, ArmorItem.Type slot, int durabilityFactor) {
             ARMORS_LOCATION_FROM_NAME
                     .computeIfAbsent(armorSetName, s -> new ObjectArrayList<>())
                     .add(ResourceLocation.fromNamespaceAndPath(MOD_ID, armorSetName + "_" + slot.getSlot().getName()));
             DEFERRED_REGISTER.register(armorSetName + "_" + slot.getSlot().getName(),
-                    () -> new ForgeHumanoidArmorItem(armorSetName, material, slot));
+                    () -> new ForgeHumanoidArmorItem(armorSetName, material, slot, durabilityFactor));
         }
 
         @Override

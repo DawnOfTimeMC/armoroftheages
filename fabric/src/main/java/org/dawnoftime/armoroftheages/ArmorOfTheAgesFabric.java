@@ -60,8 +60,8 @@ public class ArmorOfTheAgesFabric implements ModInitializer {
         public static final Map<String, List<ResourceLocation>> ARMORS_LOCATION_FROM_NAME = new Object2ObjectOpenHashMap<>();
 
         @Override
-        public void register(String armorSetName, Holder<ArmorMaterial> material, ArmorItem.Type slot) {
-            Item item = new HumanoidArmorItem(armorSetName, material, slot);
+        public void register(String armorSetName, Holder<ArmorMaterial> material, ArmorItem.Type slot, int durabilityFactor) {
+            Item item = new HumanoidArmorItem(armorSetName, material, slot, durabilityFactor);
             ResourceLocation armorLocation = ResourceLocation.fromNamespaceAndPath(MOD_ID, armorSetName + "_" + slot.getSlot().getName());
             Registry.register(BuiltInRegistries.ITEM, armorLocation, item);
             ARMORS_LOCATION_FROM_NAME.computeIfAbsent(armorSetName, s -> new ObjectArrayList<>()).add(armorLocation);

@@ -20,8 +20,8 @@ import static org.dawnoftime.armoroftheages.Constants.MOD_ID;
 
 public class HumanoidArmorItem extends ArmorItem {
     private final String armorPartName;
-    public HumanoidArmorItem(@NotNull String armorSetName, Holder<ArmorMaterial> material, Type type) {
-        super(material, type, new Properties().stacksTo(1));
+    public HumanoidArmorItem(@NotNull String armorSetName, Holder<ArmorMaterial> material, Type type, int durabilityFactor) {
+        super(material, type, new Properties().stacksTo(1).durability(type.getDurability(durabilityFactor)));
         this.armorPartName = armorSetName + "_" + type.getSlot().getName();
     }
 
