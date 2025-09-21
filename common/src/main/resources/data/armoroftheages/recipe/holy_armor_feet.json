@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "equipment",
+    "pattern": [
+        "i i",
+        "I I"
+    ],
+    "key": {
+        "I": {
+            "item": "minecraft:diamond_boots"
+        },
+        "i": {
+            "item": "minecraft:iron_block"
+        }
+    },
+    "result": {
+        "id": "armoroftheages:holy_armor_feet"
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "category": "equipment",
+    "pattern": [
+        "IxI",
+        "i i"
+    ],
+    "key": {
+        "I": {
+            "item": "minecraft:gold_block"
+        },
+        "i": {
+            "tag": "c:ingots/gold"
+        },
+        "x": {
+            "item": "minecraft:golden_boots"
+        }
+    },
+    "result": {
+        "id": "armoroftheages:pharaoh_armor_feet"
+    }
+}

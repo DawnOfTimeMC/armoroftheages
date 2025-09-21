@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "ioi",
+        "u u"
+    ],
+    "key": {
+        "o": {
+            "item": "minecraft:diamond_boots"
+        },
+        "i": {
+            "item": "minecraft:gold_block"
+        },
+        "u": {
+            "item": "minecraft:gold_ingot"
+        }
+    },
+    "result": {
+        "id": "armoroftheages:exalted_aurum_armor_feet"
+    }
+}

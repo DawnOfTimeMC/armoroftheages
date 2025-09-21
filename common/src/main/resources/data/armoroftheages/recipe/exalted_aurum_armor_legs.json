@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "IiI",
+        "IoI",
+        " o "
+    ],
+    "key": {
+        "i": {
+            "item": "minecraft:diamond_leggings"
+        },
+        "I": {
+            "item": "minecraft:gold_block"
+        },
+        "o": {
+            "item": "minecraft:red_wool"
+        }
+    },
+    "result": {
+        "id": "armoroftheages:exalted_aurum_armor_legs"
+    }
+}
