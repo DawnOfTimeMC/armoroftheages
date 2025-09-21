@@ -7,7 +7,7 @@
     ],
     "key": {
         "I": {
-            "tag": "c:leather"
+            "item": "minecraft:leather"
         },
         "i": {
             "tag": "c:ingots/gold"

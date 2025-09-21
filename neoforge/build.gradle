@@ -55,6 +55,7 @@ dependencies {
     //runtimeOnly "curse.maven:citadel-331936:5143956" // Citadel
     //runtimeOnly "curse.maven:rats-323596:4802123" // Rats
 
+    implementation "curse.maven:jei-238222:7014282"
     implementation "thedarkcolour:kotlinforforge-neoforge:5.6.0"
     implementation ("dev.isxander:yet-another-config-lib:${project.yacl_version}-neoforge")
 }

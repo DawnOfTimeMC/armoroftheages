@@ -10,7 +10,7 @@
             "item": "minecraft:string"
         },
         "I": {
-            "tag": "c:leather"
+            "item": "minecraft:leather"
         },
         "o": {
             "item": "minecraft:leather_leggings"
