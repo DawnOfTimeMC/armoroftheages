@@ -90,7 +90,7 @@ public class HeadRaijinArmorModel<T extends LivingEntity> extends ArmorModel<T> 
         head.addOrReplaceChild("flyF", CubeListBuilder.create()
                         .texOffs(45, 0).addBox(-1.5F, -1.5F, 0.0F, 3.0F, 3.0F, 2.0F, CubeDeformation.NONE),
                 PartPose.offset(9.0F, 2.0F, 3.0F));
-        
+
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
 

@@ -11,6 +11,10 @@ import org.dawnoftime.armoroftheages.client.models.anubis_armor.ChestAnubisArmor
 import org.dawnoftime.armoroftheages.client.models.anubis_armor.FeetAnubisArmorModel;
 import org.dawnoftime.armoroftheages.client.models.anubis_armor.HeadAnubisArmorModel;
 import org.dawnoftime.armoroftheages.client.models.anubis_armor.LegsAnubisArmorModel;
+import org.dawnoftime.armoroftheages.client.models.exalted_aurum.ChestExaltedAurumArmorModel;
+import org.dawnoftime.armoroftheages.client.models.exalted_aurum.FeetExaltedAurumArmorModel;
+import org.dawnoftime.armoroftheages.client.models.exalted_aurum.HeadExaltedAurumArmorModel;
+import org.dawnoftime.armoroftheages.client.models.exalted_aurum.LegsExaltedAurumArmorModel;
 import org.dawnoftime.armoroftheages.client.models.holy_armor.ChestHolyArmorModel;
 import org.dawnoftime.armoroftheages.client.models.holy_armor.FeetHolyArmorModel;
 import org.dawnoftime.armoroftheages.client.models.holy_armor.HeadHolyArmorModel;
@@ -59,6 +63,10 @@ public class ModelProviderRegistry {
         register(CENTURION_ARMOR_NAME, EquipmentSlot.CHEST, ChestCenturionArmorModel::new, ChestCenturionArmorModel::createLayerDefinition, ChestCenturionArmorModel::createSlimLayerDefinition);
         register(CENTURION_ARMOR_NAME, EquipmentSlot.LEGS, LegsCenturionArmorModel::new, LegsCenturionArmorModel::createLayerDefinition);
         register(CENTURION_ARMOR_NAME, EquipmentSlot.FEET, FeetCenturionArmorModel::new, FeetCenturionArmorModel::createLayerDefinition);
+        register(EXALTED_AURUM_ARMOR_NAME, EquipmentSlot.HEAD, HeadExaltedAurumArmorModel::new, HeadExaltedAurumArmorModel::createLayerDefinition);
+        register(EXALTED_AURUM_ARMOR_NAME, EquipmentSlot.CHEST, ChestExaltedAurumArmorModel::new, ChestExaltedAurumArmorModel::createLayerDefinition, ChestExaltedAurumArmorModel::createSlimLayerDefinition);
+        register(EXALTED_AURUM_ARMOR_NAME, EquipmentSlot.LEGS, LegsExaltedAurumArmorModel::new, LegsExaltedAurumArmorModel::createLayerDefinition, LegsExaltedAurumArmorModel::createSlimLayerDefinition);
+        register(EXALTED_AURUM_ARMOR_NAME, EquipmentSlot.FEET, FeetExaltedAurumArmorModel::new, FeetExaltedAurumArmorModel::createLayerDefinition);
         register(HOLY_ARMOR_NAME, EquipmentSlot.HEAD, HeadHolyArmorModel::new, HeadHolyArmorModel::createLayerDefinition);
         register(HOLY_ARMOR_NAME, EquipmentSlot.CHEST, ChestHolyArmorModel::new, ChestHolyArmorModel::createLayerDefinition, ChestHolyArmorModel::createSlimLayerDefinition);
         register(HOLY_ARMOR_NAME, EquipmentSlot.LEGS, LegsHolyArmorModel::new, LegsHolyArmorModel::createLayerDefinition);

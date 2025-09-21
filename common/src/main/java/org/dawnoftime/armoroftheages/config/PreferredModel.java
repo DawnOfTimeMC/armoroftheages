@@ -2,7 +2,7 @@ package org.dawnoftime.armoroftheages.config;
 
 import com.mojang.serialization.Codec;
 
-public enum PreferredModel{
+public enum PreferredModel {
     MALE,
     FEMALE;
 

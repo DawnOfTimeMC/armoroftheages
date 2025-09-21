@@ -1,0 +1,15 @@
+{
+  "type": "armoroftheages:add_item",
+  "armor_name": "o_yoroi_armor",
+  "armor_state": 0.15,
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/shipwreck_treasure"
+    },
+    {
+      "chance": 1.0,
+      "condition": "minecraft:random_chance"
+    }
+  ]
+}

@@ -8,9 +8,11 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import org.dawnoftime.armoroftheages.client.ArmorModelProvider;
 import org.dawnoftime.armoroftheages.registry.ModelProviderRegistry;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -23,17 +25,17 @@ public class HumanoidArmorItem extends ArmorItem {
         this.armorPartName = armorSetName + "_" + type.getSlot().getName();
     }
 
-    public ArmorModelProvider getModelProvider(){
+    public @Nullable ArmorModelProvider getModelProvider(){
         return ModelProviderRegistry.REGISTRY.get(this.armorPartName);
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context, @NotNull List<Component> tooltips, @NotNull TooltipFlag flagIn) {
-        super.appendHoverText(stack, context, tooltips, flagIn);
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
         if(this.material.value().repairIngredient().get().getItems().length > 0){
             MutableComponent text = Component.translatable("tooltip." + MOD_ID + ".repair_with").withStyle(ChatFormatting.GRAY)
                     .append(this.material.value().repairIngredient().get().getItems()[0].getHoverName().plainCopy().withStyle(ChatFormatting.YELLOW));
-            tooltips.add(text);
+            tooltipComponents.add(text);
         }
     }
 }

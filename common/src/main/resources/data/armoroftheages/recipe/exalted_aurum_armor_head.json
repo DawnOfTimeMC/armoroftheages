@@ -1,18 +1,18 @@
 {
-	"type": "minecraft:crafting_shaped",
-	"pattern": [
-		" i ",
-		"ioi"
-	],
-	"key": {
-		"i": {
-			"item": "minecraft:gold_block"
-		},
-		"o": {
-			"item": "minecraft:diamond_helmet"
-		}
-	},
-	"result": {
-		"item": "armoroftheages:exalted_aurum_armor_head"
-	}
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " i ",
+        "ioi"
+    ],
+    "key": {
+        "i": {
+            "item": "minecraft:gold_block"
+        },
+        "o": {
+            "item": "minecraft:diamond_helmet"
+        }
+    },
+    "result": {
+        "id": "armoroftheages:exalted_aurum_armor_head"
+    }
 }

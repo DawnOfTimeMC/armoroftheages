@@ -37,8 +37,7 @@ public class CustomArmorRenderer implements ArmorRenderer {
                     model.crouching = entity.isShiftKeyDown();
                     model.riding = contextModel.riding;
 
-                    // Code copied from LivingEntityRenderer
-                    float partialTicks = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
+                    float partialTicks = Minecraft.getInstance().getFrameTimeNs() / 1_000_000_000.0f;
 
                     float f = Mth.rotLerp(partialTicks, entity.yBodyRotO, entity.yBodyRot);
                     float f1 = Mth.rotLerp(partialTicks, entity.yHeadRotO, entity.yHeadRot);
@@ -86,10 +85,10 @@ public class CustomArmorRenderer implements ArmorRenderer {
 
                     model.setupAnim(entity, limbSwing, limbSwingAmount, (float) entity.tickCount + partialTicks, netHeadYaw, headPitch);
                     VertexConsumer vertexconsumer = buffer.getBuffer(RenderType.armorCutoutNoCull(provider.getTexture(entity)));
-                    model.renderToBuffer(stack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY);
+                    model.renderToBuffer(stack, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, -1);
 
                     if (itemStack.hasFoil())
-                        model.renderToBuffer(stack, buffer.getBuffer(RenderType.armorEntityGlint()), packedLight, OverlayTexture.NO_OVERLAY);
+                        model.renderToBuffer(stack, buffer.getBuffer(RenderType.armorEntityGlint()), packedLight, OverlayTexture.NO_OVERLAY, -1);
                 }
             }
         }

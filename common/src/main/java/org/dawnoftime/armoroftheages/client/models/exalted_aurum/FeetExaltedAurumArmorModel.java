@@ -1,0 +1,34 @@
+package org.dawnoftime.armoroftheages.client.models.exalted_aurum;
+
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.world.entity.LivingEntity;
+import org.dawnoftime.armoroftheages.client.models.ArmorModel;
+
+public class FeetExaltedAurumArmorModel<T extends LivingEntity> extends ArmorModel<T> {
+
+    public FeetExaltedAurumArmorModel(ModelPart root, boolean isSlim) {
+        super(root, isSlim);
+    }
+
+    @Override
+    public <E extends LivingEntity> ArmorModel<E> create(ModelPart root, boolean isSlim) {
+        return new FeetExaltedAurumArmorModel<>(root, isSlim);
+    }
+
+    public static LayerDefinition createLayerDefinition() {
+        MeshDefinition meshdefinition = templateLayerDefinition(1.0F);
+        PartDefinition root = meshdefinition.getRoot();
+        root.addOrReplaceChild("right_leg", CubeListBuilder.create()
+                        .texOffs(0, 43).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.3F)),
+                PartPose.offset(-1.9F, 12.0F, 0.0F));
+        root.addOrReplaceChild("left_leg", CubeListBuilder.create().mirror()
+                        .texOffs(0, 43).addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, new CubeDeformation(0.3F)),
+                PartPose.offset(1.9F, 12.0F, 0.0F));
+        return LayerDefinition.create(meshdefinition, 128, 64);
+    }
+
+    @Override
+    protected void setupArmorPartAnim(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {}
+}
