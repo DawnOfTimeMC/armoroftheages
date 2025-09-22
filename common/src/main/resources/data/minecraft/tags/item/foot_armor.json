@@ -10,5 +10,6 @@
     "armoroftheages:pharaoh_armor_feet",
     "armoroftheages:anubis_armor_feet",
     "armoroftheages:exalted_aurum_armor_feet"
-  ]
+  ],
+    "replace": false
 }

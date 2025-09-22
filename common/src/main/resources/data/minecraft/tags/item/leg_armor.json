@@ -9,6 +9,7 @@
     "armoroftheages:centurion_armor_legs",
     "armoroftheages:pharaoh_armor_legs",
     "armoroftheages:anubis_armor_legs",
-    "armoroftheages:exalted_aurum_armor_leg"
-  ]
+    "armoroftheages:exalted_aurum_armor_legs"
+  ],
+  "replace": false
 }
