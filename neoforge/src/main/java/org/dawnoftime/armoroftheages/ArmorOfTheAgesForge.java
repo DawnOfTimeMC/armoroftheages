@@ -105,10 +105,9 @@ public class ArmorOfTheAgesForge {
         modEventBus.addListener(NeoForgePayloadRegistry::register);
         modEventBus.addListener(ForgeHumanoidArmorItem::registerClientExtensions);
 
-        modContainer.registerExtensionPoint(IConfigScreenFactory.class, (modContainer2, parent) -> AOTAConfig.createScreen().generateScreen(parent));
-
         // Client init
         if (FMLEnvironment.dist == Dist.CLIENT) {
+            modContainer.registerExtensionPoint(IConfigScreenFactory.class, (modContainer2, parent) -> AOTAConfig.createScreen().generateScreen(parent));
             modEventBus.addListener(ArmorOfTheAgesClientForge::registerLayerDefinitions);
             NeoForge.EVENT_BUS.addListener(ArmorOfTheAgesClientForge::playerLoggedInEvent);
         }
