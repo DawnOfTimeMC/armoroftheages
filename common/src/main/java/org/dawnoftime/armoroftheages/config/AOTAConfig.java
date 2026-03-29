@@ -30,95 +30,106 @@ public class AOTAConfig {
     @SerialEntry public boolean ignoredSynchronizedPreferredModel = true;
     @SerialEntry public PreferredModel preferredModel = PreferredModel.MALE;
 
+    // BAMBOO_HAT (HEAD only — no chest/legs/feet)
+    @SerialEntry public int bambooHatDurability = 5;
+    @SerialEntry public int bambooHatHelmetDef = 1;
+    @SerialEntry public int bambooHatEnchantability = 15;
+    @SerialEntry public float bambooHatToughness = 0.0F;
+
     // IRON_PLATE armor
-    @SerialEntry public int ironPlateDurability = 25;
-    @SerialEntry public int ironPlateHelmetDef = 3;
-    @SerialEntry public int ironPlateChestDef = 9;
-    @SerialEntry public int ironPlateLegsDef = 7;
-    @SerialEntry public int ironPlateFeetDef = 3;
-    @SerialEntry public int ironPlateEnchantability = 6;
+    @SerialEntry public int ironPlateDurability = 15;
+    @SerialEntry public int ironPlateHelmetDef = 2;
+    @SerialEntry public int ironPlateChestDef = 6;
+    @SerialEntry public int ironPlateLegsDef = 5;
+    @SerialEntry public int ironPlateFeetDef = 2;
+    @SerialEntry public int ironPlateEnchantability = 9;
     @SerialEntry public float ironPlateToughness = 0.0F;
 
     // HOLY armor
-    @SerialEntry public int holyDurability = 40;
-    @SerialEntry public int holyHelmetDef = 4;
-    @SerialEntry public int holyChestDef = 10;
-    @SerialEntry public int holyLegsDef = 8;
-    @SerialEntry public int holyFeetDef = 4;
-    @SerialEntry public int holyEnchantability = 4;
-    @SerialEntry public float holyToughness = 2.0F;
+    @SerialEntry public int holyDurability = 37;
+    @SerialEntry public int holyHelmetDef = 3;
+    @SerialEntry public int holyChestDef = 8;
+    @SerialEntry public int holyLegsDef = 6;
+    @SerialEntry public int holyFeetDef = 3;
+    @SerialEntry public int holyEnchantability = 15;
+    @SerialEntry public float holyToughness = 3.0F;
+    @SerialEntry public float holyKnockbackResistance = 0.1F;
 
     // EXALTED_AURUM armor
-    @SerialEntry public int exaltedAurumDurability = 35;
+    @SerialEntry public int exaltedAurumDurability = 37;
     @SerialEntry public int exaltedAurumHelmetDef = 3;
-    @SerialEntry public int exaltedAurumChestDef = 9;
-    @SerialEntry public int exaltedAurumLegsDef = 7;
+    @SerialEntry public int exaltedAurumChestDef = 8;
+    @SerialEntry public int exaltedAurumLegsDef = 6;
     @SerialEntry public int exaltedAurumFeetDef = 3;
-    @SerialEntry public int exaltedAurumEnchantability = 12;
+    @SerialEntry public int exaltedAurumEnchantability = 15;
     @SerialEntry public float exaltedAurumToughness = 3.0F;
+    @SerialEntry public float exaltedAurumKnockbackResistance = 0.1F;
 
     // JAPANESE_LIGHT armor
-    @SerialEntry public int japaneseLightDurability = 12;
-    @SerialEntry public int japaneseLightHelmetDef = 2;
-    @SerialEntry public int japaneseLightChestDef = 7;
-    @SerialEntry public int japaneseLightLegsDef = 6;
-    @SerialEntry public int japaneseLightFeetDef = 2;
-    @SerialEntry public int japaneseLightEnchantability = 10;
+    @SerialEntry public int japaneseLightDurability = 5;
+    @SerialEntry public int japaneseLightHelmetDef = 1;
+    @SerialEntry public int japaneseLightChestDef = 3;
+    @SerialEntry public int japaneseLightLegsDef = 2;
+    @SerialEntry public int japaneseLightFeetDef = 1;
+    @SerialEntry public int japaneseLightEnchantability = 15;
     @SerialEntry public float japaneseLightToughness = 0.0F;
 
     // O_YOROI armor
-    @SerialEntry public int oYoroiDurability = 20;
-    @SerialEntry public int oYoroiHelmetDef = 3;
-    @SerialEntry public int oYoroiChestDef = 8;
-    @SerialEntry public int oYoroiLegsDef = 6;
-    @SerialEntry public int oYoroiFeetDef = 3;
-    @SerialEntry public int oYoroiEnchantability = 16;
-    @SerialEntry public float oYoroiToughness = 2.0F;
+    @SerialEntry public int oYoroiDurability = 15;
+    @SerialEntry public int oYoroiHelmetDef = 2;
+    @SerialEntry public int oYoroiChestDef = 6;
+    @SerialEntry public int oYoroiLegsDef = 5;
+    @SerialEntry public int oYoroiFeetDef = 2;
+    @SerialEntry public int oYoroiEnchantability = 9;
+    @SerialEntry public float oYoroiToughness = 0.0F;
 
     // RAIJIN armor
-    @SerialEntry public int raijinDurability = 35;
+    @SerialEntry public int raijinDurability = 37;
     @SerialEntry public int raijinHelmetDef = 3;
-    @SerialEntry public int raijinChestDef = 9;
-    @SerialEntry public int raijinLegsDef = 7;
+    @SerialEntry public int raijinChestDef = 8;
+    @SerialEntry public int raijinLegsDef = 6;
     @SerialEntry public int raijinFeetDef = 3;
-    @SerialEntry public int raijinEnchantability = 26;
-    @SerialEntry public float raijinToughness = 2.0F;
+    @SerialEntry public int raijinEnchantability = 15;
+    @SerialEntry public float raijinToughness = 3.0F;
+    @SerialEntry public float raijinKnockbackResistance = 0.1F;
 
     // PHARAOH armor
-    @SerialEntry public int pharaohDurability = 10;
+    @SerialEntry public int pharaohDurability = 33;
     @SerialEntry public int pharaohHelmetDef = 3;
     @SerialEntry public int pharaohChestDef = 8;
     @SerialEntry public int pharaohLegsDef = 6;
     @SerialEntry public int pharaohFeetDef = 3;
-    @SerialEntry public int pharaohEnchantability = 37;
+    @SerialEntry public int pharaohEnchantability = 10;
     @SerialEntry public float pharaohToughness = 2.0F;
 
     // ANUBIS
-    @SerialEntry public int anubisDurability = 25;
+    @SerialEntry public int anubisDurability = 37;
     @SerialEntry public int anubisHelmetDef = 3;
     @SerialEntry public int anubisChestDef = 8;
     @SerialEntry public int anubisLegsDef = 6;
     @SerialEntry public int anubisFeetDef = 3;
-    @SerialEntry public int anubisEnchantability = 52;
+    @SerialEntry public int anubisEnchantability = 15;
     @SerialEntry public float anubisToughness = 3.0F;
+    @SerialEntry public float anubisKnockbackResistance = 0.1F;
 
     // CENTURION armor
-    @SerialEntry public int centurionDurability = 22;
-    @SerialEntry public int centurionHelmetDef = 3;
-    @SerialEntry public int centurionChestDef = 7;
+    @SerialEntry public int centurionDurability = 15;
+    @SerialEntry public int centurionHelmetDef = 2;
+    @SerialEntry public int centurionChestDef = 6;
     @SerialEntry public int centurionLegsDef = 5;
-    @SerialEntry public int centurionFeetDef = 3;
-    @SerialEntry public int centurionEnchantability = 10;
-    @SerialEntry public float centurionToughness = 3.0F;
+    @SerialEntry public int centurionFeetDef = 2;
+    @SerialEntry public int centurionEnchantability = 9;
+    @SerialEntry public float centurionToughness = 0.0F;
 
     // QUETZALCOATL armor
-    @SerialEntry public int quetzalcoatlDurability = 25;
-    @SerialEntry public int quetzalcoatlHelmetDef = 2;
-    @SerialEntry public int quetzalcoatlChestDef = 6;
-    @SerialEntry public int quetzalcoatlLegsDef = 5;
-    @SerialEntry public int quetzalcoatlFeetDef = 2;
-    @SerialEntry public int quetzalcoatlEnchantability = 20;
-    @SerialEntry public float quetzalcoatlToughness = 6.0F;
+    @SerialEntry public int quetzalcoatlDurability = 37;
+    @SerialEntry public int quetzalcoatlHelmetDef = 3;
+    @SerialEntry public int quetzalcoatlChestDef = 8;
+    @SerialEntry public int quetzalcoatlLegsDef = 6;
+    @SerialEntry public int quetzalcoatlFeetDef = 3;
+    @SerialEntry public int quetzalcoatlEnchantability = 15;
+    @SerialEntry public float quetzalcoatlToughness = 3.0F;
+    @SerialEntry public float quetzalcoatlKnockbackResistance = 0.1F;
 
     @SerialEntry
     public boolean generateArmorLoot = true;
@@ -179,6 +190,31 @@ public class AOTAConfig {
                             .description(OptionDescription.of(Component.translatable("config.armoroftheages.ignore_synchronized_preferred_models.description")))
                             .binding(defaults.ignoredSynchronizedPreferredModel, () -> config.ignoredSynchronizedPreferredModel, val -> config.ignoredSynchronizedPreferredModel = val)
                             .controller(opt -> new BooleanControllerBuilderImpl(opt).coloured(true).trueFalseFormatter())
+                            .build();
+
+                    // BAMBOO_HAT Options
+                    var bambooHatDurability = Option.<Integer>createBuilder()
+                            .name(Component.translatable("config.armoroftheages.bamboo_hat_durability"))
+                            .binding(defaults.bambooHatDurability, () -> config.bambooHatDurability, val -> config.bambooHatDurability = val)
+                            .controller(IntegerFieldControllerBuilderImpl::new)
+                            .build();
+
+                    var bambooHatHelmetDef = Option.<Integer>createBuilder()
+                            .name(Component.translatable("config.armoroftheages.bamboo_hat_helmet_def"))
+                            .binding(defaults.bambooHatHelmetDef, () -> config.bambooHatHelmetDef, val -> config.bambooHatHelmetDef = val)
+                            .controller(IntegerFieldControllerBuilderImpl::new)
+                            .build();
+
+                    var bambooHatEnchantability = Option.<Integer>createBuilder()
+                            .name(Component.translatable("config.armoroftheages.bamboo_hat_enchantability"))
+                            .binding(defaults.bambooHatEnchantability, () -> config.bambooHatEnchantability, val -> config.bambooHatEnchantability = val)
+                            .controller(IntegerFieldControllerBuilderImpl::new)
+                            .build();
+
+                    var bambooHatToughness = Option.<Float>createBuilder()
+                            .name(Component.translatable("config.armoroftheages.bamboo_hat_toughness"))
+                            .binding(defaults.bambooHatToughness, () -> config.bambooHatToughness, val -> config.bambooHatToughness = val)
+                            .controller(FloatFieldControllerBuilderImpl::new)
                             .build();
 
                     // IRON_PLATE Options
@@ -267,6 +303,12 @@ public class AOTAConfig {
                             .controller(FloatFieldControllerBuilderImpl::new)
                             .build();
 
+                    var holyKnockbackResistance = Option.<Float>createBuilder()
+                            .name(Component.translatable("config.armoroftheages.holy_knockback_resistance"))
+                            .binding(defaults.holyKnockbackResistance, () -> config.holyKnockbackResistance, val -> config.holyKnockbackResistance = val)
+                            .controller(FloatFieldControllerBuilderImpl::new)
+                            .build();
+
                     // EXALTED_AURUM Options
                     var exaltedAurumDurability = Option.<Integer>createBuilder()
                             .name(Component.translatable("config.armoroftheages.exalted_aurum_durability"))
@@ -307,6 +349,12 @@ public class AOTAConfig {
                     var exaltedAurumToughness = Option.<Float>createBuilder()
                             .name(Component.translatable("config.armoroftheages.exalted_aurum_toughness"))
                             .binding(defaults.exaltedAurumToughness, () -> config.exaltedAurumToughness, val -> config.exaltedAurumToughness = val)
+                            .controller(FloatFieldControllerBuilderImpl::new)
+                            .build();
+
+                    var exaltedAurumKnockbackResistance = Option.<Float>createBuilder()
+                            .name(Component.translatable("config.armoroftheages.exalted_aurum_knockback_resistance"))
+                            .binding(defaults.exaltedAurumKnockbackResistance, () -> config.exaltedAurumKnockbackResistance, val -> config.exaltedAurumKnockbackResistance = val)
                             .controller(FloatFieldControllerBuilderImpl::new)
                             .build();
 
@@ -439,6 +487,12 @@ public class AOTAConfig {
                             .controller(FloatFieldControllerBuilderImpl::new)
                             .build();
 
+                    var raijinKnockbackResistance = Option.<Float>createBuilder()
+                            .name(Component.translatable("config.armoroftheages.raijin_knockback_resistance"))
+                            .binding(defaults.raijinKnockbackResistance, () -> config.raijinKnockbackResistance, val -> config.raijinKnockbackResistance = val)
+                            .controller(FloatFieldControllerBuilderImpl::new)
+                            .build();
+
                     // PHARAOH Options
                     var pharaohDurability = Option.<Integer>createBuilder()
                             .name(Component.translatable("config.armoroftheages.pharaoh_durability"))
@@ -525,6 +579,12 @@ public class AOTAConfig {
                             .controller(FloatFieldControllerBuilderImpl::new)
                             .build();
 
+                    var anubisKnockbackResistance = Option.<Float>createBuilder()
+                            .name(Component.translatable("config.armoroftheages.anubis_knockback_resistance"))
+                            .binding(defaults.anubisKnockbackResistance, () -> config.anubisKnockbackResistance, val -> config.anubisKnockbackResistance = val)
+                            .controller(FloatFieldControllerBuilderImpl::new)
+                            .build();
+
                     // CENTURION Options
                     var centurionDurability = Option.<Integer>createBuilder()
                             .name(Component.translatable("config.armoroftheages.centurion_durability"))
@@ -608,6 +668,12 @@ public class AOTAConfig {
                     var quetzalcoatlToughness = Option.<Float>createBuilder()
                             .name(Component.translatable("config.armoroftheages.quetzalcoatl_toughness"))
                             .binding(defaults.quetzalcoatlToughness, () -> config.quetzalcoatlToughness, val -> config.quetzalcoatlToughness = val)
+                            .controller(FloatFieldControllerBuilderImpl::new)
+                            .build();
+
+                    var quetzalcoatlKnockbackResistance = Option.<Float>createBuilder()
+                            .name(Component.translatable("config.armoroftheages.quetzalcoatl_knockback_resistance"))
+                            .binding(defaults.quetzalcoatlKnockbackResistance, () -> config.quetzalcoatlKnockbackResistance, val -> config.quetzalcoatlKnockbackResistance = val)
                             .controller(FloatFieldControllerBuilderImpl::new)
                             .build();
 
@@ -742,6 +808,18 @@ public class AOTAConfig {
                             .category(
                                     ConfigCategory.createBuilder()
                                             .name(Component.translatable("config.armoroftheages.armor_properties_title"))
+                                            .option(LabelOption.create(Component.translatable("config.armoroftheages.armor_properties_notice")))
+
+                                            // BAMBOO_HAT
+                                            .group(OptionGroup.createBuilder()
+                                                    .name(Component.translatable("config.armoroftheages.group.bamboo_hat").withStyle(ChatFormatting.WHITE))
+                                                    .option(bambooHatDurability)
+                                                    .option(bambooHatHelmetDef)
+                                                    .option(bambooHatEnchantability)
+                                                    .option(bambooHatToughness)
+                                                    .collapsed(true)
+                                                    .build()
+                                            )
 
                                             // JAPANESE_LIGHT
                                             .group(OptionGroup.createBuilder()
@@ -753,20 +831,6 @@ public class AOTAConfig {
                                                     .option(japaneseLightFeetDef)
                                                     .option(japaneseLightEnchantability)
                                                     .option(japaneseLightToughness)
-                                                    .collapsed(true)
-                                                    .build()
-                                            )
-
-                                            // PHARAOH
-                                            .group(OptionGroup.createBuilder()
-                                                    .name(Component.translatable("config.armoroftheages.group.pharaoh").withStyle(ChatFormatting.WHITE))
-                                                    .option(pharaohDurability)
-                                                    .option(pharaohHelmetDef)
-                                                    .option(pharaohChestDef)
-                                                    .option(pharaohLegsDef)
-                                                    .option(pharaohFeetDef)
-                                                    .option(pharaohEnchantability)
-                                                    .option(pharaohToughness)
                                                     .collapsed(true)
                                                     .build()
                                             )
@@ -813,6 +877,20 @@ public class AOTAConfig {
                                                     .build()
                                             )
 
+                                            // PHARAOH
+                                            .group(OptionGroup.createBuilder()
+                                                    .name(Component.translatable("config.armoroftheages.group.pharaoh").withStyle(ChatFormatting.AQUA))
+                                                    .option(pharaohDurability)
+                                                    .option(pharaohHelmetDef)
+                                                    .option(pharaohChestDef)
+                                                    .option(pharaohLegsDef)
+                                                    .option(pharaohFeetDef)
+                                                    .option(pharaohEnchantability)
+                                                    .option(pharaohToughness)
+                                                    .collapsed(true)
+                                                    .build()
+                                            )
+
                                             // HOLY
                                             .group(OptionGroup.createBuilder()
                                                     .name(Component.translatable("config.armoroftheages.group.holy").withStyle(ChatFormatting.LIGHT_PURPLE))
@@ -823,6 +901,7 @@ public class AOTAConfig {
                                                     .option(holyFeetDef)
                                                     .option(holyEnchantability)
                                                     .option(holyToughness)
+                                                    .option(holyKnockbackResistance)
                                                     .collapsed(true)
                                                     .build()
                                             )
@@ -837,6 +916,7 @@ public class AOTAConfig {
                                                     .option(exaltedAurumFeetDef)
                                                     .option(exaltedAurumEnchantability)
                                                     .option(exaltedAurumToughness)
+                                                    .option(exaltedAurumKnockbackResistance)
                                                     .collapsed(true)
                                                     .build()
                                             )
@@ -851,6 +931,7 @@ public class AOTAConfig {
                                                     .option(raijinFeetDef)
                                                     .option(raijinEnchantability)
                                                     .option(raijinToughness)
+                                                    .option(raijinKnockbackResistance)
                                                     .collapsed(true)
                                                     .build()
                                             )
@@ -865,6 +946,7 @@ public class AOTAConfig {
                                                     .option(anubisFeetDef)
                                                     .option(anubisEnchantability)
                                                     .option(anubisToughness)
+                                                    .option(anubisKnockbackResistance)
                                                     .collapsed(true)
                                                     .build()
                                             )
@@ -879,6 +961,7 @@ public class AOTAConfig {
                                                     .option(quetzalcoatlFeetDef)
                                                     .option(quetzalcoatlEnchantability)
                                                     .option(quetzalcoatlToughness)
+                                                    .option(quetzalcoatlKnockbackResistance)
                                                     .collapsed(true)
                                                     .build()
                                             )
