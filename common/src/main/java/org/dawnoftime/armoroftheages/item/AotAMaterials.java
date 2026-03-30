@@ -15,6 +15,18 @@ import java.util.function.Supplier;
 public class AotAMaterials {
 
 	public enum DoTArmorMaterial implements ArmorMaterial {
+		BAMBOO_HAT("bamboo_hat",
+				AOTAConfig.get().bambooHatDurability,
+				AOTAConfig.get().bambooHatHelmetDef,
+				0,
+				0,
+				0,
+				AOTAConfig.get().bambooHatEnchantability,
+				AOTAConfig.get().bambooHatToughness,
+				0.0F,
+				SoundEvents.ARMOR_EQUIP_LEATHER,
+				() -> Ingredient.of(Items.BAMBOO)),
+
 		IRON_PLATE("iron_plate",
 				AOTAConfig.get().ironPlateDurability,
 				AOTAConfig.get().ironPlateHelmetDef,
@@ -23,8 +35,9 @@ public class AotAMaterials {
 				AOTAConfig.get().ironPlateFeetDef,
 				AOTAConfig.get().ironPlateEnchantability,
 				AOTAConfig.get().ironPlateToughness,
+				0.0F,
 				SoundEvents.ARMOR_EQUIP_IRON,
-				() -> Ingredient.of(Items.IRON_BLOCK)),
+				() -> Ingredient.of(Items.IRON_INGOT)),
 
 		HOLY("holy",
 				AOTAConfig.get().holyDurability,
@@ -34,8 +47,9 @@ public class AotAMaterials {
 				AOTAConfig.get().holyFeetDef,
 				AOTAConfig.get().holyEnchantability,
 				AOTAConfig.get().holyToughness,
+				AOTAConfig.get().holyKnockbackResistance,
 				SoundEvents.ARMOR_EQUIP_DIAMOND,
-				() -> Ingredient.of(Blocks.GOLD_BLOCK)),
+				() -> Ingredient.of(Items.NETHERITE_INGOT)),
 
 		EXALTED_AURUM("exalted_aurum",
 				AOTAConfig.get().exaltedAurumDurability,
@@ -45,8 +59,9 @@ public class AotAMaterials {
 				AOTAConfig.get().exaltedAurumFeetDef,
 				AOTAConfig.get().exaltedAurumEnchantability,
 				AOTAConfig.get().exaltedAurumToughness,
+				AOTAConfig.get().exaltedAurumKnockbackResistance,
 				SoundEvents.ARMOR_EQUIP_IRON,
-				() -> Ingredient.of(Items.GOLD_BLOCK)),
+				() -> Ingredient.of(Items.NETHERITE_INGOT)),
 
 		JAPANESE_LIGHT("japanese_light",
 				AOTAConfig.get().japaneseLightDurability,
@@ -56,6 +71,7 @@ public class AotAMaterials {
 				AOTAConfig.get().japaneseLightFeetDef,
 				AOTAConfig.get().japaneseLightEnchantability,
 				AOTAConfig.get().japaneseLightToughness,
+				0.0F,
 				SoundEvents.ARMOR_EQUIP_LEATHER,
 				() -> Ingredient.of(Items.LEATHER)),
 
@@ -67,8 +83,9 @@ public class AotAMaterials {
 				AOTAConfig.get().oYoroiFeetDef,
 				AOTAConfig.get().oYoroiEnchantability,
 				AOTAConfig.get().oYoroiToughness,
+				0.0F,
 				SoundEvents.ARMOR_EQUIP_IRON,
-				() -> Ingredient.of(Items.REDSTONE_BLOCK)),
+				() -> Ingredient.of(Items.IRON_INGOT)),
 
 		RAIJIN("raijin",
 				AOTAConfig.get().raijinDurability,
@@ -78,8 +95,9 @@ public class AotAMaterials {
 				AOTAConfig.get().raijinFeetDef,
 				AOTAConfig.get().raijinEnchantability,
 				AOTAConfig.get().raijinToughness,
+				AOTAConfig.get().raijinKnockbackResistance,
 				SoundEvents.ARMOR_EQUIP_LEATHER,
-				() -> Ingredient.of(Blocks.GOLD_BLOCK)),
+				() -> Ingredient.of(Items.NETHERITE_INGOT)),
 
 		PHARAOH("pharaoh",
 				AOTAConfig.get().pharaohDurability,
@@ -89,8 +107,9 @@ public class AotAMaterials {
 				AOTAConfig.get().pharaohFeetDef,
 				AOTAConfig.get().pharaohEnchantability,
 				AOTAConfig.get().pharaohToughness,
+				0.0F,
 				SoundEvents.ARMOR_EQUIP_GOLD,
-				() -> Ingredient.of(Items.GOLD_BLOCK)),
+				() -> Ingredient.of(Blocks.LAPIS_BLOCK)),
 
 		ANUBIS("anubis",
 				AOTAConfig.get().anubisDurability,
@@ -100,8 +119,9 @@ public class AotAMaterials {
 				AOTAConfig.get().anubisFeetDef,
 				AOTAConfig.get().anubisEnchantability,
 				AOTAConfig.get().anubisToughness,
+				AOTAConfig.get().anubisKnockbackResistance,
 				SoundEvents.ARMOR_EQUIP_GOLD,
-				() -> Ingredient.of(Blocks.LAPIS_BLOCK)),
+				() -> Ingredient.of(Items.NETHERITE_INGOT)),
 
 		CENTURION("centurion",
 				AOTAConfig.get().centurionDurability,
@@ -111,8 +131,9 @@ public class AotAMaterials {
 				AOTAConfig.get().centurionFeetDef,
 				AOTAConfig.get().centurionEnchantability,
 				AOTAConfig.get().centurionToughness,
+				0.0F,
 				SoundEvents.ARMOR_EQUIP_CHAIN,
-				() -> Ingredient.of(Blocks.GOLD_BLOCK)),
+				() -> Ingredient.of(Items.GOLD_INGOT)),
 
 		QUETZALCOATL("quetzalcoatl",
 				AOTAConfig.get().quetzalcoatlDurability,
@@ -122,8 +143,9 @@ public class AotAMaterials {
 				AOTAConfig.get().quetzalcoatlFeetDef,
 				AOTAConfig.get().quetzalcoatlEnchantability,
 				AOTAConfig.get().quetzalcoatlToughness,
+				AOTAConfig.get().quetzalcoatlKnockbackResistance,
 				SoundEvents.ARMOR_EQUIP_TURTLE,
-				() -> Ingredient.of(Items.FEATHER));
+				() -> Ingredient.of(Items.NETHERITE_INGOT));
 
 		private static final int[] MAX_DAMAGE_ARRAY = {13, 15, 16, 11};
 		private final String name;
@@ -134,10 +156,11 @@ public class AotAMaterials {
 		private final int feetDef;
 		private final int enchantability;
 		private final float toughness;
+		private final float knockbackResistance;
 		private final SoundEvent soundEvent;
 		private final Supplier<Ingredient> repairMaterial;
 
-		DoTArmorMaterial(final String nameIn, int durability, int helmetDef, int chestDef,int legsDef, int feetDef, int enchantability, float toughness, final SoundEvent equipSoundIn, final Supplier<Ingredient> repairMaterialSupplier) {
+		DoTArmorMaterial(final String nameIn, int durability, int helmetDef, int chestDef, int legsDef, int feetDef, int enchantability, float toughness, float knockbackResistance, final SoundEvent equipSoundIn, final Supplier<Ingredient> repairMaterialSupplier) {
 			this.name = nameIn;
 			this.durability = durability;
 			this.helmetDef = helmetDef;
@@ -146,6 +169,7 @@ public class AotAMaterials {
 			this.feetDef = feetDef;
 			this.enchantability = enchantability;
 			this.toughness = toughness;
+			this.knockbackResistance = knockbackResistance;
 			this.soundEvent = equipSoundIn;
 			this.repairMaterial = repairMaterialSupplier;
 		}
@@ -193,7 +217,7 @@ public class AotAMaterials {
 
 		@Override
 		public float getKnockbackResistance() {
-			return 0;
+			return this.knockbackResistance;
 		}
 	}
 }

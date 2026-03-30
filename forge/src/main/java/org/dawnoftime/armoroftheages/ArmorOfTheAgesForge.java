@@ -14,6 +14,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -105,10 +106,20 @@ public class ArmorOfTheAgesForge {
                 )
         );
 
+        // Armor set effects (server-side player tick)
+        MinecraftForge.EVENT_BUS.addListener(ArmorOfTheAgesForge::onPlayerTick);
+
         // Client init
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(ArmorOfTheAgesClientForge::registerLayerDefinitions);
             MinecraftForge.EVENT_BUS.addListener(ArmorOfTheAgesClientForge::playerLoggedInEvent);
+        }
+    }
+
+    private static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        // Phase.END avoids double-firing (the event fires at START and END each tick)
+        if (event.phase == TickEvent.Phase.END) {
+            ArmorSetEffectHandler.onPlayerTick(event.player);
         }
     }
 

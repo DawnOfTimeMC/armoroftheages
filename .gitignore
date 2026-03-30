@@ -23,3 +23,7 @@ build
 eclipse
 run
 runs
+
+# Claude Code
+CLAUDE.md
+.claude/

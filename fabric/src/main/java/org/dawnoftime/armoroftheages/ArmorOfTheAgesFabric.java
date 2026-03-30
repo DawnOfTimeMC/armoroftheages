@@ -3,6 +3,7 @@ package org.dawnoftime.armoroftheages;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
@@ -45,6 +46,10 @@ public class ArmorOfTheAgesFabric implements ModInitializer {
         // Creative inventory init
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, new ResourceLocation(MOD_ID, MOD_ID), CREATIVE_MODE_TAB);
         AmorOfTheAgesLootModifiersFabric.modifyLootTables();
+
+        // Armor set effects — iterate all online players at the end of each server tick
+        ServerTickEvents.END_SERVER_TICK.register(server ->
+                server.getPlayerList().getPlayers().forEach(ArmorSetEffectHandler::onPlayerTick));
     }
 
     public static class ItemRegistryImpl extends ItemRegistry {

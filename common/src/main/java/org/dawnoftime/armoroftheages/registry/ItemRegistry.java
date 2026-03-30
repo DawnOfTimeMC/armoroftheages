@@ -19,7 +19,7 @@ public abstract class ItemRegistry {
     public final Supplier<Item> TAB_ICON = register(MOD_ID, () -> new Item(new Item.Properties()));
 
     public ItemRegistry(){
-        register(BAMBOO_HAT_NAME, HatItem::new);
+        register(BAMBOO_HAT_NAME, () -> new HatItem(DoTArmorMaterial.BAMBOO_HAT));
         register(ANUBIS_ARMOR_NAME, DoTArmorMaterial.ANUBIS, HELMET);
         register(ANUBIS_ARMOR_NAME, DoTArmorMaterial.ANUBIS, CHESTPLATE);
         register(ANUBIS_ARMOR_NAME, DoTArmorMaterial.ANUBIS, LEGGINGS);
