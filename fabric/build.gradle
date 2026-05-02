@@ -3,6 +3,7 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'fabric-loom'
+    id 'me.modmuss50.mod-publish-plugin'
 }
 base {
     archivesName = "${mod_name}-fabric-${minecraft_version}"
@@ -53,6 +54,11 @@ tasks.named("sourcesJar", Jar) {
 
 processResources {
     from project(":common").sourceSets.main.resources
+}
+
+publishMods {
+    file = remapJar.archiveFile
+    modLoaders.add("fabric")
 }
 
 publishing {

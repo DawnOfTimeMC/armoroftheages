@@ -172,6 +172,16 @@
     "config.armoroftheages.generate_quetzalcoatl_armor": "Quetzalcoatl Armor",
     "config.armoroftheages.generate_raijin_armor": "Raijin Armor",
 
+    "config.armoroftheages.category.armor_skin": "Armor Skin",
+    "config.armoroftheages.armor_skin_notice": "Choose which skin to display on your armor. Changes are visible only to you unless you enable sharing.",
+    "config.armoroftheages.skin.share_skin": "Share Skin With Other Players",
+    "config.armoroftheages.skin.share_skin.description": "When enabled, your selected armor skins are visible to other players on the server.",
+    "config.armoroftheages.skin.o_yoroi.default": "Default",
+    "config.armoroftheages.skin.o_yoroi.nightblue": "Nightblue",
+    "config.armoroftheages.skin.o_yoroi.amber": "Amber",
+    "config.armoroftheages.skin.o_yoroi.jade": "Jade",
+    "config.armoroftheages.skin.o_yoroi.pinky": "Pinky",
+
     "set_bonus.armoroftheages.slot.head": "Helmet",
     "set_bonus.armoroftheages.slot.chest": "Chestplate",
     "set_bonus.armoroftheages.slot.legs": "Leggings",

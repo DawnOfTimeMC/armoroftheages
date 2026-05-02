@@ -111,6 +111,7 @@ public class ArmorOfTheAgesForge {
 
         // Client init
         if (FMLEnvironment.dist == Dist.CLIENT) {
+            ArmorOfTheAgesClientForge.init();
             modEventBus.addListener(ArmorOfTheAgesClientForge::registerLayerDefinitions);
             MinecraftForge.EVENT_BUS.addListener(ArmorOfTheAgesClientForge::playerLoggedInEvent);
         }

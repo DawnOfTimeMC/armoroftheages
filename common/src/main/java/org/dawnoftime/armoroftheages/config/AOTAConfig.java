@@ -30,6 +30,10 @@ public class AOTAConfig {
     @SerialEntry public boolean ignoredSynchronizedPreferredModel = true;
     @SerialEntry public PreferredModel preferredModel = PreferredModel.MALE;
 
+    // Armor Skins
+    @SerialEntry public OYoroiSkin oYoroiSkin = OYoroiSkin.DEFAULT;
+    @SerialEntry public boolean shareOYoroiSkin = false;
+
     // BAMBOO_HAT (HEAD only — no chest/legs/feet)
     @SerialEntry public int bambooHatDurability = 5;
     @SerialEntry public int bambooHatHelmetDef = 1;
@@ -189,6 +193,115 @@ public class AOTAConfig {
                             .name(Component.translatable("config.armoroftheages.ignore_synchronized_preferred_models"))
                             .description(OptionDescription.of(Component.translatable("config.armoroftheages.ignore_synchronized_preferred_models.description")))
                             .binding(defaults.ignoredSynchronizedPreferredModel, () -> config.ignoredSynchronizedPreferredModel, val -> config.ignoredSynchronizedPreferredModel = val)
+                            .controller(opt -> new BooleanControllerBuilderImpl(opt).coloured(true).trueFalseFormatter())
+                            .build();
+
+                    // Armor Skin options — mutual-exclusion boolean toggles per skin variant
+                    @SuppressWarnings("unchecked")
+                    Option<Boolean>[] oYoroiDefaultRef = new Option[1];
+                    @SuppressWarnings("unchecked")
+                    Option<Boolean>[] oYoroiNightblueRef = new Option[1];
+                    @SuppressWarnings("unchecked")
+                    Option<Boolean>[] oYoroiAmberRef = new Option[1];
+                    @SuppressWarnings("unchecked")
+                    Option<Boolean>[] oYoroiJadeRef = new Option[1];
+                    @SuppressWarnings("unchecked")
+                    Option<Boolean>[] oYoroiPinkyRef = new Option[1];
+
+                    var oYoroiSkinDefaultOption = Option.<Boolean>createBuilder()
+                            .name(Component.translatable("config.armoroftheages.skin.o_yoroi.default"))
+                            .binding(
+                                    defaults.oYoroiSkin == OYoroiSkin.DEFAULT,
+                                    () -> config.oYoroiSkin == OYoroiSkin.DEFAULT,
+                                    val -> { if (val) config.oYoroiSkin = OYoroiSkin.DEFAULT; })
+                            .controller(opt -> new BooleanControllerBuilderImpl(opt).coloured(true).trueFalseFormatter())
+                            .addListener((option, event) -> {
+                                if (event == OptionEventListener.Event.STATE_CHANGE && Boolean.TRUE.equals(option.pendingValue())) {
+                                    if (oYoroiNightblueRef[0] != null) oYoroiNightblueRef[0].requestSet(false);
+                                    if (oYoroiAmberRef[0] != null) oYoroiAmberRef[0].requestSet(false);
+                                    if (oYoroiJadeRef[0] != null) oYoroiJadeRef[0].requestSet(false);
+                                    if (oYoroiPinkyRef[0] != null) oYoroiPinkyRef[0].requestSet(false);
+                                }
+                            })
+                            .build();
+                    oYoroiDefaultRef[0] = oYoroiSkinDefaultOption;
+
+                    var oYoroiSkinNightblueOption = Option.<Boolean>createBuilder()
+                            .name(Component.translatable("config.armoroftheages.skin.o_yoroi.nightblue"))
+                            .binding(
+                                    defaults.oYoroiSkin == OYoroiSkin.NIGHTBLUE,
+                                    () -> config.oYoroiSkin == OYoroiSkin.NIGHTBLUE,
+                                    val -> { if (val) config.oYoroiSkin = OYoroiSkin.NIGHTBLUE; })
+                            .controller(opt -> new BooleanControllerBuilderImpl(opt).coloured(true).trueFalseFormatter())
+                            .addListener((option, event) -> {
+                                if (event == OptionEventListener.Event.STATE_CHANGE && Boolean.TRUE.equals(option.pendingValue())) {
+                                    if (oYoroiDefaultRef[0] != null) oYoroiDefaultRef[0].requestSet(false);
+                                    if (oYoroiAmberRef[0] != null) oYoroiAmberRef[0].requestSet(false);
+                                    if (oYoroiJadeRef[0] != null) oYoroiJadeRef[0].requestSet(false);
+                                    if (oYoroiPinkyRef[0] != null) oYoroiPinkyRef[0].requestSet(false);
+                                }
+                            })
+                            .build();
+                    oYoroiNightblueRef[0] = oYoroiSkinNightblueOption;
+
+                    var oYoroiSkinAmberOption = Option.<Boolean>createBuilder()
+                            .name(Component.translatable("config.armoroftheages.skin.o_yoroi.amber"))
+                            .binding(
+                                    defaults.oYoroiSkin == OYoroiSkin.AMBER,
+                                    () -> config.oYoroiSkin == OYoroiSkin.AMBER,
+                                    val -> { if (val) config.oYoroiSkin = OYoroiSkin.AMBER; })
+                            .controller(opt -> new BooleanControllerBuilderImpl(opt).coloured(true).trueFalseFormatter())
+                            .addListener((option, event) -> {
+                                if (event == OptionEventListener.Event.STATE_CHANGE && Boolean.TRUE.equals(option.pendingValue())) {
+                                    if (oYoroiDefaultRef[0] != null) oYoroiDefaultRef[0].requestSet(false);
+                                    if (oYoroiNightblueRef[0] != null) oYoroiNightblueRef[0].requestSet(false);
+                                    if (oYoroiJadeRef[0] != null) oYoroiJadeRef[0].requestSet(false);
+                                    if (oYoroiPinkyRef[0] != null) oYoroiPinkyRef[0].requestSet(false);
+                                }
+                            })
+                            .build();
+                    oYoroiAmberRef[0] = oYoroiSkinAmberOption;
+
+                    var oYoroiSkinJadeOption = Option.<Boolean>createBuilder()
+                            .name(Component.translatable("config.armoroftheages.skin.o_yoroi.jade"))
+                            .binding(
+                                    defaults.oYoroiSkin == OYoroiSkin.JADE,
+                                    () -> config.oYoroiSkin == OYoroiSkin.JADE,
+                                    val -> { if (val) config.oYoroiSkin = OYoroiSkin.JADE; })
+                            .controller(opt -> new BooleanControllerBuilderImpl(opt).coloured(true).trueFalseFormatter())
+                            .addListener((option, event) -> {
+                                if (event == OptionEventListener.Event.STATE_CHANGE && Boolean.TRUE.equals(option.pendingValue())) {
+                                    if (oYoroiDefaultRef[0] != null) oYoroiDefaultRef[0].requestSet(false);
+                                    if (oYoroiNightblueRef[0] != null) oYoroiNightblueRef[0].requestSet(false);
+                                    if (oYoroiAmberRef[0] != null) oYoroiAmberRef[0].requestSet(false);
+                                    if (oYoroiPinkyRef[0] != null) oYoroiPinkyRef[0].requestSet(false);
+                                }
+                            })
+                            .build();
+                    oYoroiJadeRef[0] = oYoroiSkinJadeOption;
+
+                    var oYoroiSkinPinkyOption = Option.<Boolean>createBuilder()
+                            .name(Component.translatable("config.armoroftheages.skin.o_yoroi.pinky"))
+                            .binding(
+                                    defaults.oYoroiSkin == OYoroiSkin.PINKY,
+                                    () -> config.oYoroiSkin == OYoroiSkin.PINKY,
+                                    val -> { if (val) config.oYoroiSkin = OYoroiSkin.PINKY; })
+                            .controller(opt -> new BooleanControllerBuilderImpl(opt).coloured(true).trueFalseFormatter())
+                            .addListener((option, event) -> {
+                                if (event == OptionEventListener.Event.STATE_CHANGE && Boolean.TRUE.equals(option.pendingValue())) {
+                                    if (oYoroiDefaultRef[0] != null) oYoroiDefaultRef[0].requestSet(false);
+                                    if (oYoroiNightblueRef[0] != null) oYoroiNightblueRef[0].requestSet(false);
+                                    if (oYoroiAmberRef[0] != null) oYoroiAmberRef[0].requestSet(false);
+                                    if (oYoroiJadeRef[0] != null) oYoroiJadeRef[0].requestSet(false);
+                                }
+                            })
+                            .build();
+                    oYoroiPinkyRef[0] = oYoroiSkinPinkyOption;
+
+                    var shareOYoroiSkinOption = Option.<Boolean>createBuilder()
+                            .name(Component.translatable("config.armoroftheages.skin.share_skin"))
+                            .description(OptionDescription.of(Component.translatable("config.armoroftheages.skin.share_skin.description")))
+                            .binding(defaults.shareOYoroiSkin, () -> config.shareOYoroiSkin, val -> config.shareOYoroiSkin = val)
                             .controller(opt -> new BooleanControllerBuilderImpl(opt).coloured(true).trueFalseFormatter())
                             .build();
 
@@ -805,6 +918,23 @@ public class AOTAConfig {
                     // Build the config screen
                     return builder
                             .title(Component.translatable("config.armoroftheages.title"))
+                            .category(
+                                    ConfigCategory.createBuilder()
+                                            .name(Component.translatable("config.armoroftheages.category.armor_skin"))
+                                            .option(LabelOption.create(Component.translatable("config.armoroftheages.armor_skin_notice")))
+                                            .option(shareOYoroiSkinOption)
+                                            .group(OptionGroup.createBuilder()
+                                                    .name(Component.translatable("config.armoroftheages.group.o_yoroi").withStyle(ChatFormatting.YELLOW))
+                                                    .option(oYoroiSkinDefaultOption)
+                                                    .option(oYoroiSkinNightblueOption)
+                                                    .option(oYoroiSkinAmberOption)
+                                                    .option(oYoroiSkinJadeOption)
+                                                    .option(oYoroiSkinPinkyOption)
+                                                    .collapsed(false)
+                                                    .build()
+                                            )
+                                            .build()
+                            )
                             .category(
                                     ConfigCategory.createBuilder()
                                             .name(Component.translatable("config.armoroftheages.armor_properties_title"))

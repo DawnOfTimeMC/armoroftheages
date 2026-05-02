@@ -12,6 +12,7 @@ import org.dawnoftime.armoroftheages.registry.ModelProviderRegistry;
 public class ArmorOfTheAgesClientFabric implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+        CommonClass.LOCAL_PLAYER_SUPPLIER = () -> net.minecraft.client.Minecraft.getInstance().player;
         ArmorOfTheAgesClientFabric.registerLayerDefinitions();
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
             CommonClass.CONFIG_SYNC_HANDLER.syncConfig();

@@ -2,6 +2,7 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'net.neoforged.moddev.legacyforge'
+    id 'me.modmuss50.mod-publish-plugin'
 }
 base {
     archivesName = "${mod_name}-forge-${minecraft_version}"
@@ -96,6 +97,11 @@ jar {
     ])
 }
 
+
+publishMods {
+    file = layout.buildDirectory.file("libs/${mod_name}-forge-${minecraft_version}-${project.version}.jar")
+    modLoaders.add("forge")
+}
 
 publishing {
     publications {

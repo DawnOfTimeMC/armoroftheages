@@ -3,6 +3,38 @@ plugins {
     id("net.neoforged.moddev.legacyforge") version "2.0.74" apply(false)
     id 'org.spongepowered.gradle.vanilla' version '0.2.1-SNAPSHOT' apply(false)
     id("org.spongepowered.mixin") version "0.7-SNAPSHOT" apply(false)
+    id "me.modmuss50.mod-publish-plugin" version "1.1.0" apply(false)
+}
+
+def patchNoteProvider = providers.provider {
+    def file = rootProject.layout.projectDirectory.file("patch_notes.md").asFile
+    if (!file.exists()) {
+        throw new GradleException("Impossible to find 'patch_notes.md'")
+    }
+    file.text
+}
+
+configure([project(":fabric"), project(":forge")]) {
+    apply plugin: 'me.modmuss50.mod-publish-plugin'
+
+    publishMods {
+        changelog = patchNoteProvider
+        type = STABLE
+        displayName = "${rootProject.property("mod_name")} ${rootProject.property("minecraft_version")} v${rootProject.property("version")}"
+
+        curseforge {
+            projectId = "REPLACE_WITH_CURSEFORGE_PROJECT_ID"
+            accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
+            minecraftVersions.add(project.property("minecraft_version"))
+            changelogType = "markdown"
+        }
+
+        modrinth {
+            projectId = "REPLACE_WITH_MODRINTH_PROJECT_ID"
+            accessToken = providers.environmentVariable("MODRINTH_API_KEY")
+            minecraftVersions.add(project.property("minecraft_version"))
+        }
+    }
 }
 
 subprojects {

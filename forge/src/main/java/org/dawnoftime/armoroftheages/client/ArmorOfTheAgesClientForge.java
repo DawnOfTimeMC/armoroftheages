@@ -1,5 +1,6 @@
 package org.dawnoftime.armoroftheages.client;
 
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import org.dawnoftime.armoroftheages.CommonClass;
@@ -7,6 +8,9 @@ import org.dawnoftime.armoroftheages.registry.ModelProviderRegistry;
 
 public class ArmorOfTheAgesClientForge {
 
+    public static void init() {
+        CommonClass.LOCAL_PLAYER_SUPPLIER = () -> Minecraft.getInstance().player;
+    }
 
     /**
      * Registers the LayerDefinitions. Must be client side only !

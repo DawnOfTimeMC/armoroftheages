@@ -1,8 +1,8 @@
 package org.dawnoftime.armoroftheages.item;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
+import org.dawnoftime.armoroftheages.CommonClass;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -83,7 +83,7 @@ public class HumanoidArmorItem extends ArmorItem {
 
             // Retrieve the local player if available (null in JEI/REI catalogue or on server)
             Player player = (level != null && level.isClientSide())
-                    ? Minecraft.getInstance().player
+                    ? CommonClass.LOCAL_PLAYER_SUPPLIER.get()
                     : null;
 
             // One line per armor slot — white if the player has that piece equipped, dark gray if not

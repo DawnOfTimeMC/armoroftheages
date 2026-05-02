@@ -29,6 +29,12 @@ public class ArmorModelProvider {
         return new MixedArmorModelProvider(armorName, slot, modelSupplier, layerDefinitionSupplier, slimLayerDefinitionSupplier);
     }
 
+    public static ArmorModelProvider create(String armorName, EquipmentSlot slot, ArmorModelSupplier modelSupplier,
+            Supplier<LayerDefinition> layerDefinitionSupplier, Supplier<LayerDefinition> slimLayerDefinitionSupplier,
+            java.util.function.Supplier<org.dawnoftime.armoroftheages.config.OYoroiSkin> skinSupplier) {
+        return new SkinnedMixedArmorModelProvider(armorName, slot, modelSupplier, layerDefinitionSupplier, slimLayerDefinitionSupplier, skinSupplier);
+    }
+
     private final Supplier<LayerDefinition> layerDefinitionSupplier;
     protected final ArmorModelSupplier modelSupplier;
     private ArmorModel<?> armorModel;
@@ -77,6 +83,36 @@ public class ArmorModelProvider {
             this.armorModel = this.modelSupplier.create(Minecraft.getInstance().getEntityModels().bakeLayer(this.modelLayerLocation), false);
         }
         return this.armorModel;
+    }
+
+    public static class SkinnedMixedArmorModelProvider extends MixedArmorModelProvider {
+        private final java.util.Map<org.dawnoftime.armoroftheages.config.OYoroiSkin, ResourceLocation> skinTextures;
+        private final java.util.Map<org.dawnoftime.armoroftheages.config.OYoroiSkin, ResourceLocation> slimSkinTextures;
+        private final java.util.function.Supplier<org.dawnoftime.armoroftheages.config.OYoroiSkin> skinSupplier;
+
+        protected SkinnedMixedArmorModelProvider(
+                String armorName,
+                EquipmentSlot slot,
+                ArmorModelSupplier modelSupplier,
+                java.util.function.Supplier<LayerDefinition> layerDefinitionSupplier,
+                java.util.function.Supplier<LayerDefinition> slimLayerDefinitionSupplier,
+                java.util.function.Supplier<org.dawnoftime.armoroftheages.config.OYoroiSkin> skinSupplier) {
+            super(armorName, slot, modelSupplier, layerDefinitionSupplier, slimLayerDefinitionSupplier);
+            this.skinSupplier = skinSupplier;
+            this.skinTextures = new java.util.EnumMap<>(org.dawnoftime.armoroftheages.config.OYoroiSkin.class);
+            this.slimSkinTextures = new java.util.EnumMap<>(org.dawnoftime.armoroftheages.config.OYoroiSkin.class);
+            for (org.dawnoftime.armoroftheages.config.OYoroiSkin skin : org.dawnoftime.armoroftheages.config.OYoroiSkin.values()) {
+                String prefix = skin.getTexturePrefix();
+                this.skinTextures.put(skin, new ResourceLocation(MOD_ID, "textures/models/armor/" + prefix + armorName + ".png"));
+                this.slimSkinTextures.put(skin, new ResourceLocation(MOD_ID, "textures/models/armor/" + prefix + armorName + "_slim.png"));
+            }
+        }
+
+        @Override
+        public @NotNull ResourceLocation getTexture(net.minecraft.world.entity.Entity entity) {
+            org.dawnoftime.armoroftheages.config.OYoroiSkin skin = skinSupplier.get();
+            return isSlim(entity) ? slimSkinTextures.get(skin) : skinTextures.get(skin);
+        }
     }
 
     public static class MixedArmorModelProvider extends ArmorModelProvider{

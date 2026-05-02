@@ -24,8 +24,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
+import org.dawnoftime.armoroftheages.CommonClass;
 import net.minecraft.resources.ResourceLocation;
 import org.dawnoftime.armoroftheages.Constants;
 import org.dawnoftime.armoroftheages.setbonus.SetBonusRegistry;
@@ -93,7 +93,7 @@ public class HatItem extends Item implements Equipable {
         SetBonusRegistry.get(Constants.BAMBOO_HAT_NAME).ifPresent(bonus -> {
             tooltips.add(Component.empty());
 
-            Player player = (level != null && level.isClientSide()) ? Minecraft.getInstance().player : null;
+            Player player = (level != null && level.isClientSide()) ? CommonClass.LOCAL_PLAYER_SUPPLIER.get() : null;
 
             boolean headEquipped  = isComboSlotEquipped(player, EquipmentSlot.HEAD,  Constants.BAMBOO_HAT_NAME);
             boolean chestEquipped = isComboSlotEquipped(player, EquipmentSlot.CHEST, Constants.O_YOROI_ARMOR_NAME + "_" + EquipmentSlot.CHEST.getName());
