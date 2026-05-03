@@ -23,16 +23,21 @@ configure([project(":fabric"), project(":forge")]) {
         displayName = "${rootProject.property("mod_name")} ${rootProject.property("minecraft_version")} v${rootProject.property("version")}"
 
         curseforge {
-            projectId = "REPLACE_WITH_CURSEFORGE_PROJECT_ID"
+            projectId = "975288"
             accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
             minecraftVersions.add(project.property("minecraft_version"))
+
             changelogType = "markdown"
+
+            requires("yacl")
         }
 
         modrinth {
-            projectId = "REPLACE_WITH_MODRINTH_PROJECT_ID"
+            projectId = "vEgtiJIY"
             accessToken = providers.environmentVariable("MODRINTH_API_KEY")
             minecraftVersions.add(project.property("minecraft_version"))
+
+            requires("yacl")
         }
     }
 }

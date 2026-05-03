@@ -181,6 +181,10 @@
     "config.armoroftheages.skin.o_yoroi.amber": "Amber",
     "config.armoroftheages.skin.o_yoroi.jade": "Jade",
     "config.armoroftheages.skin.o_yoroi.pinky": "Pinky",
+    "config.armoroftheages.skin.o_yoroi.dusk": "Dusk",
+    "config.armoroftheages.skin.o_yoroi.ink": "Ink",
+    "config.armoroftheages.skin.iron_plate.default": "Default",
+    "config.armoroftheages.skin.iron_plate.ashes": "Ashes",
 
     "set_bonus.armoroftheages.slot.head": "Helmet",
     "set_bonus.armoroftheages.slot.chest": "Chestplate",

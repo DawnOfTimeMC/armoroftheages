@@ -19,6 +19,10 @@ import static org.dawnoftime.armoroftheages.Constants.MOD_ID;
 
 // Client side
 public class ArmorModelProvider {
+
+    public interface SkinVariant {
+        String getTexturePrefix();
+    }
     protected static final ResourceLocation PLAYER_RESOURCE_LOCATION = new ResourceLocation("minecraft:player");
 
     public static ArmorModelProvider create(String armorName, EquipmentSlot slot, ArmorModelSupplier modelSupplier, Supplier<LayerDefinition> layerDefinitionSupplier){
@@ -29,10 +33,11 @@ public class ArmorModelProvider {
         return new MixedArmorModelProvider(armorName, slot, modelSupplier, layerDefinitionSupplier, slimLayerDefinitionSupplier);
     }
 
-    public static ArmorModelProvider create(String armorName, EquipmentSlot slot, ArmorModelSupplier modelSupplier,
+    public static <E extends Enum<E> & ArmorModelProvider.SkinVariant> ArmorModelProvider create(
+            String armorName, EquipmentSlot slot, ArmorModelSupplier modelSupplier,
             Supplier<LayerDefinition> layerDefinitionSupplier, Supplier<LayerDefinition> slimLayerDefinitionSupplier,
-            java.util.function.Supplier<org.dawnoftime.armoroftheages.config.OYoroiSkin> skinSupplier) {
-        return new SkinnedMixedArmorModelProvider(armorName, slot, modelSupplier, layerDefinitionSupplier, slimLayerDefinitionSupplier, skinSupplier);
+            java.util.function.Supplier<E> skinSupplier, Class<E> enumClass) {
+        return new SkinnedMixedArmorModelProvider<>(armorName, slot, modelSupplier, layerDefinitionSupplier, slimLayerDefinitionSupplier, skinSupplier, enumClass);
     }
 
     private final Supplier<LayerDefinition> layerDefinitionSupplier;
@@ -85,10 +90,10 @@ public class ArmorModelProvider {
         return this.armorModel;
     }
 
-    public static class SkinnedMixedArmorModelProvider extends MixedArmorModelProvider {
-        private final java.util.Map<org.dawnoftime.armoroftheages.config.OYoroiSkin, ResourceLocation> skinTextures;
-        private final java.util.Map<org.dawnoftime.armoroftheages.config.OYoroiSkin, ResourceLocation> slimSkinTextures;
-        private final java.util.function.Supplier<org.dawnoftime.armoroftheages.config.OYoroiSkin> skinSupplier;
+    public static class SkinnedMixedArmorModelProvider<E extends Enum<E> & ArmorModelProvider.SkinVariant> extends MixedArmorModelProvider {
+        private final java.util.Map<E, ResourceLocation> skinTextures;
+        private final java.util.Map<E, ResourceLocation> slimSkinTextures;
+        private final java.util.function.Supplier<E> skinSupplier;
 
         protected SkinnedMixedArmorModelProvider(
                 String armorName,
@@ -96,12 +101,13 @@ public class ArmorModelProvider {
                 ArmorModelSupplier modelSupplier,
                 java.util.function.Supplier<LayerDefinition> layerDefinitionSupplier,
                 java.util.function.Supplier<LayerDefinition> slimLayerDefinitionSupplier,
-                java.util.function.Supplier<org.dawnoftime.armoroftheages.config.OYoroiSkin> skinSupplier) {
+                java.util.function.Supplier<E> skinSupplier,
+                Class<E> enumClass) {
             super(armorName, slot, modelSupplier, layerDefinitionSupplier, slimLayerDefinitionSupplier);
             this.skinSupplier = skinSupplier;
-            this.skinTextures = new java.util.EnumMap<>(org.dawnoftime.armoroftheages.config.OYoroiSkin.class);
-            this.slimSkinTextures = new java.util.EnumMap<>(org.dawnoftime.armoroftheages.config.OYoroiSkin.class);
-            for (org.dawnoftime.armoroftheages.config.OYoroiSkin skin : org.dawnoftime.armoroftheages.config.OYoroiSkin.values()) {
+            this.skinTextures = new java.util.EnumMap<>(enumClass);
+            this.slimSkinTextures = new java.util.EnumMap<>(enumClass);
+            for (E skin : enumClass.getEnumConstants()) {
                 String prefix = skin.getTexturePrefix();
                 this.skinTextures.put(skin, new ResourceLocation(MOD_ID, "textures/models/armor/" + prefix + armorName + ".png"));
                 this.slimSkinTextures.put(skin, new ResourceLocation(MOD_ID, "textures/models/armor/" + prefix + armorName + "_slim.png"));
@@ -110,7 +116,7 @@ public class ArmorModelProvider {
 
         @Override
         public @NotNull ResourceLocation getTexture(net.minecraft.world.entity.Entity entity) {
-            org.dawnoftime.armoroftheages.config.OYoroiSkin skin = skinSupplier.get();
+            E skin = skinSupplier.get();
             return isSlim(entity) ? slimSkinTextures.get(skin) : skinTextures.get(skin);
         }
     }

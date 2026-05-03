@@ -49,6 +49,7 @@ import org.dawnoftime.armoroftheages.client.models.raijin_armor.HeadRaijinArmorM
 import org.dawnoftime.armoroftheages.client.models.raijin_armor.LegsRaijinArmorModel;
 
 import org.dawnoftime.armoroftheages.config.AOTAConfig;
+import org.dawnoftime.armoroftheages.config.IronPlateSkin;
 import org.dawnoftime.armoroftheages.config.OYoroiSkin;
 
 import static org.dawnoftime.armoroftheages.Constants.*;
@@ -74,18 +75,18 @@ public class ModelProviderRegistry {
         register(HOLY_ARMOR_NAME, EquipmentSlot.CHEST, ChestHolyArmorModel::new, ChestHolyArmorModel::createLayerDefinition, ChestHolyArmorModel::createSlimLayerDefinition);
         register(HOLY_ARMOR_NAME, EquipmentSlot.LEGS, LegsHolyArmorModel::new, LegsHolyArmorModel::createLayerDefinition);
         register(HOLY_ARMOR_NAME, EquipmentSlot.FEET, FeetHolyArmorModel::new, FeetHolyArmorModel::createLayerDefinition);
-        register(IRON_PLATE_ARMOR_NAME, EquipmentSlot.HEAD, HeadIronPlateArmorModel::new, HeadIronPlateArmorModel::createLayerDefinition);
-        register(IRON_PLATE_ARMOR_NAME, EquipmentSlot.CHEST, ChestIronPlateArmorModel::new, ChestIronPlateArmorModel::createLayerDefinition, ChestIronPlateArmorModel::createSlimLayerDefinition);
-        register(IRON_PLATE_ARMOR_NAME, EquipmentSlot.LEGS, LegsIronPlateArmorModel::new, LegsIronPlateArmorModel::createLayerDefinition);
-        register(IRON_PLATE_ARMOR_NAME, EquipmentSlot.FEET, FeetIronPlateArmorModel::new, FeetIronPlateArmorModel::createLayerDefinition);
+        registerSkinned(IRON_PLATE_ARMOR_NAME, EquipmentSlot.HEAD, HeadIronPlateArmorModel::new, HeadIronPlateArmorModel::createLayerDefinition, HeadIronPlateArmorModel::createLayerDefinition, () -> AOTAConfig.get().ironPlateSkin, IronPlateSkin.class);
+        registerSkinned(IRON_PLATE_ARMOR_NAME, EquipmentSlot.CHEST, ChestIronPlateArmorModel::new, ChestIronPlateArmorModel::createLayerDefinition, ChestIronPlateArmorModel::createSlimLayerDefinition, () -> AOTAConfig.get().ironPlateSkin, IronPlateSkin.class);
+        registerSkinned(IRON_PLATE_ARMOR_NAME, EquipmentSlot.LEGS, LegsIronPlateArmorModel::new, LegsIronPlateArmorModel::createLayerDefinition, LegsIronPlateArmorModel::createLayerDefinition, () -> AOTAConfig.get().ironPlateSkin, IronPlateSkin.class);
+        registerSkinned(IRON_PLATE_ARMOR_NAME, EquipmentSlot.FEET, FeetIronPlateArmorModel::new, FeetIronPlateArmorModel::createLayerDefinition, FeetIronPlateArmorModel::createLayerDefinition, () -> AOTAConfig.get().ironPlateSkin, IronPlateSkin.class);
         register(JAPANESE_LIGHT_ARMOR_NAME, EquipmentSlot.HEAD, HeadJapaneseLightArmorModel::new, HeadJapaneseLightArmorModel::createLayerDefinition);
         register(JAPANESE_LIGHT_ARMOR_NAME, EquipmentSlot.CHEST, ChestJapaneseLightArmorModel::new, ChestJapaneseLightArmorModel::createLayerDefinition, ChestJapaneseLightArmorModel::createSlimLayerDefinition);
         register(JAPANESE_LIGHT_ARMOR_NAME, EquipmentSlot.LEGS, LegsJapaneseLightArmorModel::new, LegsJapaneseLightArmorModel::createLayerDefinition);
         register(JAPANESE_LIGHT_ARMOR_NAME, EquipmentSlot.FEET, FeetJapaneseLightArmorModel::new, FeetJapaneseLightArmorModel::createLayerDefinition);
-        registerSkinned(O_YOROI_ARMOR_NAME, EquipmentSlot.HEAD, HeadOYoroiArmorModel::new, HeadOYoroiArmorModel::createLayerDefinition, HeadOYoroiArmorModel::createLayerDefinition, () -> AOTAConfig.get().oYoroiSkin);
-        registerSkinned(O_YOROI_ARMOR_NAME, EquipmentSlot.CHEST, ChestOYoroiArmorModel::new, ChestOYoroiArmorModel::createLayerDefinition, ChestOYoroiArmorModel::createSlimLayerDefinition, () -> AOTAConfig.get().oYoroiSkin);
-        registerSkinned(O_YOROI_ARMOR_NAME, EquipmentSlot.LEGS, LegsOYoroiArmorModel::new, LegsOYoroiArmorModel::createLayerDefinition, LegsOYoroiArmorModel::createLayerDefinition, () -> AOTAConfig.get().oYoroiSkin);
-        registerSkinned(O_YOROI_ARMOR_NAME, EquipmentSlot.FEET, FeetOYoroiArmorModel::new, FeetOYoroiArmorModel::createLayerDefinition, FeetOYoroiArmorModel::createLayerDefinition, () -> AOTAConfig.get().oYoroiSkin);
+        registerSkinned(O_YOROI_ARMOR_NAME, EquipmentSlot.HEAD, HeadOYoroiArmorModel::new, HeadOYoroiArmorModel::createLayerDefinition, HeadOYoroiArmorModel::createLayerDefinition, () -> AOTAConfig.get().oYoroiSkin, OYoroiSkin.class);
+        registerSkinned(O_YOROI_ARMOR_NAME, EquipmentSlot.CHEST, ChestOYoroiArmorModel::new, ChestOYoroiArmorModel::createLayerDefinition, ChestOYoroiArmorModel::createSlimLayerDefinition, () -> AOTAConfig.get().oYoroiSkin, OYoroiSkin.class);
+        registerSkinned(O_YOROI_ARMOR_NAME, EquipmentSlot.LEGS, LegsOYoroiArmorModel::new, LegsOYoroiArmorModel::createLayerDefinition, LegsOYoroiArmorModel::createLayerDefinition, () -> AOTAConfig.get().oYoroiSkin, OYoroiSkin.class);
+        registerSkinned(O_YOROI_ARMOR_NAME, EquipmentSlot.FEET, FeetOYoroiArmorModel::new, FeetOYoroiArmorModel::createLayerDefinition, FeetOYoroiArmorModel::createLayerDefinition, () -> AOTAConfig.get().oYoroiSkin, OYoroiSkin.class);
         register(PHARAOH_ARMOR_NAME, EquipmentSlot.HEAD, HeadPharaohArmorModel::new, HeadPharaohArmorModel::createLayerDefinition);
         register(PHARAOH_ARMOR_NAME, EquipmentSlot.CHEST, ChestPharaohArmorModel::new, ChestPharaohArmorModel::createLayerDefinition, ChestPharaohArmorModel::createSlimLayerDefinition);
         register(PHARAOH_ARMOR_NAME, EquipmentSlot.LEGS, LegsPharaohArmorModel::new, LegsPharaohArmorModel::createLayerDefinition);
@@ -111,10 +112,11 @@ public class ModelProviderRegistry {
         REGISTRY.put(armorName + "_" + slot.name().toLowerCase(), provider);
     }
 
-    private static void registerSkinned(String armorName, EquipmentSlot slot, ArmorModelSupplier armorModelSupplier,
+    private static <E extends Enum<E> & ArmorModelProvider.SkinVariant> void registerSkinned(
+            String armorName, EquipmentSlot slot, ArmorModelSupplier armorModelSupplier,
             Supplier<LayerDefinition> layerDefinition, Supplier<LayerDefinition> slimLayerDefinition,
-            java.util.function.Supplier<OYoroiSkin> skinSupplier) {
-        ArmorModelProvider provider = ArmorModelProvider.create(armorName, slot, armorModelSupplier, layerDefinition, slimLayerDefinition, skinSupplier);
+            java.util.function.Supplier<E> skinSupplier, Class<E> enumClass) {
+        ArmorModelProvider provider = ArmorModelProvider.create(armorName, slot, armorModelSupplier, layerDefinition, slimLayerDefinition, skinSupplier, enumClass);
         REGISTRY.put(armorName + "_" + slot.name().toLowerCase(), provider);
     }
 }
