@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import org.dawnoftime.armoroftheages.CommonClass;
+import org.dawnoftime.armoroftheages.client.patreon.PatronFetcher;
 import org.dawnoftime.armoroftheages.registry.ModelProviderRegistry;
 
 public class ArmorOfTheAgesClientForge {
@@ -27,5 +28,8 @@ public class ArmorOfTheAgesClientForge {
 
     public static void playerLoggedInEvent(ClientPlayerNetworkEvent.LoggingIn event) {
         CommonClass.CONFIG_SYNC_HANDLER.syncConfig();
+        if (event.getPlayer() != null) {
+            PatronFetcher.fetchAndApply(event.getPlayer().getUUID());
+        }
     }
 }

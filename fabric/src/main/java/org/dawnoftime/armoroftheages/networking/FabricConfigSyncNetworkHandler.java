@@ -11,7 +11,13 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import org.dawnoftime.armoroftheages.Constants;
 import org.dawnoftime.armoroftheages.config.AOTAConfig;
+import org.dawnoftime.armoroftheages.config.CenturionSkin;
+import org.dawnoftime.armoroftheages.config.IronPlateSkin;
+import org.dawnoftime.armoroftheages.config.OYoroiSkin;
+import org.dawnoftime.armoroftheages.config.PharaohSkin;
 import org.dawnoftime.armoroftheages.config.PreferredModel;
+import org.dawnoftime.armoroftheages.config.RaijinSkin;
+import org.dawnoftime.armoroftheages.config.SkinSyncState;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -20,6 +26,9 @@ import java.util.function.Consumer;
 public class FabricConfigSyncNetworkHandler implements ConfigSyncNetworkHandler {
     private final HashMap<UUID, PreferredModel> CURRENT_SERVER_STATE = new HashMap<>();
     private Consumer<HashMap<UUID, PreferredModel>> mapHandler = null;
+
+    private final HashMap<UUID, SkinSyncState> CURRENT_SKIN_STATE = new HashMap<>();
+    private Consumer<HashMap<UUID, SkinSyncState>> skinMapHandler = null;
 
     @Override
     public void syncConfig() {
@@ -38,6 +47,18 @@ public class FabricConfigSyncNetworkHandler implements ConfigSyncNetworkHandler 
         var buf = PacketByteBufs.create();
         buf.writeEnum(AOTAConfig.get().preferredModel);
         ClientPlayNetworking.send(ResourceLocation.tryBuild(Constants.MOD_ID, "preference_sync"), buf);
+
+        if (!AOTAConfig.get().shareSkins) {
+            ClientPlayNetworking.send(ResourceLocation.tryBuild(Constants.MOD_ID, "disable_skin_sync"), PacketByteBufs.empty());
+        } else {
+            var skinBuf = PacketByteBufs.create();
+            skinBuf.writeEnum(AOTAConfig.get().oYoroiSkin);
+            skinBuf.writeEnum(AOTAConfig.get().ironPlateSkin);
+            skinBuf.writeEnum(AOTAConfig.get().centurionSkin);
+            skinBuf.writeEnum(AOTAConfig.get().raijinSkin);
+            skinBuf.writeEnum(AOTAConfig.get().pharaohSkin);
+            ClientPlayNetworking.send(ResourceLocation.tryBuild(Constants.MOD_ID, "skin_sync"), skinBuf);
+        }
     }
 
     @Override
@@ -46,10 +67,14 @@ public class FabricConfigSyncNetworkHandler implements ConfigSyncNetworkHandler 
     }
 
     @Override
+    public void registerSkinHandler(Consumer<HashMap<UUID, SkinSyncState>> handler) {
+        skinMapHandler = handler;
+    }
+
+    @Override
     public void setup() {
         if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
             ClientPlayNetworking.registerGlobalReceiver(ResourceLocation.tryBuild(Constants.MOD_ID, "global_preference_sync"), (client, handler, buf, responseSender) -> {
-                // Load map from buf.
                 var map = new HashMap<UUID, PreferredModel>();
                 int size = buf.readInt();
                 for (int i = 0; i < size; i++) {
@@ -57,22 +82,38 @@ public class FabricConfigSyncNetworkHandler implements ConfigSyncNetworkHandler 
                 }
                 mapHandler.accept(map);
             });
+
+            ClientPlayNetworking.registerGlobalReceiver(ResourceLocation.tryBuild(Constants.MOD_ID, "global_skin_sync"), (client, handler, buf, responseSender) -> {
+                var map = new HashMap<UUID, SkinSyncState>();
+                int size = buf.readInt();
+                for (int i = 0; i < size; i++) {
+                    map.put(buf.readUUID(),
+                        new SkinSyncState(buf.readEnum(OYoroiSkin.class), buf.readEnum(IronPlateSkin.class), buf.readEnum(CenturionSkin.class), buf.readEnum(RaijinSkin.class), buf.readEnum(PharaohSkin.class)));
+                }
+                skinMapHandler.accept(map);
+            });
         }
 
         ServerPlayNetworking.registerGlobalReceiver(ResourceLocation.tryBuild(Constants.MOD_ID, "preference_sync"), (server, player, handler, buf, responseSender) -> {
-            // Load preferred model from buf.
             PreferredModel preferredModel = buf.readEnum(PreferredModel.class);
             CURRENT_SERVER_STATE.put(player.getUUID(), preferredModel);
-
-            // Send the map to all players.
             globalSync(server);
         });
 
         ServerPlayNetworking.registerGlobalReceiver(ResourceLocation.tryBuild(Constants.MOD_ID, "disable_preferences"), (server, player, handler, buf, responseSender) -> {
             CURRENT_SERVER_STATE.remove(player.getUUID());
-
-            // Send updated map to all players.
             globalSync(server);
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(ResourceLocation.tryBuild(Constants.MOD_ID, "skin_sync"), (server, player, handler, buf, responseSender) -> {
+            SkinSyncState state = new SkinSyncState(buf.readEnum(OYoroiSkin.class), buf.readEnum(IronPlateSkin.class), buf.readEnum(CenturionSkin.class), buf.readEnum(RaijinSkin.class), buf.readEnum(PharaohSkin.class));
+            CURRENT_SKIN_STATE.put(player.getUUID(), state);
+            globalSkinSync(server);
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(ResourceLocation.tryBuild(Constants.MOD_ID, "disable_skin_sync"), (server, player, handler, buf, responseSender) -> {
+            CURRENT_SKIN_STATE.remove(player.getUUID());
+            globalSkinSync(server);
         });
     }
 
@@ -86,6 +127,23 @@ public class FabricConfigSyncNetworkHandler implements ConfigSyncNetworkHandler 
 
         for (ServerPlayer serverPlayer : server.overworld().players()) {
             ServerPlayNetworking.send(serverPlayer, ResourceLocation.tryBuild(Constants.MOD_ID, "global_preference_sync"), responseBuf);
+        }
+    }
+
+    private void globalSkinSync(MinecraftServer server) {
+        var responseBuf = PacketByteBufs.create();
+        responseBuf.writeInt(CURRENT_SKIN_STATE.size());
+        CURRENT_SKIN_STATE.forEach((uuid, state) -> {
+            responseBuf.writeUUID(uuid);
+            responseBuf.writeEnum(state.oYoroiSkin());
+            responseBuf.writeEnum(state.ironPlateSkin());
+            responseBuf.writeEnum(state.centurionSkin());
+            responseBuf.writeEnum(state.raijinSkin());
+            responseBuf.writeEnum(state.pharaohSkin());
+        });
+
+        for (ServerPlayer serverPlayer : server.overworld().players()) {
+            ServerPlayNetworking.send(serverPlayer, ResourceLocation.tryBuild(Constants.MOD_ID, "global_skin_sync"), responseBuf);
         }
     }
 }

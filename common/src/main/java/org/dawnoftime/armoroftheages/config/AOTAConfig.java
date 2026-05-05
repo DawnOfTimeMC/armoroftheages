@@ -10,10 +10,12 @@ import dev.isxander.yacl3.impl.controller.EnumControllerBuilderImpl;
 import dev.isxander.yacl3.impl.controller.FloatFieldControllerBuilderImpl;
 import dev.isxander.yacl3.impl.controller.IntegerFieldControllerBuilderImpl;
 import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.dawnoftime.armoroftheages.CommonClass;
 import org.dawnoftime.armoroftheages.Constants;
+import org.dawnoftime.armoroftheages.client.patreon.ClientPatronState;
 
 public class AOTAConfig {
     public static ConfigClassHandler<AOTAConfig> CONFIG_CLASS_HANDLER = ConfigClassHandler
@@ -27,13 +29,15 @@ public class AOTAConfig {
 
     // Preferred Model
     @SerialEntry public boolean usePreferredModel = false;
-    @SerialEntry public boolean ignoredSynchronizedPreferredModel = true;
     @SerialEntry public PreferredModel preferredModel = PreferredModel.MALE;
 
     // Armor Skins
     @SerialEntry public OYoroiSkin oYoroiSkin = OYoroiSkin.DEFAULT;
-    @SerialEntry public boolean shareOYoroiSkin = false;
+    @SerialEntry public boolean shareSkins = false;
     @SerialEntry public IronPlateSkin ironPlateSkin = IronPlateSkin.DEFAULT;
+    @SerialEntry public CenturionSkin centurionSkin = CenturionSkin.DEFAULT;
+    @SerialEntry public RaijinSkin raijinSkin = RaijinSkin.DEFAULT;
+    @SerialEntry public PharaohSkin pharaohSkin = PharaohSkin.DEFAULT;
 
     // BAMBOO_HAT (HEAD only — no chest/legs/feet)
     @SerialEntry public int bambooHatDurability = 5;
@@ -190,13 +194,6 @@ public class AOTAConfig {
                             })
                             .build();
 
-                    var ignoredSynchronizedPreferredModel = Option.<Boolean>createBuilder()
-                            .name(Component.translatable("config.armoroftheages.ignore_synchronized_preferred_models"))
-                            .description(OptionDescription.of(Component.translatable("config.armoroftheages.ignore_synchronized_preferred_models.description")))
-                            .binding(defaults.ignoredSynchronizedPreferredModel, () -> config.ignoredSynchronizedPreferredModel, val -> config.ignoredSynchronizedPreferredModel = val)
-                            .controller(opt -> new BooleanControllerBuilderImpl(opt).coloured(true).trueFalseFormatter())
-                            .build();
-
                     // Armor Skin options — mutual-exclusion boolean toggles per skin variant
                     @SuppressWarnings("unchecked")
                     Option<Boolean>[] oYoroiDefaultRef = new Option[1];
@@ -212,6 +209,8 @@ public class AOTAConfig {
                     Option<Boolean>[] oYoroiDuskRef = new Option[1];
                     @SuppressWarnings("unchecked")
                     Option<Boolean>[] oYoroiInkRef = new Option[1];
+                    @SuppressWarnings("unchecked")
+                    Option<Boolean>[] oYoroiAmethystPatreonRef = new Option[1];
 
                     var oYoroiSkinDefaultOption = Option.<Boolean>createBuilder()
                             .name(Component.translatable("config.armoroftheages.skin.o_yoroi.default"))
@@ -228,6 +227,7 @@ public class AOTAConfig {
                                     if (oYoroiPinkyRef[0] != null) oYoroiPinkyRef[0].requestSet(false);
                                     if (oYoroiDuskRef[0] != null) oYoroiDuskRef[0].requestSet(false);
                                     if (oYoroiInkRef[0] != null) oYoroiInkRef[0].requestSet(false);
+                                    if (oYoroiAmethystPatreonRef[0] != null) oYoroiAmethystPatreonRef[0].requestSet(false);
                                 }
                             })
                             .build();
@@ -248,6 +248,7 @@ public class AOTAConfig {
                                     if (oYoroiPinkyRef[0] != null) oYoroiPinkyRef[0].requestSet(false);
                                     if (oYoroiDuskRef[0] != null) oYoroiDuskRef[0].requestSet(false);
                                     if (oYoroiInkRef[0] != null) oYoroiInkRef[0].requestSet(false);
+                                    if (oYoroiAmethystPatreonRef[0] != null) oYoroiAmethystPatreonRef[0].requestSet(false);
                                 }
                             })
                             .build();
@@ -268,6 +269,7 @@ public class AOTAConfig {
                                     if (oYoroiPinkyRef[0] != null) oYoroiPinkyRef[0].requestSet(false);
                                     if (oYoroiDuskRef[0] != null) oYoroiDuskRef[0].requestSet(false);
                                     if (oYoroiInkRef[0] != null) oYoroiInkRef[0].requestSet(false);
+                                    if (oYoroiAmethystPatreonRef[0] != null) oYoroiAmethystPatreonRef[0].requestSet(false);
                                 }
                             })
                             .build();
@@ -288,6 +290,7 @@ public class AOTAConfig {
                                     if (oYoroiPinkyRef[0] != null) oYoroiPinkyRef[0].requestSet(false);
                                     if (oYoroiDuskRef[0] != null) oYoroiDuskRef[0].requestSet(false);
                                     if (oYoroiInkRef[0] != null) oYoroiInkRef[0].requestSet(false);
+                                    if (oYoroiAmethystPatreonRef[0] != null) oYoroiAmethystPatreonRef[0].requestSet(false);
                                 }
                             })
                             .build();
@@ -308,6 +311,7 @@ public class AOTAConfig {
                                     if (oYoroiJadeRef[0] != null) oYoroiJadeRef[0].requestSet(false);
                                     if (oYoroiDuskRef[0] != null) oYoroiDuskRef[0].requestSet(false);
                                     if (oYoroiInkRef[0] != null) oYoroiInkRef[0].requestSet(false);
+                                    if (oYoroiAmethystPatreonRef[0] != null) oYoroiAmethystPatreonRef[0].requestSet(false);
                                 }
                             })
                             .build();
@@ -328,6 +332,7 @@ public class AOTAConfig {
                                     if (oYoroiJadeRef[0] != null) oYoroiJadeRef[0].requestSet(false);
                                     if (oYoroiPinkyRef[0] != null) oYoroiPinkyRef[0].requestSet(false);
                                     if (oYoroiInkRef[0] != null) oYoroiInkRef[0].requestSet(false);
+                                    if (oYoroiAmethystPatreonRef[0] != null) oYoroiAmethystPatreonRef[0].requestSet(false);
                                 }
                             })
                             .build();
@@ -348,10 +353,40 @@ public class AOTAConfig {
                                     if (oYoroiJadeRef[0] != null) oYoroiJadeRef[0].requestSet(false);
                                     if (oYoroiPinkyRef[0] != null) oYoroiPinkyRef[0].requestSet(false);
                                     if (oYoroiDuskRef[0] != null) oYoroiDuskRef[0].requestSet(false);
+                                    if (oYoroiAmethystPatreonRef[0] != null) oYoroiAmethystPatreonRef[0].requestSet(false);
                                 }
                             })
                             .build();
                     oYoroiInkRef[0] = oYoroiSkinInkOption;
+
+                    var oYoroiAmethystPatreonOption = Option.<Boolean>createBuilder()
+                            .name(Component.translatable("config.armoroftheages.skin.o_yoroi.amethyst_patreon"))
+                            .description(OptionDescription.of(
+                                    Component.translatable("config.armoroftheages.skin.patreon_required", 4)
+                            ))
+                            .binding(
+                                    defaults.oYoroiSkin == OYoroiSkin.AMETHYST_PATREON,
+                                    () -> config.oYoroiSkin == OYoroiSkin.AMETHYST_PATREON,
+                                    val -> {
+                                        if (val && ClientPatronState.playerTier >= 4) {
+                                            config.oYoroiSkin = OYoroiSkin.AMETHYST_PATREON;
+                                        }
+                                    })
+                            .controller(opt -> new BooleanControllerBuilderImpl(opt).coloured(true).trueFalseFormatter())
+                            .addListener((option, event) -> {
+                                if (event == OptionEventListener.Event.STATE_CHANGE && Boolean.TRUE.equals(option.pendingValue())) {
+                                    if (oYoroiDefaultRef[0] != null) oYoroiDefaultRef[0].requestSet(false);
+                                    if (oYoroiNightblueRef[0] != null) oYoroiNightblueRef[0].requestSet(false);
+                                    if (oYoroiAmberRef[0] != null) oYoroiAmberRef[0].requestSet(false);
+                                    if (oYoroiJadeRef[0] != null) oYoroiJadeRef[0].requestSet(false);
+                                    if (oYoroiPinkyRef[0] != null) oYoroiPinkyRef[0].requestSet(false);
+                                    if (oYoroiDuskRef[0] != null) oYoroiDuskRef[0].requestSet(false);
+                                    if (oYoroiInkRef[0] != null) oYoroiInkRef[0].requestSet(false);
+                                }
+                            })
+                            .available(ClientPatronState.playerTier >= 4)
+                            .build();
+                    oYoroiAmethystPatreonRef[0] = oYoroiAmethystPatreonOption;
 
                     // Iron Plate skin options
                     @SuppressWarnings("unchecked")
@@ -389,12 +424,109 @@ public class AOTAConfig {
                             .build();
                     ironPlateAshesRef[0] = ironPlateSkinAshesOption;
 
-                    var shareOYoroiSkinOption = Option.<Boolean>createBuilder()
+                    var shareSkinsOption = Option.<Boolean>createBuilder()
                             .name(Component.translatable("config.armoroftheages.skin.share_skin"))
                             .description(OptionDescription.of(Component.translatable("config.armoroftheages.skin.share_skin.description")))
-                            .binding(defaults.shareOYoroiSkin, () -> config.shareOYoroiSkin, val -> config.shareOYoroiSkin = val)
+                            .binding(defaults.shareSkins, () -> config.shareSkins, val -> config.shareSkins = val)
                             .controller(opt -> new BooleanControllerBuilderImpl(opt).coloured(true).trueFalseFormatter())
                             .build();
+
+                    // Centurion Silver Patreon (Tier 1)
+                    var centurionSilverPatreonOption = Option.<Boolean>createBuilder()
+                            .name(Component.translatable("config.armoroftheages.skin.centurion.silver_patreon"))
+                            .description(OptionDescription.of(
+                                    Component.translatable("config.armoroftheages.skin.patreon_required", 1)
+                            ))
+                            .binding(
+                                    defaults.centurionSkin == CenturionSkin.SILVER_PATREON,
+                                    () -> config.centurionSkin == CenturionSkin.SILVER_PATREON,
+                                    val -> {
+                                        if (val && ClientPatronState.playerTier >= 1) {
+                                            config.centurionSkin = CenturionSkin.SILVER_PATREON;
+                                        } else if (!val) {
+                                            config.centurionSkin = CenturionSkin.DEFAULT;
+                                        }
+                                    })
+                            .controller(opt -> new BooleanControllerBuilderImpl(opt).coloured(true).trueFalseFormatter())
+                            .available(ClientPatronState.playerTier >= 1)
+                            .build();
+
+                    // Pharaoh Silver Patreon (Tier 1)
+                    var pharaohSilverPatreonOption = Option.<Boolean>createBuilder()
+                            .name(Component.translatable("config.armoroftheages.skin.pharaoh.silver_patreon"))
+                            .description(OptionDescription.of(
+                                    Component.translatable("config.armoroftheages.skin.patreon_required", 1)
+                            ))
+                            .binding(
+                                    defaults.pharaohSkin == PharaohSkin.SILVER_PATREON,
+                                    () -> config.pharaohSkin == PharaohSkin.SILVER_PATREON,
+                                    val -> {
+                                        if (val && ClientPatronState.playerTier >= 1) {
+                                            config.pharaohSkin = PharaohSkin.SILVER_PATREON;
+                                        } else if (!val) {
+                                            config.pharaohSkin = PharaohSkin.DEFAULT;
+                                        }
+                                    })
+                            .controller(opt -> new BooleanControllerBuilderImpl(opt).coloured(true).trueFalseFormatter())
+                            .available(ClientPatronState.playerTier >= 1)
+                            .build();
+
+                    // Raijin Silver Patreon (Tier 1) and Crystal Patreon (Tier 3) - mutually exclusive
+                    @SuppressWarnings("unchecked")
+                    Option<Boolean>[] raijinSilverPatreonRef = new Option[1];
+                    @SuppressWarnings("unchecked")
+                    Option<Boolean>[] raijinCrystalPatreonRef = new Option[1];
+
+                    var raijinSilverPatreonOption = Option.<Boolean>createBuilder()
+                            .name(Component.translatable("config.armoroftheages.skin.raijin.silver_patreon"))
+                            .description(OptionDescription.of(
+                                    Component.translatable("config.armoroftheages.skin.patreon_required", 1)
+                            ))
+                            .binding(
+                                    defaults.raijinSkin == RaijinSkin.SILVER_PATREON,
+                                    () -> config.raijinSkin == RaijinSkin.SILVER_PATREON,
+                                    val -> {
+                                        if (val && ClientPatronState.playerTier >= 1) {
+                                            config.raijinSkin = RaijinSkin.SILVER_PATREON;
+                                        } else if (!val && config.raijinSkin == RaijinSkin.SILVER_PATREON) {
+                                            config.raijinSkin = RaijinSkin.DEFAULT;
+                                        }
+                                    })
+                            .controller(opt -> new BooleanControllerBuilderImpl(opt).coloured(true).trueFalseFormatter())
+                            .addListener((option, event) -> {
+                                if (event == OptionEventListener.Event.STATE_CHANGE && Boolean.TRUE.equals(option.pendingValue())) {
+                                    if (raijinCrystalPatreonRef[0] != null) raijinCrystalPatreonRef[0].requestSet(false);
+                                }
+                            })
+                            .available(ClientPatronState.playerTier >= 1)
+                            .build();
+                    raijinSilverPatreonRef[0] = raijinSilverPatreonOption;
+
+                    // Raijin Crystal Patreon (Tier 3)
+                    var raijinCrystalPatreonOption = Option.<Boolean>createBuilder()
+                            .name(Component.translatable("config.armoroftheages.skin.raijin.crystal_patreon"))
+                            .description(OptionDescription.of(
+                                    Component.translatable("config.armoroftheages.skin.patreon_required", 3)
+                            ))
+                            .binding(
+                                    defaults.raijinSkin == RaijinSkin.CRYSTAL_PATREON,
+                                    () -> config.raijinSkin == RaijinSkin.CRYSTAL_PATREON,
+                                    val -> {
+                                        if (val && ClientPatronState.playerTier >= 3) {
+                                            config.raijinSkin = RaijinSkin.CRYSTAL_PATREON;
+                                        } else if (!val && config.raijinSkin == RaijinSkin.CRYSTAL_PATREON) {
+                                            config.raijinSkin = RaijinSkin.DEFAULT;
+                                        }
+                                    })
+                            .controller(opt -> new BooleanControllerBuilderImpl(opt).coloured(true).trueFalseFormatter())
+                            .addListener((option, event) -> {
+                                if (event == OptionEventListener.Event.STATE_CHANGE && Boolean.TRUE.equals(option.pendingValue())) {
+                                    if (raijinSilverPatreonRef[0] != null) raijinSilverPatreonRef[0].requestSet(false);
+                                }
+                            })
+                            .available(ClientPatronState.playerTier >= 3)
+                            .build();
+                    raijinCrystalPatreonRef[0] = raijinCrystalPatreonOption;
 
                     // BAMBOO_HAT Options
                     var bambooHatDurability = Option.<Integer>createBuilder()
@@ -1012,8 +1144,12 @@ public class AOTAConfig {
                             .category(
                                     ConfigCategory.createBuilder()
                                             .name(Component.translatable("config.armoroftheages.category.armor_skin"))
-                                            .option(LabelOption.create(Component.translatable("config.armoroftheages.armor_skin_notice")))
-                                            .option(shareOYoroiSkinOption)
+                                            .option(LabelOption.create(Component.translatable("config.armoroftheages.skin.body_type_notice")))
+                                            .option(usedPreferredModel)
+                                            .option(preferredModel)
+                                            .option(LabelOption.create(Component.translatable("config.armoroftheages.skin.skins_section_notice")
+                                                    .withStyle(ChatFormatting.LIGHT_PURPLE)))
+                                            .option(shareSkinsOption)
                                             .group(OptionGroup.createBuilder()
                                                     .name(Component.translatable("config.armoroftheages.group.o_yoroi").withStyle(ChatFormatting.YELLOW))
                                                     .option(oYoroiSkinDefaultOption)
@@ -1023,17 +1159,50 @@ public class AOTAConfig {
                                                     .option(oYoroiSkinPinkyOption)
                                                     .option(oYoroiSkinDuskOption)
                                                     .option(oYoroiSkinInkOption)
-                                                    .collapsed(false)
+                                                    .collapsed(true)
                                                     .build()
                                             )
                                             .group(OptionGroup.createBuilder()
                                                     .name(Component.translatable("config.armoroftheages.group.iron_plate").withStyle(ChatFormatting.YELLOW))
                                                     .option(ironPlateSkinDefaultOption)
                                                     .option(ironPlateSkinAshesOption)
-                                                    .collapsed(false)
+                                                    .collapsed(true)
                                                     .build()
                                             )
                                             .build()
+                            )
+                            .category(ConfigCategory.createBuilder()
+                                    .name(Component.translatable("config.armoroftheages.category.patreon_skins")
+                                            .withStyle(ChatFormatting.GOLD))
+                                    .option(LabelOption.create(Component.translatable("config.armoroftheages.patreon_tab_notice")
+                                            .withStyle(ChatFormatting.LIGHT_PURPLE)))
+                                    .option(ButtonOption.createBuilder()
+                                            .name(Component.translatable("config.armoroftheages.patreon_unlock_button"))
+                                            .action((screen, opt) ->
+                                                    Util.getPlatform().openUri("https://www.patreon.com/dawnoftimemod"))
+                                            .build()
+                                    )
+                                    .group(OptionGroup.createBuilder()
+                                            .name(Component.translatable("config.armoroftheages.patreon.tier", 1).withStyle(ChatFormatting.WHITE))
+                                            .option(centurionSilverPatreonOption)
+                                            .option(pharaohSilverPatreonOption)
+                                            .option(raijinSilverPatreonOption)
+                                            .collapsed(true)
+                                            .build()
+                                    )
+                                    .group(OptionGroup.createBuilder()
+                                            .name(Component.translatable("config.armoroftheages.patreon.tier", 3).withStyle(ChatFormatting.GOLD))
+                                            .option(raijinCrystalPatreonOption)
+                                            .collapsed(true)
+                                            .build()
+                                    )
+                                    .group(OptionGroup.createBuilder()
+                                            .name(Component.translatable("config.armoroftheages.patreon.tier", 4).withStyle(ChatFormatting.AQUA))
+                                            .option(oYoroiAmethystPatreonOption)
+                                            .collapsed(true)
+                                            .build()
+                                    )
+                                    .build()
                             )
                             .category(
                                     ConfigCategory.createBuilder()
@@ -1195,15 +1364,6 @@ public class AOTAConfig {
                                                     .collapsed(true)
                                                     .build()
                                             )
-                                            .build()
-                            )
-                            .category(
-                                    ConfigCategory.createBuilder()
-                                            .name(Component.translatable("config.armoroftheages.title"))
-                                            .option(LabelOption.create(Component.translatable("config.armoroftheages.notice")))
-                                            .option(ignoredSynchronizedPreferredModel)
-                                            .option(usedPreferredModel)
-                                            .option(preferredModel)
                                             .build()
                             )
                             .category(ConfigCategory.createBuilder()
