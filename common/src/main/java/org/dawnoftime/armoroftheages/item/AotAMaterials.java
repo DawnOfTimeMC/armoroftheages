@@ -39,7 +39,7 @@ public class AotAMaterials {
 		),
 		AOTAConfig.get().ironPlateEnchantability,
 		SoundEvents.ARMOR_EQUIP_IRON,
-		() -> Ingredient.of(Items.IRON_BLOCK),
+		() -> Ingredient.of(Items.IRON_INGOT),
 		createLayers("iron_plate"),
 		AOTAConfig.get().ironPlateToughness,
 		0.0F
@@ -54,10 +54,10 @@ public class AotAMaterials {
 		),
 		AOTAConfig.get().holyEnchantability,
 		SoundEvents.ARMOR_EQUIP_DIAMOND,
-		() -> Ingredient.of(Blocks.GOLD_BLOCK),
+		() -> Ingredient.of(Items.NETHERITE_INGOT),
 		createLayers("holy"),
 		AOTAConfig.get().holyToughness,
-		0.0F
+		AOTAConfig.get().holyKnockbackResistance
 	));
 
 	public static final Holder<ArmorMaterial> EXALTED_AURUM = ArmorMaterialRegistry.REGISTRY.register("exalted_aurum", new ArmorMaterial(
@@ -69,10 +69,10 @@ public class AotAMaterials {
 		),
 		AOTAConfig.get().exaltedAurumEnchantability,
 		SoundEvents.ARMOR_EQUIP_IRON,
-		() -> Ingredient.of(Items.GOLD_BLOCK),
+		() -> Ingredient.of(Items.NETHERITE_INGOT),
 		createLayers("exalted_aurum"),
 		AOTAConfig.get().exaltedAurumToughness,
-		0.0F
+		AOTAConfig.get().exaltedAurumKnockbackResistance
 	));
 
 	public static final Holder<ArmorMaterial> JAPANESE_LIGHT = ArmorMaterialRegistry.REGISTRY.register("japanese_light", new ArmorMaterial(
@@ -99,7 +99,7 @@ public class AotAMaterials {
 		),
 		AOTAConfig.get().oYoroiEnchantability,
 		SoundEvents.ARMOR_EQUIP_IRON,
-		() -> Ingredient.of(Items.REDSTONE_BLOCK),
+		() -> Ingredient.of(Items.IRON_INGOT),
 		createLayers("o_yoroi"),
 		AOTAConfig.get().oYoroiToughness,
 		0.0F
@@ -114,10 +114,10 @@ public class AotAMaterials {
 		),
 		AOTAConfig.get().raijinEnchantability,
 		SoundEvents.ARMOR_EQUIP_LEATHER,
-		() -> Ingredient.of(Blocks.GOLD_BLOCK),
+		() -> Ingredient.of(Items.NETHERITE_INGOT),
 		createLayers("raijin"),
 		AOTAConfig.get().raijinToughness,
-		0.0F
+		AOTAConfig.get().raijinKnockbackResistance
 	));
 
 	public static final Holder<ArmorMaterial> PHARAOH = ArmorMaterialRegistry.REGISTRY.register("pharaoh", new ArmorMaterial(
@@ -129,7 +129,7 @@ public class AotAMaterials {
 		),
 		AOTAConfig.get().pharaohEnchantability,
 		SoundEvents.ARMOR_EQUIP_GOLD,
-		() -> Ingredient.of(Items.GOLD_BLOCK),
+		() -> Ingredient.of(Blocks.LAPIS_BLOCK),
 		createLayers("pharaoh"),
 		AOTAConfig.get().pharaohToughness,
 		0.0F
@@ -144,10 +144,10 @@ public class AotAMaterials {
 		),
 		AOTAConfig.get().anubisEnchantability,
 		SoundEvents.ARMOR_EQUIP_GOLD,
-		() -> Ingredient.of(Blocks.LAPIS_BLOCK),
+		() -> Ingredient.of(Items.NETHERITE_INGOT),
 		createLayers("anubis"),
 		AOTAConfig.get().anubisToughness,
-		0.0F
+		AOTAConfig.get().anubisKnockbackResistance
 	));
 
 	public static final Holder<ArmorMaterial> CENTURION = ArmorMaterialRegistry.REGISTRY.register("centurion", new ArmorMaterial(
@@ -159,7 +159,7 @@ public class AotAMaterials {
 		),
 		AOTAConfig.get().centurionEnchantability,
 		SoundEvents.ARMOR_EQUIP_CHAIN,
-		() -> Ingredient.of(Blocks.GOLD_BLOCK),
+		() -> Ingredient.of(Items.GOLD_INGOT),
 		createLayers("centurion"),
 		AOTAConfig.get().centurionToughness,
 		0.0F
@@ -174,9 +174,9 @@ public class AotAMaterials {
 		),
 		AOTAConfig.get().quetzalcoatlEnchantability,
 		SoundEvents.ARMOR_EQUIP_TURTLE,
-		() -> Ingredient.of(Items.FEATHER),
+		() -> Ingredient.of(Items.NETHERITE_INGOT),
 		createLayers("quetzalcoatl"),
 		AOTAConfig.get().quetzalcoatlToughness,
-		0.0F
+		AOTAConfig.get().quetzalcoatlKnockbackResistance
 	));
 }

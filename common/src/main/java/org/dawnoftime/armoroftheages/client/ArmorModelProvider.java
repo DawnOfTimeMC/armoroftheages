@@ -11,8 +11,10 @@ import org.dawnoftime.armoroftheages.CommonClass;
 import org.dawnoftime.armoroftheages.client.models.ArmorModel;
 import org.dawnoftime.armoroftheages.config.AOTAConfig;
 import org.dawnoftime.armoroftheages.config.PreferredModel;
+import org.dawnoftime.armoroftheages.config.SkinSyncState;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import static org.dawnoftime.armoroftheages.Constants.MOD_ID;
@@ -21,12 +23,23 @@ import static org.dawnoftime.armoroftheages.Constants.MOD_ID;
 public class ArmorModelProvider {
     protected static final ResourceLocation PLAYER_RESOURCE_LOCATION = ResourceLocation.withDefaultNamespace("player");
 
+    public interface SkinVariant {
+        String getTexturePrefix();
+    }
+
     public static ArmorModelProvider create(String armorName, EquipmentSlot slot, ArmorModelSupplier modelSupplier, Supplier<LayerDefinition> layerDefinitionSupplier){
         return new ArmorModelProvider(armorName, slot, modelSupplier, layerDefinitionSupplier);
     }
 
     public static ArmorModelProvider create(String armorName, EquipmentSlot slot, ArmorModelSupplier modelSupplier, Supplier<LayerDefinition> layerDefinitionSupplier, Supplier<LayerDefinition> slimLayerDefinitionSupplier){
         return new MixedArmorModelProvider(armorName, slot, modelSupplier, layerDefinitionSupplier, slimLayerDefinitionSupplier);
+    }
+
+    public static <E extends Enum<E> & SkinVariant> ArmorModelProvider create(
+            String armorName, EquipmentSlot slot, ArmorModelSupplier modelSupplier,
+            Supplier<LayerDefinition> layerDefinitionSupplier, Supplier<LayerDefinition> slimLayerDefinitionSupplier,
+            Supplier<E> skinSupplier, Class<E> enumClass, Function<SkinSyncState, E> syncStateExtractor) {
+        return new SkinnedMixedArmorModelProvider<>(armorName, slot, modelSupplier, layerDefinitionSupplier, slimLayerDefinitionSupplier, skinSupplier, enumClass, syncStateExtractor);
     }
 
     private final Supplier<LayerDefinition> layerDefinitionSupplier;
@@ -57,18 +70,12 @@ public class ArmorModelProvider {
     }
 
     public static boolean isSlim(Entity entity) {
-        // Respect preferences only if specified in configuration.
         if (entity == Minecraft.getInstance().player) {
-            if (AOTAConfig.get().usePreferredModel) {
-                return AOTAConfig.get().preferredModel == PreferredModel.FEMALE;
-            }
+            return AOTAConfig.get().preferredModel == PreferredModel.FEMALE;
         }
-        if (!AOTAConfig.get().ignoredSynchronizedPreferredModel) {
-            if (CommonClass.CURRENT_PREFERRED_MODEL_MAP.containsKey(entity.getUUID())) {
-                return CommonClass.CURRENT_PREFERRED_MODEL_MAP.get(entity.getUUID()) == PreferredModel.FEMALE;
-            }
+        if (CommonClass.CURRENT_PREFERRED_MODEL_MAP.containsKey(entity.getUUID())) {
+            return CommonClass.CURRENT_PREFERRED_MODEL_MAP.get(entity.getUUID()) == PreferredModel.FEMALE;
         }
-
         return entity instanceof AbstractClientPlayer player && "slim".equals(player.getSkin().model().name());
     }
 
@@ -77,6 +84,46 @@ public class ArmorModelProvider {
             this.armorModel = this.modelSupplier.create(Minecraft.getInstance().getEntityModels().bakeLayer(this.modelLayerLocation), false);
         }
         return this.armorModel;
+    }
+
+    public static class SkinnedMixedArmorModelProvider<E extends Enum<E> & SkinVariant> extends MixedArmorModelProvider {
+        private final java.util.Map<E, ResourceLocation> skinTextures;
+        private final java.util.Map<E, ResourceLocation> slimSkinTextures;
+        private final Supplier<E> skinSupplier;
+        private final Function<SkinSyncState, E> syncStateExtractor;
+
+        protected SkinnedMixedArmorModelProvider(
+                String armorName,
+                EquipmentSlot slot,
+                ArmorModelSupplier modelSupplier,
+                Supplier<LayerDefinition> layerDefinitionSupplier,
+                Supplier<LayerDefinition> slimLayerDefinitionSupplier,
+                Supplier<E> skinSupplier,
+                Class<E> enumClass,
+                Function<SkinSyncState, E> syncStateExtractor) {
+            super(armorName, slot, modelSupplier, layerDefinitionSupplier, slimLayerDefinitionSupplier);
+            this.skinSupplier = skinSupplier;
+            this.syncStateExtractor = syncStateExtractor;
+            this.skinTextures = new java.util.EnumMap<>(enumClass);
+            this.slimSkinTextures = new java.util.EnumMap<>(enumClass);
+            for (E skin : enumClass.getEnumConstants()) {
+                String prefix = skin.getTexturePrefix();
+                this.skinTextures.put(skin, ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/models/armor/" + prefix + armorName + ".png"));
+                this.slimSkinTextures.put(skin, ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/models/armor/" + prefix + armorName + "_slim.png"));
+            }
+        }
+
+        @Override
+        public @NotNull ResourceLocation getTexture(Entity entity) {
+            E skin;
+            if (entity == Minecraft.getInstance().player) {
+                skin = skinSupplier.get();
+            } else {
+                SkinSyncState syncState = CommonClass.CURRENT_SKIN_MAP.get(entity.getUUID());
+                skin = (syncState != null) ? syncStateExtractor.apply(syncState) : skinSupplier.get();
+            }
+            return isSlim(entity) ? slimSkinTextures.get(skin) : skinTextures.get(skin);
+        }
     }
 
     public static class MixedArmorModelProvider extends ArmorModelProvider{

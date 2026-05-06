@@ -3,7 +3,9 @@ package org.dawnoftime.armoroftheages;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -19,6 +21,7 @@ import net.minecraft.world.item.Item;
 import org.dawnoftime.armoroftheages.item.HumanoidArmorItem;
 import org.dawnoftime.armoroftheages.loot.AmorOfTheAgesLootModifiersFabric;
 import org.dawnoftime.armoroftheages.networking.FabricConfigSyncNetworkHandler;
+import org.dawnoftime.armoroftheages.patreon.PatronSyncHandler;
 import org.dawnoftime.armoroftheages.registry.ArmorMaterialRegistry;
 import org.dawnoftime.armoroftheages.registry.ArmorMaterialRegistryFabric;
 import org.dawnoftime.armoroftheages.registry.ItemRegistry;
@@ -53,6 +56,14 @@ public class ArmorOfTheAgesFabric implements ModInitializer {
         // Creative inventory init
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ResourceLocation.fromNamespaceAndPath(MOD_ID, MOD_ID), CREATIVE_MODE_TAB);
         AmorOfTheAgesLootModifiersFabric.modifyLootTables();
+
+        // Armor set effects — iterate all online players at the end of each server tick
+        ServerTickEvents.END_SERVER_TICK.register(server ->
+                server.getPlayerList().getPlayers().forEach(ArmorSetEffectHandler::onPlayerTick));
+
+        // Send patron tier to player on login
+        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) ->
+                PatronSyncHandler.onPlayerLogin(handler.player));
     }
 
     public static class ItemRegistryImpl extends ItemRegistry {

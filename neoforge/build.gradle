@@ -1,6 +1,7 @@
 plugins {
     id 'multiloader-loader'
     id 'net.neoforged.moddev'
+    id 'me.modmuss50.mod-publish-plugin'
 }
 
 neoForge {
@@ -58,4 +59,9 @@ dependencies {
     implementation "curse.maven:jei-238222:7014282"
     implementation "thedarkcolour:kotlinforforge-neoforge:5.6.0"
     implementation ("dev.isxander:yet-another-config-lib:${project.yacl_version}-neoforge")
+}
+
+publishMods {
+    file = jar.archiveFile
+    modLoaders.add("neoforge")
 }

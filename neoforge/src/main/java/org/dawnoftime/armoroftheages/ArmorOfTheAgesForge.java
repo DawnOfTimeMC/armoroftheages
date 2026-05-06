@@ -20,6 +20,8 @@ import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.apache.logging.log4j.LogManager;
@@ -31,6 +33,7 @@ import org.dawnoftime.armoroftheages.loot.LootModifierProvider;
 import org.dawnoftime.armoroftheages.loot.LootModifiers;
 import org.dawnoftime.armoroftheages.networking.ForgeConfigSyncNetworkHandler;
 import org.dawnoftime.armoroftheages.networking.NeoForgePayloadRegistry;
+import org.dawnoftime.armoroftheages.patreon.PatronSyncHandler;
 import org.dawnoftime.armoroftheages.registry.ArmorMaterialRegistry;
 import org.dawnoftime.armoroftheages.registry.ArmorMaterialRegistryNeoForge;
 import org.dawnoftime.armoroftheages.registry.ItemRegistry;
@@ -105,12 +108,27 @@ public class ArmorOfTheAgesForge {
         modEventBus.addListener(NeoForgePayloadRegistry::register);
         modEventBus.addListener(ForgeHumanoidArmorItem::registerClientExtensions);
 
-        modContainer.registerExtensionPoint(IConfigScreenFactory.class, (modContainer2, parent) -> AOTAConfig.createScreen().generateScreen(parent));
+        // Armor set effects — run at the end of each player tick, server-side only
+        NeoForge.EVENT_BUS.addListener(ArmorOfTheAgesForge::onPlayerTick);
+
+        // Send patron tier to player on login
+        NeoForge.EVENT_BUS.addListener(ArmorOfTheAgesForge::onPlayerLoggedIn);
 
         // Client init
         if (FMLEnvironment.dist == Dist.CLIENT) {
+            modContainer.registerExtensionPoint(IConfigScreenFactory.class, (modContainer2, parent) -> AOTAConfig.createScreen().generateScreen(parent));
             modEventBus.addListener(ArmorOfTheAgesClientForge::registerLayerDefinitions);
             NeoForge.EVENT_BUS.addListener(ArmorOfTheAgesClientForge::playerLoggedInEvent);
+        }
+    }
+
+    public static void onPlayerTick(PlayerTickEvent.Post event) {
+        ArmorSetEffectHandler.onPlayerTick(event.getEntity());
+    }
+
+    public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+        if (event.getEntity() instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+            PatronSyncHandler.onPlayerLogin(serverPlayer);
         }
     }
 
