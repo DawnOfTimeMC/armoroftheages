@@ -2,13 +2,10 @@
 	"type": "minecraft:crafting_shaped",
 	"category": "equipment",
 	"pattern": [
-		"IxI",
+		"ixi",
 		"i i"
 	],
 	"key": {
-		"I": {
-			"item": "minecraft:gold_block"
-		},
 		"i": {
 			"item": "minecraft:gold_ingot"
 		},
