@@ -3,14 +3,11 @@
 	"category": "equipment",
 	"pattern": [
 		"IxI",
-		"i i"
+		"I I"
 	],
 	"key": {
 		"I": {
 			"item": "minecraft:gold_block"
-		},
-		"i": {
-			"item": "minecraft:gold_ingot"
 		},
 		"x": {
 			"item": "minecraft:netherite_boots"
